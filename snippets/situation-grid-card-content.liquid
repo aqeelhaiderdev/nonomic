@@ -1,0 +1,53 @@
+{%- liquid
+  assign card_title = block.settings.title
+  assign card_body = block.settings.text
+  assign show_icon = false
+  if block.settings.image == blank and block.settings.icon != 'none' and block.settings.icon != blank
+    assign show_icon = true
+  endif
+
+  assign img_alt = block.settings.image.alt | default: card_title | escape
+-%}
+
+<div class="situation-grid__row">
+  {%- if block.settings.image != blank -%}
+    <div class="situation-grid__icon">
+      {{
+        block.settings.image
+        | image_url: width: 128
+        | image_tag:
+          loading: 'lazy',
+          widths: '32, 48, 64, 96, 128',
+          sizes: '(max-width: 749px) 48px, 64px',
+          class: 'situation-grid__icon-img',
+          alt: img_alt
+      }}
+    </div>
+  {%- elsif show_icon -%}
+    <div class="situation-grid__icon" aria-hidden="true">
+      {% render 'icon-situation-grid', icon: block.settings.icon %}
+    </div>
+  {%- endif -%}
+
+  {%- if card_title != blank -%}
+    <h3 class="situation-grid__card-title {{ section.settings.card_title_size }}">
+      {{ card_title | escape }}
+    </h3>
+  {%- endif -%}
+</div>
+
+{%- if card_body != blank -%}
+  {%- if card_is_link -%}
+    <div class="situation-grid__text rte">
+      {%- assign _chunks = card_body | split: '</p>' -%}
+      {%- for _part in _chunks -%}
+        {%- assign _t = _part | strip_html | strip -%}
+        {%- if _t != blank -%}
+          <p>{{ _t | escape }}</p>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <div class="situation-grid__text rte">{{ card_body }}</div>
+  {%- endif -%}
+{%- endif -%}

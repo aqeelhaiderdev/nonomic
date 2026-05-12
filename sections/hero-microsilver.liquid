@@ -1,0 +1,819 @@
+{{ 'section-hero-microsilver.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'hero-microsilver.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign formula_blocks = section.blocks | where: 'type', 'formula'
+  assign rating_value = section.settings.rating_value | default: 5
+  if rating_value > 5
+    assign rating_value = 5
+  endif
+  if rating_value < 0
+    assign rating_value = 0
+  endif
+
+  assign fallback_image = section.settings.product_image
+  assign slide_count = 0
+  for block in formula_blocks
+    if block.settings.image != blank or fallback_image != blank
+      assign slide_count = slide_count | plus: 1
+    endif
+  endfor
+  if slide_count == 0 and fallback_image != blank
+    assign slide_count = 1
+  endif
+-%}
+
+{%- style -%}
+  #HeroMicrosilver-{{ section.id }} {
+    --hero-ms-bg: {{ section.settings.background_color }};
+    --hero-ms-decor-color: {{ section.settings.decor_color }};
+    --hero-ms-decor-opacity: {{ section.settings.decor_opacity | divided_by: 100.0 }};
+    --hero-ms-decor-size: {{ section.settings.decor_size }}px;
+    --hero-ms-decor-size-mobile: {{ section.settings.decor_size_mobile }}px;
+    --hero-ms-content-gap: {{ section.settings.content_gap_desktop }}px;
+    --hero-ms-content-max-width: {{ section.settings.content_max_width }}px;
+    --hero-ms-image-bg: {{ section.settings.image_card_color }};
+    --hero-ms-image-radius: {{ section.settings.image_card_radius }}px;
+    --hero-ms-image-max-width: {{ section.settings.image_max_width }}px;
+    --hero-ms-image-aspect: {{ section.settings.image_aspect_ratio | default: '1 / 1' }};
+    --hero-ms-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --hero-ms-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+  }
+
+  {% if section.settings.use_custom_text_colors %}
+    #HeroMicrosilver-{{ section.id }} {
+      --hero-ms-c-eyebrow: {{ section.settings.color_eyebrow }};
+      --hero-ms-c-heading: {{ section.settings.color_heading }};
+      --hero-ms-c-tagline: {{ section.settings.color_tagline }};
+      --hero-ms-c-description: {{ section.settings.color_description }};
+      --hero-ms-c-meta: {{ section.settings.color_meta }};
+      --hero-ms-c-link: {{ section.settings.color_secondary_link }};
+      --hero-ms-c-accent: {{ section.settings.color_accent }};
+    }
+  {% endif %}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  id="HeroMicrosilver-{{ section.id }}"
+  class="hero-microsilver color-{{ section.settings.color_scheme }} gradient"
+  {{ section.shopify_attributes }}
+>
+  {%- if section.settings.show_decor_letters and section.settings.decor_letters != blank -%}
+    <div class="hero-microsilver__decor" aria-hidden="true">
+      {{- section.settings.decor_letters | escape -}}
+    </div>
+  {%- endif -%}
+
+  <div
+    class="page-width section-{{ section.id }}-padding hero-microsilver__inner{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    {% if settings.animations_reveal_on_scroll %}
+      data-cascade
+    {% endif %}
+  >
+    <div class="hero-microsilver__layout">
+      <div class="hero-microsilver__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="hero-microsilver__eyebrow">
+            {{- section.settings.eyebrow | escape -}}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h1 class="hero-microsilver__heading">
+            {{ section.settings.heading }}
+          </h1>
+        {%- endif -%}
+
+        {%- if section.settings.tagline != blank -%}
+          <p class="hero-microsilver__tagline">
+            {{- section.settings.tagline | escape -}}
+          </p>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          {%- if section.settings.description_mobile != blank -%}
+            <div class="hero-microsilver__description rte small-hide">
+              {{ section.settings.description }}
+            </div>
+            <div class="hero-microsilver__description rte large-up-hide">
+              {{ section.settings.description_mobile }}
+            </div>
+          {%- else -%}
+            <div class="hero-microsilver__description rte">
+              {{ section.settings.description }}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if section.settings.show_price_chip -%}
+          <div class="hero-microsilver__chip">
+            {%- if section.settings.price_label != blank -%}
+              <span class="hero-microsilver__chip-price">
+                {{- section.settings.price_label | escape -}}
+              </span>
+            {%- endif -%}
+            {%- if section.settings.pack_label != blank -%}
+              <span class="hero-microsilver__chip-divider" aria-hidden="true"></span>
+              <span class="hero-microsilver__chip-pack">
+                {{- section.settings.pack_label | escape -}}
+              </span>
+            {%- endif -%}
+            {%- if section.settings.shipping_label != blank -%}
+              <span class="hero-microsilver__chip-divider" aria-hidden="true"></span>
+              <span class="hero-microsilver__chip-shipping">
+                {{- section.settings.shipping_label | escape -}}
+              </span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.primary_button_label != blank or section.settings.secondary_button_label != blank -%}
+          <div class="hero-microsilver__buttons">
+            {%- if section.settings.primary_button_label != blank -%}
+              <a
+                class="hero-microsilver__cta"
+                {% if section.settings.primary_button_link == blank %}
+                  role="link" aria-disabled="true"
+                {% else %}
+                  href="{{ section.settings.primary_button_link }}"
+                {% endif %}
+                {% if section.settings.primary_button_open_new_tab and section.settings.primary_button_link != blank %}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                {% endif %}
+              >
+                {{ section.settings.primary_button_label | escape }}
+              </a>
+            {%- endif -%}
+
+            {%- if section.settings.secondary_button_label != blank -%}
+              <a
+                class="hero-microsilver__link"
+                {% if section.settings.secondary_button_link == blank %}
+                  role="link" aria-disabled="true"
+                {% else %}
+                  href="{{ section.settings.secondary_button_link }}"
+                {% endif %}
+                {% if section.settings.secondary_button_open_new_tab and section.settings.secondary_button_link != blank %}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                {% endif %}
+              >
+                {{ section.settings.secondary_button_label | escape }}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_meta -%}
+          <div class="hero-microsilver__meta">
+            {%- if section.settings.show_rating -%}
+              <div class="hero-microsilver__rating">
+                <div
+                  class="hero-microsilver__stars"
+                  role="img"
+                  aria-label="{{ rating_value }} out of 5 stars"
+                >
+                  {%- for i in (1..5) -%}
+                    <svg
+                      class="hero-microsilver__star{% if forloop.index > rating_value %} hero-microsilver__star--empty{% endif %}"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                  {%- endfor -%}
+                </div>
+                {%- if section.settings.rating_text != blank -%}
+                  <span class="hero-microsilver__rating-text">
+                    {{- section.settings.rating_text | escape -}}
+                  </span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            {%- if section.settings.show_rating and section.settings.show_guarantee -%}
+              <span class="hero-microsilver__meta-divider" aria-hidden="true">|</span>
+            {%- endif -%}
+
+            {%- if section.settings.show_guarantee and section.settings.guarantee_text != blank -%}
+              <div class="hero-microsilver__guarantee">
+                <svg
+                  class="hero-microsilver__guarantee-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d="M20 6 9 17l-5-5"/>
+                </svg>
+                <span>{{ section.settings.guarantee_text | escape }}</span>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.product_image != blank or formula_blocks.size > 0 or section.settings.formulas_label != blank -%}
+        <div class="hero-microsilver__media">
+          <div class="hero-microsilver__card">
+            {%- if formula_blocks.size > 0 -%}
+              <div
+                class="hero-microsilver__slider"
+                data-hero-microsilver-slider
+                data-autoplay="{% if section.settings.enable_autoplay %}true{% else %}false{% endif %}"
+                data-autoplay-delay="{{ section.settings.autoplay_delay | times: 1000 }}"
+              >
+                <div class="hero-microsilver__image-wrap" data-hero-microsilver-viewport>
+                  <ul class="hero-microsilver__slides" data-hero-microsilver-track role="list">
+                    {%- for block in formula_blocks -%}
+                      {%- assign slide_image = block.settings.image | default: fallback_image -%}
+                      {%- assign slide_label = block.settings.name | default: section.settings.heading | default: 'Product' -%}
+                      <li
+                        class="hero-microsilver__slide{% if forloop.first %} is-active{% endif %}"
+                        data-hero-microsilver-slide
+                        id="HeroMicrosilverSlide-{{ section.id }}-{{ forloop.index0 }}"
+                        role="group"
+                        aria-roledescription="slide"
+                        aria-label="{{ forloop.index }} of {{ formula_blocks.size }}{% if block.settings.name != blank %}: {{ block.settings.name | escape }}{% endif %}"
+                        {% unless forloop.first %}aria-hidden="true"{% endunless %}
+                        {{ block.shopify_attributes }}
+                      >
+                        {%- if slide_image != blank -%}
+                          {{
+                            slide_image
+                            | image_url: width: 1200
+                            | image_tag:
+                              loading: 'eager',
+                              fetchpriority: 'high',
+                              widths: '320, 480, 640, 800, 1000, 1200',
+                              sizes: '(min-width: 990px) 50vw, 100vw',
+                              class: 'hero-microsilver__image',
+                              alt: slide_image.alt | default: slide_label
+                          }}
+                        {%- else -%}
+                          {{ 'product-1' | placeholder_svg_tag: 'hero-microsilver__image placeholder-svg' }}
+                        {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+
+                {%- if section.settings.formulas_label != blank -%}
+                  <p class="hero-microsilver__formulas-label">
+                    {{- section.settings.formulas_label | escape -}}
+                  </p>
+                {%- endif -%}
+
+                <ul
+                  class="hero-microsilver__formulas"
+                  role="tablist"
+                  aria-label="{{ section.settings.formulas_label | default: 'Formulas' | escape }}"
+                >
+                  {%- for block in formula_blocks -%}
+                    <li class="hero-microsilver__formulas-item" {{ block.shopify_attributes }}>
+                      <button
+                        type="button"
+                        class="hero-microsilver__formula-dot{% if forloop.first %} is-active{% endif %}"
+                        style="--hero-ms-dot-color: {{ block.settings.color }};"
+                        data-hero-microsilver-dot
+                        data-index="{{ forloop.index0 }}"
+                        role="tab"
+                        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                        aria-controls="HeroMicrosilverSlide-{{ section.id }}-{{ forloop.index0 }}"
+                        aria-label="{% if block.settings.name != blank %}{{ block.settings.name | escape }}{% else %}Formula {{ forloop.index }}{% endif %}"
+                        tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+                      >
+                        <span class="visually-hidden">
+                          {%- if block.settings.name != blank -%}
+                            {{ block.settings.name | escape }}
+                          {%- else -%}
+                            Formula {{ forloop.index }}
+                          {%- endif -%}
+                        </span>
+                      </button>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- elsif fallback_image != blank -%}
+              <div class="hero-microsilver__image-wrap">
+                {{
+                  fallback_image
+                  | image_url: width: 1200
+                  | image_tag:
+                    loading: 'eager',
+                    fetchpriority: 'high',
+                    widths: '320, 480, 640, 800, 1000, 1200',
+                    sizes: '(min-width: 990px) 50vw, 100vw',
+                    class: 'hero-microsilver__image',
+                    alt: fallback_image.alt | default: section.settings.heading | default: 'Product'
+                }}
+              </div>
+              {%- if section.settings.formulas_label != blank -%}
+                <p class="hero-microsilver__formulas-label">{{ section.settings.formulas_label | escape }}</p>
+              {%- endif -%}
+            {%- else -%}
+              <div class="hero-microsilver__image-wrap hero-microsilver__image-wrap--placeholder">
+                {{ 'product-1' | placeholder_svg_tag: 'hero-microsilver__image placeholder-svg' }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero MicroSilver",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "POWERED BY MICROSILVER"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Use Shift+Enter in the editor to add line breaks.",
+      "default": "ODOR. ENGINEERED OUT."
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Focus on your day — not your deodorant."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>MicroSilver neutralizes odor-causing bacteria at the source, so you stay fresh through workouts, long days, and close conversations — without reapplying.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description_mobile",
+      "label": "Description (mobile)",
+      "info": "Optional shorter description on small screens."
+    },
+    {
+      "type": "header",
+      "content": "Price chip"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price_chip",
+      "label": "Show price chip",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "price_label",
+      "label": "Price",
+      "default": "$46"
+    },
+    {
+      "type": "text",
+      "id": "pack_label",
+      "label": "Pack label",
+      "default": "2-pack"
+    },
+    {
+      "type": "text",
+      "id": "shipping_label",
+      "label": "Shipping note",
+      "default": "Free shipping included"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Primary button label",
+      "default": "Choose Your Formula →"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "primary_button_open_new_tab",
+      "label": "Open primary in new tab",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary link label",
+      "default": "The Science Behind It →"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary link"
+    },
+    {
+      "type": "checkbox",
+      "id": "secondary_button_open_new_tab",
+      "label": "Open secondary in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Trust meta"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_meta",
+      "label": "Show meta row",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "rating_value",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "label": "Filled stars",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "4.8 from 1,200+ customers"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Show guarantee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "45-day risk-free guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Product card"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
+    },
+    {
+      "type": "color",
+      "id": "image_card_color",
+      "label": "Card background",
+      "default": "#ebeef2"
+    },
+    {
+      "type": "range",
+      "id": "image_card_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Card corner radius",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "image_max_width",
+      "min": 240,
+      "max": 720,
+      "step": 8,
+      "unit": "px",
+      "label": "Image max width",
+      "default": 456
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image area aspect ratio",
+      "info": "Locks the slide area so images stay the same size when switching.",
+      "options": [
+        { "value": "1 / 1", "label": "1:1 (square)" },
+        { "value": "4 / 5", "label": "4:5 (portrait)" },
+        { "value": "3 / 4", "label": "3:4 (portrait)" },
+        { "value": "5 / 6", "label": "5:6 (portrait)" },
+        { "value": "16 / 9", "label": "16:9 (landscape)" }
+      ],
+      "default": "1 / 1"
+    },
+    {
+      "type": "text",
+      "id": "formulas_label",
+      "label": "Formulas label",
+      "default": "4 formulas"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Auto-rotate interval",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Decorative letters"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_decor_letters",
+      "label": "Show decorative letters",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "decor_letters",
+      "label": "Letters",
+      "default": "Ag"
+    },
+    {
+      "type": "color",
+      "id": "decor_color",
+      "label": "Letter color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "decor_opacity",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "%",
+      "label": "Letter opacity",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "decor_size",
+      "min": 120,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Letter size (desktop)",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "decor_size_mobile",
+      "min": 120,
+      "max": 480,
+      "step": 10,
+      "unit": "px",
+      "label": "Letter size (mobile)",
+      "info": "Section's overflow naturally clips the part beyond the viewport.",
+      "default": 280
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_gap_desktop",
+      "min": 16,
+      "max": 128,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between columns (desktop)",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 360,
+      "max": 800,
+      "step": 8,
+      "unit": "px",
+      "label": "Text column max width (desktop)",
+      "info": "Figma value: 520px.",
+      "default": 520
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 40,
+      "max": 140,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size (desktop)",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 28,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size (mobile)",
+      "info": "Figma value: 36px.",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "info": "Figma: rgb(26, 43, 60)",
+      "default": "#1a2b3c"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_text_colors",
+      "label": "Override text colors",
+      "info": "Matches Figma hex values when off.",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "color_eyebrow",
+      "label": "Eyebrow",
+      "default": "#7a8899"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_tagline",
+      "label": "Tagline",
+      "default": "#a8bfd0"
+    },
+    {
+      "type": "color",
+      "id": "color_description",
+      "label": "Description",
+      "default": "#7a8899"
+    },
+    {
+      "type": "color",
+      "id": "color_meta",
+      "label": "Meta text",
+      "default": "#7a8899"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary_link",
+      "label": "Secondary link",
+      "default": "#a8bfd0"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Accent (stars / shipping)",
+      "default": "#1d9e75"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "formula",
+      "name": "Formula color",
+      "settings": [
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Dot color",
+          "default": "#e8823a"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "info": "Used as accessible label and tooltip."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Slide image",
+          "info": "Shown when this formula dot is active. Falls back to the section's product image."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero MicroSilver",
+      "blocks": [
+        { "type": "formula", "settings": { "color": "#e8823a", "name": "Citrus" } },
+        { "type": "formula", "settings": { "color": "#8b6e52", "name": "Cedar" } },
+        { "type": "formula", "settings": { "color": "#3a7d5c", "name": "Forest" } },
+        { "type": "formula", "settings": { "color": "#7a9baf", "name": "Ocean" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

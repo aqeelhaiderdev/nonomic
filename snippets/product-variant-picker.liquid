@@ -1,0 +1,373 @@
+{% comment %}
+  Renders product variant-picker
+
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  Usage:
+  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+{% endcomment %}
+
+{%- liquid
+  assign enable_pack_scents = false
+  if block.settings.enable_pack_scents == true
+    assign enable_pack_scents = true
+  endif
+  assign pack_option_name = block.settings.pack_option_name | default: 'Quantity'
+  assign scent_option_name = block.settings.scent_option_name | default: 'Scent'
+
+  assign scent_option_for_slots = nil
+  for option in product.options_with_values
+    if option.name == scent_option_name
+      assign scent_option_for_slots = option
+    endif
+  endfor
+-%}
+
+{%- unless product.has_only_default_variant -%}
+  {%- if enable_pack_scents -%}
+    <div
+      class="pack-scent-bundle"
+      data-enable-pack-scents="true"
+      data-section-id="{{ section.id }}"
+      data-scent-heading-singular="{{ scent_option_name | escape }}"
+    >
+  {%- endif -%}
+  <variant-selects
+    id="variant-selects-{{ section.id }}"
+    data-section="{{ section.id }}"
+    {{ block.shopify_attributes }}
+  >
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign option_role = 'default'
+        if enable_pack_scents and option.name == pack_option_name
+          assign option_role = 'pack'
+        endif
+        assign is_scent_primary = false
+        if enable_pack_scents and option.name == scent_option_name
+          assign is_scent_primary = true
+        endif
+
+        assign swatch_count = option.values | map: 'swatch' | compact | size
+        assign picker_type = block.settings.picker_type
+
+        if swatch_count > 0 and block.settings.swatch_shape != 'none'
+          if block.settings.picker_type == 'dropdown'
+            assign picker_type = 'swatch_dropdown'
+          else
+            assign picker_type = 'swatch'
+          endif
+        endif
+
+        assign pack_fieldset_class = 'js product-form__input'
+        if picker_type == 'swatch'
+          assign pack_fieldset_class = pack_fieldset_class | append: ' product-form__input--swatch'
+        elsif picker_type == 'button'
+          assign pack_fieldset_class = pack_fieldset_class | append: ' product-form__input--pill'
+        endif
+        if option_role == 'pack'
+          assign pack_fieldset_class = pack_fieldset_class | append: ' js-pack-quantity-fieldset'
+        endif
+
+        assign scent_fieldset_class = 'js product-form__input'
+        if picker_type == 'swatch'
+          assign scent_fieldset_class = scent_fieldset_class | append: ' product-form__input--swatch js-primary-scent-fieldset'
+        elsif picker_type == 'button'
+          assign scent_fieldset_class = scent_fieldset_class | append: ' product-form__input--pill js-primary-scent-fieldset'
+        else
+          assign scent_fieldset_class = scent_fieldset_class | append: ' js-primary-scent-fieldset'
+        endif
+      -%}
+      {%- if picker_type == 'swatch' -%}
+        {%- if option_role == 'pack' -%}
+          <fieldset class="{{ pack_fieldset_class }}">
+            <legend class="form__label">
+              {{ option.name }}:
+              <span data-selected-value>
+                {{- option.selected_value -}}
+              </span>
+            </legend>
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type,
+              option_role: 'pack'
+            %}
+          </fieldset>
+        {%- elsif is_scent_primary -%}
+          <fieldset class="{{ scent_fieldset_class }}">
+              <legend class="form__label pack-scent-heading-row pack-scent-heading-row--swatch js-primary-scent-legend">
+                <span class="pack-scent-heading-row__main">
+                  <span class="js-primary-scent-heading js-primary-scent-heading--swatch">
+                    {%- if enable_pack_scents -%}
+                      STICK 1:
+                    {%- else -%}
+                      {{ option.name }}:
+                    {%- endif -%}
+                  </span>
+                  <span data-selected-value>{{- option.selected_value -}}</span>
+                </span>
+                {%- if enable_pack_scents -%}
+                  <button
+                    type="button"
+                    class="button button--secondary js-mix-scents-toggle hidden"
+                    aria-expanded="false"
+                  >
+                    <span class="js-mix-scents-label-show">+ Mix scents</span>
+                    <span class="js-mix-scents-label-hide hidden">Hide</span>
+                  </button>
+                {%- endif -%}
+              </legend>
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type,
+              option_role: 'default'
+            %}
+          </fieldset>
+        {%- else -%}
+          <fieldset class="js product-form__input product-form__input--swatch">
+            <legend class="form__label">
+              {{ option.name }}:
+              <span data-selected-value>
+                {{- option.selected_value -}}
+              </span>
+            </legend>
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type,
+              option_role: 'default'
+            %}
+          </fieldset>
+        {%- endif -%}
+      {%- elsif picker_type == 'button' -%}
+        {%- if option_role == 'pack' -%}
+          <fieldset class="{{ pack_fieldset_class }}">
+            <legend class="form__label">{{ option.name }}</legend>
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type,
+              option_role: 'pack'
+            %}
+          </fieldset>
+        {%- elsif is_scent_primary -%}
+          <fieldset class="{{ scent_fieldset_class }}">
+            {%- if enable_pack_scents -%}
+              <legend class="form__label pack-scent-heading-row js-primary-scent-legend">
+                <span class="js-primary-scent-heading">STICK 1</span>
+                <button
+                  type="button"
+                  class="button button--secondary js-mix-scents-toggle hidden"
+                  aria-expanded="false"
+                >
+                  <span class="js-mix-scents-label-show">+ Mix scents</span>
+                  <span class="js-mix-scents-label-hide hidden">Hide</span>
+                </button>
+              </legend>
+            {%- else -%}
+              <legend class="form__label">{{ option.name }}</legend>
+            {%- endif -%}
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type,
+              option_role: 'default'
+            %}
+          </fieldset>
+        {%- else -%}
+          <fieldset class="js product-form__input product-form__input--pill">
+            <legend class="form__label">{{ option.name }}</legend>
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type,
+              option_role: 'default'
+            %}
+          </fieldset>
+        {%- endif -%}
+      {%- else -%}
+        {%- if option_role == 'pack' -%}
+          <div class="product-form__input product-form__input--dropdown js-pack-quantity-fieldset">
+            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+              {{ option.name }}
+            </label>
+            <div class="select">
+              {%- if picker_type == 'swatch_dropdown' -%}
+                <span
+                  data-selected-value
+                  class="dropdown-swatch"
+                >
+                  {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
+                </span>
+              {%- endif -%}
+              <select
+                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                class="select__select"
+                name="options[{{ option.name | escape }}]"
+                form="{{ product_form_id }}"
+              >
+                {% render 'product-variant-options',
+                  product: product,
+                  option: option,
+                  block: block,
+                  picker_type: picker_type,
+                  option_role: 'pack'
+                %}
+              </select>
+              <span class="svg-wrapper">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+            </div>
+          </div>
+        {%- elsif is_scent_primary -%}
+          <div class="product-form__input product-form__input--dropdown js-primary-scent-fieldset">
+            {%- if enable_pack_scents -%}
+              <div class="pack-scent-heading-row pack-scent-heading-row--dropdown">
+                <label
+                  class="form__label js-primary-scent-legend"
+                  for="Option-{{ section.id }}-{{ forloop.index0 }}"
+                >
+                  <span class="js-primary-scent-heading">
+                    STICK 1
+                  </span>
+                </label>
+                <button
+                  type="button"
+                  class="button button--secondary js-mix-scents-toggle hidden"
+                  aria-expanded="false"
+                >
+                  <span class="js-mix-scents-label-show">+ Mix scents</span>
+                  <span class="js-mix-scents-label-hide hidden">Hide</span>
+                </button>
+              </div>
+            {%- else -%}
+              <label
+                class="form__label js-primary-scent-legend"
+                for="Option-{{ section.id }}-{{ forloop.index0 }}"
+              >
+                <span class="js-primary-scent-heading">{{ option.name }}</span>
+              </label>
+            {%- endif -%}
+            <div class="select">
+              {%- if picker_type == 'swatch_dropdown' -%}
+                <span
+                  data-selected-value
+                  class="dropdown-swatch"
+                >
+                  {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
+                </span>
+              {%- endif -%}
+              <select
+                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                class="select__select"
+                name="options[{{ option.name | escape }}]"
+                form="{{ product_form_id }}"
+              >
+                {% render 'product-variant-options',
+                  product: product,
+                  option: option,
+                  block: block,
+                  picker_type: picker_type,
+                  option_role: 'default'
+                %}
+              </select>
+              <span class="svg-wrapper">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+            </div>
+          </div>
+        {%- else -%}
+          <div class="product-form__input product-form__input--dropdown">
+            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+              {{ option.name }}
+            </label>
+            <div class="select">
+              {%- if picker_type == 'swatch_dropdown' -%}
+                <span
+                  data-selected-value
+                  class="dropdown-swatch"
+                >
+                  {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
+                </span>
+              {%- endif -%}
+              <select
+                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                class="select__select"
+                name="options[{{ option.name | escape }}]"
+                form="{{ product_form_id }}"
+              >
+                {% render 'product-variant-options',
+                  product: product,
+                  option: option,
+                  block: block,
+                  picker_type: picker_type,
+                  option_role: 'default'
+                %}
+              </select>
+              <span class="svg-wrapper">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    <script type="application/json" data-selected-variant>
+      {{ product.selected_or_first_available_variant | json }}
+    </script>
+  </variant-selects>
+
+  {%- if enable_pack_scents and scent_option_for_slots
+    and block.settings.picker_type == 'button'
+  -%}
+    <div class="pack-extra-scents">
+      <fieldset
+        class="js product-form__input product-form__input--pill pack-scent-slot pack-scent-slot--2 hidden"
+        data-pack-scent-slot="2"
+      >
+        <legend class="form__label">STICK 2</legend>
+        {% render 'product-variant-options',
+          product: product,
+          option: scent_option_for_slots,
+          block: block,
+          picker_type: 'button',
+          input_name_override: 'properties[_Scent 2]',
+          id_variant_prefix: 'scent-slot-2',
+          variant_data_mode: false,
+          property_slot: true
+        %}
+      </fieldset>
+      <fieldset
+        class="js product-form__input product-form__input--pill pack-scent-slot pack-scent-slot--3 hidden"
+        data-pack-scent-slot="3"
+      >
+        <legend class="form__label">STICK 3</legend>
+        {% render 'product-variant-options',
+          product: product,
+          option: scent_option_for_slots,
+          block: block,
+          picker_type: 'button',
+          input_name_override: 'properties[_Scent 3]',
+          id_variant_prefix: 'scent-slot-3',
+          variant_data_mode: false,
+          property_slot: true
+        %}
+      </fieldset>
+    </div>
+  {%- endif -%}
+
+  {%- if enable_pack_scents -%}
+    </div>
+  {%- endif -%}
+{%- endunless -%}

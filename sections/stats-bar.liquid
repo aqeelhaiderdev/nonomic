@@ -1,0 +1,503 @@
+{{ 'section-stats-bar.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign gap_mobile = section.settings.gap_mobile
+  assign gap_desktop = section.settings.gap_desktop
+-%}
+
+{%- style -%}
+  #StatsBar-{{ section.id }} {
+    --stats-bar-gap: {{ gap_mobile }}px;
+    --stats-bar-gap-mobile: {{ gap_mobile }}px;
+    --stats-bar-gap-desktop: {{ gap_desktop }}px;
+    --stats-bar-value-px: {{ section.settings.value_font_size }}px;
+    --stats-bar-value-px-mobile: {{ section.settings.value_font_size_mobile | default: 36 }}px;
+    --stats-bar-label-px: {{ section.settings.label_font_size }}px;
+    --stats-bar-image-max: {{ section.settings.image_max_width }}px;
+    --stats-bar-divider-width: {{ section.settings.divider_thickness | times: 0.5 }}px;
+    --stats-bar-divider-height: {{ section.settings.divider_height | default: 64 }}px;
+  }
+
+  {% if section.settings.use_custom_background %}
+    #StatsBar-{{ section.id }}.stats-bar {
+      background-color: {{ section.settings.section_background }} !important;
+      background-image: none !important;
+      --gradient-background: {{ section.settings.section_background }};
+    }
+  {% endif %}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #StatsBar-{{ section.id }} {
+      --stats-bar-gap: {{ gap_desktop }}px;
+    }
+
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  {% if section.settings.custom_text_colors %}
+    #StatsBar-{{ section.id }} .stats-bar__value {
+      color: {{ section.settings.value_color }};
+    }
+    #StatsBar-{{ section.id }} .stats-bar__caption {
+      color: {{ section.settings.label_color }};
+    }
+  {% endif %}
+{%- endstyle -%}
+
+{%- if section.blocks.size == 0 -%}
+  <div
+    id="StatsBar-{{ section.id }}"
+    class="stats-bar stats-bar--empty color-{{ section.settings.color_scheme }} gradient"
+    {{ section.shopify_attributes }}
+  >
+    <div class="page-width section-{{ section.id }}-padding isolate">
+      <div class="placeholder caption">
+        {{ 'sections.stats_bar.onboarding' | t }}
+      </div>
+    </div>
+  </div>
+{%- else -%}
+  <div
+    id="StatsBar-{{ section.id }}"
+    class="stats-bar color-{{ section.settings.color_scheme }} gradient stats-bar--align-{{ section.settings.heading_alignment }}"
+    {{ section.shopify_attributes }}
+  >
+    <div
+      class="page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+      {% if settings.animations_reveal_on_scroll %}
+        data-cascade
+      {% endif %}
+    >
+      {%- if section.settings.heading != blank -%}
+        <header class="stats-bar__header">
+          <h2 class="stats-bar__heading inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        </header>
+      {%- endif -%}
+
+      <ul
+        class="stats-bar__list{% if section.settings.show_dividers %} stats-bar__list--divided{% endif %} stats-bar__list--align-{{ section.settings.content_alignment }}"
+        role="list"
+      >
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign stats_bar_img_alt = block.settings.image.alt | default: block.settings.label | default: block.settings.value
+          -%}
+          <li
+            class="stats-bar__item"
+            {{ block.shopify_attributes }}
+            {% if settings.animations_reveal_on_scroll %}
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+          >
+            {%- if block.settings.link != blank -%}
+              <a
+                class="stats-bar__link"
+                href="{{ block.settings.link }}"
+                {% if block.settings.open_in_new_tab %}
+                  target="_blank" rel="noopener noreferrer"
+                {% endif %}
+              >
+                {%- if block.settings.image != blank -%}
+                  <div class="stats-bar__media">
+                    {{
+                      block.settings.image
+                      | image_url: width: 240
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '60, 80, 120, 160, 240',
+                        sizes: '(min-width: 750px) 120px, 80px',
+                        alt: stats_bar_img_alt
+                    }}
+                  </div>
+                {%- endif -%}
+                  {%- if block.settings.value != blank -%}
+                    <p class="stats-bar__value">{{ block.settings.value | escape }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.label != blank -%}
+                    <p class="stats-bar__caption{% if section.settings.label_uppercase %} stats-bar__caption--uppercase{% endif %}">
+                      {{ block.settings.label | escape }}
+                    </p>
+                  {%- endif -%}
+                </a>
+              {%- else -%}
+                <div class="stats-bar__inner">
+                  {%- if block.settings.image != blank -%}
+                    <div class="stats-bar__media">
+                      {{
+                        block.settings.image
+                        | image_url: width: 240
+                        | image_tag:
+                          loading: 'lazy',
+                          widths: '60, 80, 120, 160, 240',
+                          sizes: '(min-width: 750px) 120px, 80px',
+                          alt: stats_bar_img_alt
+                      }}
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.value != blank -%}
+                    <p class="stats-bar__value">{{ block.settings.value | escape }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.label != blank -%}
+                    <p class="stats-bar__caption{% if section.settings.label_uppercase %} stats-bar__caption--uppercase{% endif %}">
+                      {{ block.settings.label | escape }}
+                    </p>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </li>
+            {%- if section.settings.show_dividers and forloop.last == false -%}
+              <li class="stats-bar__divider" role="presentation" aria-hidden="true"></li>
+            {%- endif -%}
+        {%- endfor -%}
+      </ul>
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="stats-bar__footer">
+          <a
+            class="button{% if section.settings.button_style == 'secondary' %} button--secondary{% elsif section.settings.button_style == 'outline' %} button--tertiary{% else %} button--primary{% endif %}"
+            {% if section.settings.button_link == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ section.settings.button_link }}"
+            {% endif %}
+            {% if section.settings.button_open_new_tab and section.settings.button_link != blank %}
+              target="_blank" rel="noopener noreferrer"
+            {% endif %}
+          >
+            {{ section.settings.button_label | escape }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Stats bar",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 8,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" },
+        { "value": "hxl", "label": "Extra large" },
+        { "value": "hxxl", "label": "Extra extra large" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Stats alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Spacing between stats (mobile)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "label": "Spacing between stats (desktop)",
+      "default": 32
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dividers",
+      "label": "Show dividers between stats",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "divider_thickness",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "label": "Divider line width",
+      "info": "Uses half this value in pixels (e.g. 1 → 0.5px) to match thin Figma dividers.",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "divider_height",
+      "min": 40,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Divider height (between stats)",
+      "info": "Mobile Figma default: 64px.",
+      "default": 64
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "value_font_size",
+      "min": 24,
+      "max": 56,
+      "step": 1,
+      "unit": "px",
+      "label": "Stat value font size (tablet & desktop)",
+      "info": "From 750px breakpoint up. Mobile uses the setting below.",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "value_font_size_mobile",
+      "min": 24,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Stat value font size (mobile)",
+      "info": "Figma mobile default: 36px.",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "label_font_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Stat label font size",
+      "info": "Figma default: 12px (same on mobile and desktop).",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "label_uppercase",
+      "label": "Uppercase labels",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "image_max_width",
+      "min": 32,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Max icon / image width",
+      "default": 64
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_background",
+      "label": "Use custom section background",
+      "info": "Matches Figma mobile strip (rgb 235, 238, 242) when enabled.",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Custom background color",
+      "default": "#ebeff2"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_text_colors",
+      "label": "Override stat text colors",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "value_color",
+      "label": "Stat value color",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Stat label color",
+      "default": "#7a8899"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" },
+        { "value": "outline", "label": "Outline" }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_open_new_tab",
+      "label": "Open button link in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image or icon"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "4.8"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Average rating"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional. Makes the whole stat clickable."
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open link in new tab",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stats bar",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "value": "4.8",
+            "label": "Average rating"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "45",
+            "label": "Day guarantee"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "0%",
+            "label": "Aluminum"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

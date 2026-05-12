@@ -1,0 +1,185 @@
+/* Situation grid — Built for your situation cards */
+
+.situation-grid {
+  --sg-card-bg: rgba(var(--color-foreground), 0.04);
+  --sg-card-border: rgba(var(--color-foreground), 0.12);
+  --sg-card-border-hover: rgba(var(--color-foreground), 0.28);
+  --sg-text-muted: rgba(var(--color-foreground), 0.72);
+  --sg-icon-bg: rgb(var(--color-button));
+  --sg-icon-fg: rgb(var(--color-button-label));
+}
+
+.situation-grid__header {
+  margin-bottom: var(--sg-heading-margin);
+}
+
+.situation-grid__header--left {
+  text-align: left;
+}
+
+.situation-grid__header--center {
+  text-align: center;
+}
+
+.situation-grid__header--right {
+  text-align: right;
+}
+
+.situation-grid__heading {
+  margin: 0;
+  color: rgb(17, 24, 39);
+  font-size: 36px;
+}
+
+.situation-grid__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sg-gap-mobile);
+}
+
+@media screen and (min-width: 750px) {
+  .situation-grid__grid {
+    grid-template-columns: repeat(var(--sg-columns-desktop), minmax(0, 1fr));
+    gap: var(--sg-gap-desktop);
+  }
+}
+
+.situation-grid__item {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.situation-grid__card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: var(--sg-card-padding);
+  border-radius: var(--sg-card-radius);
+  border: var(--sg-card-border-width) solid var(--sg-card-border);
+  background-color: var(--sg-card-bg);
+  color: rgb(var(--color-foreground));
+  transition: border-color var(--duration-short) ease, box-shadow var(--duration-short) ease;
+  text-decoration: none;
+}
+
+.situation-grid__card--interactive:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.2rem;
+}
+
+.situation-grid--card-hover .situation-grid__card--link:hover {
+  border-color: var(--sg-card-border-hover);
+}
+
+.situation-grid__card-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sg-card-row-gap);
+  height: 100%;
+}
+
+.situation-grid__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sg-title-icon-gap);
+}
+
+.situation-grid__icon {
+  flex-shrink: 0;
+  width: var(--sg-icon-box);
+  height: var(--sg-icon-box);
+  border-radius: var(--sg-icon-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--sg-icon-bg);
+  color: var(--sg-icon-fg);
+}
+
+.situation-grid__icon-img {
+  width: var(--sg-icon-inner);
+  height: var(--sg-icon-inner);
+  object-fit: contain;
+}
+
+.situation-grid__icon-svg {
+  width: var(--sg-icon-inner);
+  height: var(--sg-icon-inner);
+  display: block;
+}
+
+.situation-grid__card-title {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-body-family);
+  color: rgb(17, 24, 39);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.situation-grid__text {
+  margin: 0;
+  color: var(--sg-text-muted);
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.situation-grid__text.rte > *:first-child {
+  margin-top: 0;
+}
+
+.situation-grid__text.rte > *:last-child {
+  margin-bottom: 0;
+}
+
+.situation-grid__footer {
+  margin-top: var(--sg-footer-margin);
+  display: flex;
+  justify-content: var(--sg-footer-justify);
+}
+
+.situation-grid__placeholder {
+  text-align: center;
+}
+
+.situation-grid--empty .situation-grid__placeholder {
+  margin: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Mobile — Figma global (max-width: 768px): section h2 + problem-style grid
+   Matches Home.tsx global CSS: h2 28px / 1.2 / mb 24px; grid gap 16px;
+   card copy 16/700 title row, 14/300 body @ 1.7 (already on desktop classes).
+   ----------------------------------------------------------------------------- */
+@media screen and (max-width: 768px) {
+  .situation-grid .situation-grid__heading {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+
+  .situation-grid .situation-grid__header {
+    margin-bottom: 24px !important;
+  }
+
+  .situation-grid .situation-grid__grid {
+    gap: 16px !important;
+  }
+
+  .situation-grid .situation-grid__card-title {
+    font-weight: 700 !important;
+  }
+
+  .situation-grid .situation-grid__text {
+    line-height: 1.7 !important;
+  }
+
+  .situation-grid .situation-grid__text p {
+    line-height: 1.7 !important;
+  }
+}

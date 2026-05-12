@@ -1,0 +1,182 @@
+{% comment %}
+  Renders product variant options
+
+  Accepts:
+  - product: {Object} product object.
+  - option: {Object} current product_option object.
+  - block: {Object} block object.
+  - picker_type: {String} type of picker to dispay
+  - option_role: {String} optional. Use 'pack' for the Quantity / pack option — adds data-pack-slots for bundle UI.
+  - input_name_override: {String} optional (e.g. properties[Scent 2]) for line item properties only.
+  - id_variant_prefix: {String} optional prefix for input ids when using input_name_override.
+  - variant_data_mode: {Boolean} optional. When false, omits variant option-value dataset attributes (line item properties).
+  - property_slot: {Boolean} optional. When true, uses first value as default checked instead of variant state.
+
+  Usage:
+  {% render 'product-variant-options',
+    product: product,
+    option: option,
+    block: block,
+    picker_type: picker_type
+  %}
+{% endcomment %}
+{%- liquid
+  assign product_form_id = 'product-form-' | append: section.id
+  if variant_data_mode == nil
+    assign variant_data_mode = true
+  endif
+-%}
+
+{%- for value in option.values -%}
+  {%- liquid
+    assign swatch_focal_point = null
+    if value.swatch.image
+      assign image_url = value.swatch.image | image_url: width: 50
+      assign swatch_value = 'url(' | append: image_url | append: ')'
+      assign swatch_focal_point = value.swatch.image.presentation.focal_point
+    elsif value.swatch.color
+      assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+    else
+      assign swatch_value = null
+    endif
+
+    assign option_disabled = true
+    if value.available
+      assign option_disabled = false
+    endif
+
+    assign pack_slots = ''
+    if option_role == 'pack'
+      assign pack_slots = 1
+      assign vl = value | strip | downcase
+      if vl contains '3 pack' or vl == '3-pack'
+        assign pack_slots = 3
+      elsif vl contains '2 pack' or vl == '2-pack'
+        assign pack_slots = 2
+      endif
+      if pack_slots == 1 and option.values.size == 3
+        assign pack_slots = forloop.index
+      endif
+    endif
+  -%}
+
+  {%- capture input_id -%}
+    {%- if id_variant_prefix != blank -%}
+      {{ section.id }}-{{ id_variant_prefix }}-{{ forloop.index0 -}}
+    {%- else -%}
+      {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture input_name -%}
+    {%- if input_name_override != blank -%}
+      {{- input_name_override -}}
+    {%- else -%}
+      {{ option.name }}-{{ option.position }}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- if variant_data_mode -%}
+    {%- capture input_dataset -%}
+      data-product-url="{{ value.product_url }}"
+      data-option-value-id="{{ value.id }}"
+    {%- endcapture -%}
+  {%- else -%}
+    {%- assign input_dataset = '' -%}
+  {%- endif -%}
+
+  {%- liquid
+    assign is_checked = false
+    if property_slot
+      if forloop.first
+        assign is_checked = true
+      endif
+    elsif value.selected
+      assign is_checked = true
+    endif
+  -%}
+
+  {%- capture label_unavailable -%}
+    <span class="visually-hidden label-unavailable">
+      {{- 'products.product.variant_sold_out_or_unavailable' | t -}}
+    </span>
+  {%- endcapture -%}
+
+  {% assign escaped_value = value | escape %}
+
+  {%- if picker_type == 'swatch' -%}
+    {%- capture swatch_extra -%}
+      {{ input_dataset }}
+      {%- if option_role == 'pack' -%}
+        data-pack-slots="{{ pack_slots }}"
+      {%- endif -%}
+    {%- endcapture -%}
+
+    {%- capture help_text -%}
+      <span class="visually-hidden">{{ escaped_value }}</span>
+      {{ label_unavailable }}
+    {%- endcapture -%}
+
+    {%
+      render 'swatch-input',
+      id: input_id,
+      name: input_name,
+      value: escaped_value,
+      swatch: value.swatch,
+      product_form_id: product_form_id,
+      checked: is_checked,
+      visually_disabled: option_disabled,
+      shape: block.settings.swatch_shape,
+      help_text: help_text,
+      additional_props: swatch_extra
+    %}
+  {%- elsif picker_type == 'button' -%}
+    <input
+      type="radio"
+      id="{{ input_id }}"
+      name="{{ input_name | escape }}"
+      value="{{ escaped_value }}"
+      form="{{ product_form_id }}"
+      {% if is_checked %}
+        checked
+      {% endif %}
+      {% if option_disabled %}
+        class="disabled{% if option_role == 'pack' %} js-pack-quantity-input{% endif %}"
+      {% elsif option_role == 'pack' %}
+        class="js-pack-quantity-input"
+      {% endif %}
+      {% if option_role == 'pack' %}
+        data-pack-slots="{{ pack_slots }}"
+      {% endif %}
+      {{ input_dataset }}
+    >
+    <label for="{{ input_id }}">
+      {{ value -}}
+      {{ label_unavailable }}
+    </label>
+  {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
+    <option
+      id="{{ input_id }}"
+      value="{{ escaped_value }}"
+      {% if is_checked %}
+        selected="selected"
+      {% endif %}
+      {% if swatch_value and picker_type == 'swatch_dropdown' %}
+        data-option-swatch-value="{{ swatch_value }}"
+        {% if swatch_focal_point %}
+          data-option-swatch-focal-point="{{ swatch_focal_point }}"
+        {% endif %}
+      {% endif %}
+      {% if option_role == 'pack' %}
+        data-pack-slots="{{ pack_slots }}"
+      {% endif %}
+      {{ input_dataset }}
+    >
+      {% if option_disabled -%}
+        {{- 'products.product.value_unavailable' | t: option_value: value -}}
+      {%- else -%}
+        {{- value -}}
+      {%- endif %}
+    </option>
+  {%- endif -%}
+{%- endfor -%}

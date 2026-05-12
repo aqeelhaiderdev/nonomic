@@ -1,0 +1,503 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_microsilver_9pBMqK": {
+      "type": "hero-microsilver",
+      "blocks": {
+        "formula_nNeXWP": {
+          "type": "formula",
+          "settings": {
+            "color": "#e8823a",
+            "name": "Citrus",
+            "image": "shopify://shop_images/CitrusGrove.png"
+          }
+        },
+        "formula_cprhn3": {
+          "type": "formula",
+          "settings": {
+            "color": "#8b6e52",
+            "name": "Cedar",
+            "image": "shopify://shop_images/CoconutVanilla.png"
+          }
+        },
+        "formula_xpqqFt": {
+          "type": "formula",
+          "settings": {
+            "color": "#3a7d5c",
+            "name": "Forest",
+            "image": "shopify://shop_images/CleanForest.png"
+          }
+        },
+        "formula_WRBL8B": {
+          "type": "formula",
+          "settings": {
+            "color": "#7a9baf",
+            "name": "Ocean",
+            "image": "shopify://shop_images/Unscented.png"
+          }
+        }
+      },
+      "block_order": [
+        "formula_nNeXWP",
+        "formula_cprhn3",
+        "formula_xpqqFt",
+        "formula_WRBL8B"
+      ],
+      "name": "Hero MicroSilver",
+      "settings": {
+        "eyebrow": "POWERED BY MICROSILVER",
+        "heading": "ODOR. ENGINEERED OUT.",
+        "tagline": "Focus on your day — not your deodorant.",
+        "description": "<p>MicroSilver neutralizes odor-causing bacteria at the source, so you stay fresh through workouts, long days, and close conversations — without reapplying.</p>",
+        "description_mobile": "",
+        "show_price_chip": true,
+        "price_label": "$46",
+        "pack_label": "2-pack",
+        "shipping_label": "Free shipping included",
+        "primary_button_label": "Choose Your Formula →",
+        "primary_button_link": "#",
+        "primary_button_open_new_tab": false,
+        "secondary_button_label": "The Science Behind It →",
+        "secondary_button_link": "#",
+        "secondary_button_open_new_tab": false,
+        "show_meta": true,
+        "show_rating": true,
+        "rating_value": 5,
+        "rating_text": "4.8 from 1,200+ customers",
+        "show_guarantee": true,
+        "guarantee_text": "45-day risk-free guarantee",
+        "product_image": "shopify://shop_images/CleanForest.png",
+        "image_card_color": "#ebeef2",
+        "image_card_radius": 16,
+        "image_max_width": 456,
+        "image_aspect_ratio": "4 / 5",
+        "formulas_label": "4 formulas",
+        "enable_autoplay": true,
+        "autoplay_delay": 3,
+        "show_decor_letters": true,
+        "decor_letters": "Ag",
+        "decor_color": "#ffffff",
+        "decor_opacity": 2,
+        "decor_size": 400,
+        "decor_size_mobile": 280,
+        "content_gap_desktop": 64,
+        "content_max_width": 520,
+        "heading_size_desktop": 90,
+        "heading_size_mobile": 36,
+        "color_scheme": "",
+        "background_color": "#1a2b3c",
+        "use_custom_text_colors": true,
+        "color_eyebrow": "#7a8899",
+        "color_heading": "#ffffff",
+        "color_tagline": "#a8bfd0",
+        "color_description": "#7a8899",
+        "color_meta": "#7a8899",
+        "color_secondary_link": "#a8bfd0",
+        "color_accent": "#1d9e75",
+        "padding_top": 48,
+        "padding_top_mobile": 24,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 24
+      }
+    },
+    "stats_bar_cJeGcd": {
+      "type": "stats-bar",
+      "blocks": {
+        "stat_YPDQCe": {
+          "type": "stat",
+          "settings": {
+            "value": "4.8",
+            "label": "Average rating",
+            "link": "",
+            "open_in_new_tab": false
+          }
+        },
+        "stat_XiGwHz": {
+          "type": "stat",
+          "settings": {
+            "value": "45",
+            "label": "Day guarantee",
+            "link": "",
+            "open_in_new_tab": false
+          }
+        },
+        "stat_MPanHb": {
+          "type": "stat",
+          "settings": {
+            "value": "0%",
+            "label": "Aluminum",
+            "link": "",
+            "open_in_new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "stat_YPDQCe",
+        "stat_XiGwHz",
+        "stat_MPanHb"
+      ],
+      "name": "Stats bar",
+      "settings": {
+        "heading": "",
+        "heading_size": "h2",
+        "heading_alignment": "center",
+        "content_alignment": "center",
+        "gap_mobile": 32,
+        "gap_desktop": 32,
+        "show_dividers": true,
+        "divider_thickness": 1,
+        "divider_height": 64,
+        "value_font_size": 36,
+        "value_font_size_mobile": 36,
+        "label_font_size": 12,
+        "label_uppercase": false,
+        "image_max_width": 64,
+        "color_scheme": "scheme-5afe3df2-334b-4cd0-ae02-304a19beedad",
+        "use_custom_background": false,
+        "section_background": "#ebeef2",
+        "custom_text_colors": false,
+        "value_color": "#111827",
+        "label_color": "#7a8899",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "primary",
+        "button_open_new_tab": false,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "problem_statement_cXPMHJ": {
+      "type": "problem-statement",
+      "blocks": {
+        "column_a38NFN": {
+          "type": "column",
+          "settings": {
+            "eyebrow": "Masking with Fragrance",
+            "icon": "waves",
+            "body": "<p>Heavy fragrances try to cover bacterial odor. But the bacteria keeps producing it. You're just layering smells — and often making it worse.</p>",
+            "body_mobile": "<p>Heavy fragrances cover bacterial odor. The bacteria keeps producing it.</p>"
+          }
+        },
+        "column_8N9gDB": {
+          "type": "column",
+          "settings": {
+            "eyebrow": "Shocking with Baking Soda",
+            "icon": "cross",
+            "body": "<p>Natural deodorants rely on baking soda to create a harsh pH environment. It works for some — and burns or irritates most. That's not a solution.</p>",
+            "body_mobile": "<p>Creates harsh pH. Burns or irritates most. That's not a solution.</p>"
+          }
+        },
+        "column_NeTyqN": {
+          "type": "column",
+          "settings": {
+            "eyebrow": "Blocking with Aluminum",
+            "icon": "bar",
+            "body": "<p>Antiperspirants physically plug sweat ducts. Effective at stopping sweat — but sweat isn't the problem. And many people prefer not to block a natural process.</p>",
+            "body_mobile": "<p>Plugs sweat ducts. But sweat isn't the problem.</p>"
+          }
+        },
+        "stat_w7YcEH": {
+          "type": "stat",
+          "settings": {
+            "value": "90%",
+            "label": "<p>of deodorant users report dissatisfaction</p>",
+            "label_mobile": "<p>report dissatisfaction</p>",
+            "link": "",
+            "open_in_new_tab": false
+          }
+        },
+        "stat_iQJULP": {
+          "type": "stat",
+          "settings": {
+            "value": "67%",
+            "label": "<p>experience irritation from natural options</p>",
+            "label_mobile": "<p>experience irritation</p>",
+            "link": "",
+            "open_in_new_tab": false
+          }
+        },
+        "stat_FDxmHU": {
+          "type": "stat",
+          "settings": {
+            "value": "61%",
+            "label": "<p>want alternatives to aluminum</p>",
+            "label_mobile": "<p>avoid<br/>aluminum</p>",
+            "link": "",
+            "open_in_new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "column_a38NFN",
+        "column_8N9gDB",
+        "column_NeTyqN",
+        "stat_w7YcEH",
+        "stat_iQJULP",
+        "stat_FDxmHU"
+      ],
+      "name": "Problem statement",
+      "settings": {
+        "heading": "Most Deodorant Is Solving the Wrong Problem.",
+        "heading_alignment": "left",
+        "heading_margin_bottom": 64,
+        "column_stack_gap_mobile": 24,
+        "column_inline_padding": 48,
+        "show_column_dividers": true,
+        "divider_color": "#dde1e8",
+        "divider_thickness": 1,
+        "icon_size": 48,
+        "column_text_alignment": "left",
+        "stats_margin_top": 64,
+        "stats_margin_bottom": 48,
+        "stats_gap_mobile": 32,
+        "stats_gap_desktop": 48,
+        "stats_alignment": "center",
+        "pullquote": "Sweat is odorless. Odor is bacterial. Nonomic is built around that fact.",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "primary",
+        "button_alignment": "center",
+        "button_open_new_tab": false,
+        "color_scheme": "",
+        "custom_text_colors": false,
+        "color_heading": "#111827",
+        "color_eyebrow": "#7a8899",
+        "color_body": "#4b5a6b",
+        "color_stat_value": "#111827",
+        "color_stat_label": "#4b5a6b",
+        "color_pullquote": "#111827",
+        "color_icon": "#111827",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "mechanism_layers_8ykTDa": {
+      "type": "mechanism-layers",
+      "blocks": {
+        "side_layer_mdx9cD": {
+          "type": "side_layer",
+          "settings": {
+            "column": "1",
+            "eyebrow": "LAYER 1 — ANCHOR",
+            "title": "Zinc Oxide",
+            "body": "<p>Anchors the formula so every ingredient stays in contact with skin. Nothing else works if the formula doesn't hold.</p>"
+          }
+        },
+        "side_layer_kXQ7Vn": {
+          "type": "side_layer",
+          "settings": {
+            "column": "2",
+            "eyebrow": "LAYER 2 — PREVENT",
+            "title": "Magnesium",
+            "body": "<p>Manages pH to create an environment where bacteria can't thrive. Sets the conditions before bacteria can establish.</p>"
+          }
+        },
+        "side_layer_CxPBBj": {
+          "type": "side_layer",
+          "settings": {
+            "column": "4",
+            "eyebrow": "LAYER 4 — BLOCK",
+            "title": "Triethyl Citrate",
+            "body": "<p>Blocks enzymatic breakdown as backup. Catches anything that gets through — secondary prevention that holds the line.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "side_layer_mdx9cD",
+        "side_layer_kXQ7Vn",
+        "side_layer_CxPBBj"
+      ],
+      "name": "Mechanism layers",
+      "settings": {
+        "heading_desktop": "One Mechanism. Four Layers of Protection.",
+        "heading_mobile": "One Mechanism. One Key Ingredient.",
+        "heading_font_size": 44,
+        "heading_alignment": "left",
+        "heading_margin_bottom": 64,
+        "mechanism_kicker": "The Mechanism",
+        "watermark_text": "Ag",
+        "watermark_size_mobile": 72,
+        "watermark_size_desktop": 120,
+        "featured_eyebrow": "LAYER 3 — NEUTRALIZE",
+        "featured_title": "MicroSilver",
+        "featured_body_desktop": "<p>Disrupts bacterial cell walls at contact. This is the mechanism. Bacteria can't produce odor if they can't function.</p>",
+        "featured_intro_mobile": "<p>A pharmaceutical-grade silver ingredient that disrupts bacterial cell walls at contact.</p>",
+        "featured_list_mobile": "<ul><li>Releases silver ions continuously</li><li>Binds to bacterial cell wall proteins</li><li>Bacteria can't produce odor compounds</li><li>Mechanism persists for 24+ hours</li></ul>",
+        "featured_scale": 108,
+        "card_corner_radius": 10,
+        "card_padding_vertical": 32,
+        "card_padding_horizontal": 24,
+        "footnote": "<p>This isn't about blocking sweat. It's about controlling what creates odor.</p>",
+        "button_label": "View Full Ingredient List →",
+        "button_link": "#",
+        "button_open_new_tab": false,
+        "show_button_on_mobile": false,
+        "content_max_width": 1280,
+        "horizontal_padding": 32,
+        "kicker_row_height": 26,
+        "kicker_row_gap": 12,
+        "layer_content_padding_top": 24,
+        "footnote_margin_top": 48,
+        "button_margin_top": 24,
+        "mobile_list_gap": 8,
+        "grid_gap": 32,
+        "layer_border_width": 2,
+        "section_background": "#ebeef2",
+        "card_background": "#1a2b3c",
+        "color_heading": "#111827",
+        "color_muted": "#7a8899",
+        "color_body": "#4b5a6b",
+        "color_accent": "#1d9e75",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "placeholder_text": "Add headings, featured card content, or side layer blocks."
+      }
+    },
+    "situation_grid_GFXUzE": {
+      "type": "situation-grid",
+      "blocks": {
+        "situation_6m96Mh": {
+          "type": "situation",
+          "settings": {
+            "icon": "shield",
+            "title": "Switching from Antiperspirant",
+            "text": "<p>You want odor control without blocking sweat. MicroSilver gives you clinical-grade protection that lets your body function naturally.</p>",
+            "link": "",
+            "open_in_new_tab": false
+          }
+        },
+        "situation_ghtPEE": {
+          "type": "situation",
+          "settings": {
+            "icon": "leaf",
+            "title": "Frustrated by Natural Deodorants",
+            "text": "<p>Tried everything \"natural\" and nothing worked? We don't use baking soda or heavy fragrances. We use science.</p>",
+            "link": "",
+            "open_in_new_tab": false
+          }
+        },
+        "situation_tB4MVW": {
+          "type": "situation",
+          "settings": {
+            "icon": "droplet",
+            "title": "Sensitive Skin",
+            "text": "<p>Irritation, redness, or burning from other deodorants? Our pH-balanced formula works with your skin, not against it.</p>",
+            "link": "",
+            "open_in_new_tab": false
+          }
+        },
+        "situation_dbdY3R": {
+          "type": "situation",
+          "settings": {
+            "icon": "lightning_bolt",
+            "title": "High-Performance Needs",
+            "text": "<p>Workouts, long days, high-stress environments. One application holds through it all. You shouldn't have to reapply.</p>",
+            "link": "",
+            "open_in_new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "situation_6m96Mh",
+        "situation_ghtPEE",
+        "situation_tB4MVW",
+        "situation_dbdY3R"
+      ],
+      "name": "Situation grid",
+      "settings": {
+        "heading": "Built for Your Situation",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_margin_bottom": 48,
+        "columns_desktop": "2",
+        "grid_gap_mobile": 24,
+        "grid_gap_desktop": 24,
+        "card_padding": 24,
+        "card_corner_radius": 8,
+        "card_border_width": 1,
+        "card_hover_border": true,
+        "card_row_gap": 12,
+        "card_title_size": "h4",
+        "title_icon_gap": 12,
+        "icon_box_size": 32,
+        "icon_inner_size": 18,
+        "icon_corner_radius": 6,
+        "color_scheme": "",
+        "custom_card_colors": true,
+        "card_background": "#f6f7f9",
+        "card_border_color": "#dde1e8",
+        "card_border_hover": "#9ca3af",
+        "custom_text_colors": true,
+        "text_muted_color": "#4b5a6b",
+        "custom_icon_colors": true,
+        "icon_background": "#1a2b3c",
+        "icon_foreground": "#ffffff",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "primary",
+        "footer_alignment": "left",
+        "footer_margin_top": 32,
+        "button_open_new_tab": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "placeholder_text": "Add situation cards to this section."
+      }
+    },
+    "trial_commitment_6fK2mL": {
+      "type": "trial-commitment",
+      "name": "Trial commitment",
+      "settings": {
+        "heading": "Use It for 45 Days. Decide for Yourself.",
+        "body": "<p>Use Nonomic daily and give it real conditions — heat, stress, movement, the gym. Most people notice the difference within the first week.</p><p>If it doesn't outperform your current deodorant, we'll make it right. 45 days. One click. No forms, no friction.</p>",
+        "text_alignment": "center",
+        "inner_max_width": 1280,
+        "copy_max_width": 720,
+        "heading_margin_bottom": 48,
+        "body_margin_bottom": 48,
+        "button_margin_top": 0,
+        "paragraph_spacing": 16,
+        "heading_size_desktop": 40,
+        "heading_size_mobile": 28,
+        "body_size_desktop": 16,
+        "body_size_mobile": 16,
+        "body_line_height": 170,
+        "button_font_size": 15,
+        "button_label": "Choose Your Formula →",
+        "button_link": "",
+        "button_open_new_tab": false,
+        "button_full_width_mobile": true,
+        "button_padding_vertical": 16,
+        "button_padding_horizontal": 36,
+        "button_corner_radius": 6,
+        "color_scheme": "",
+        "background_color": "#1a2b3c",
+        "use_custom_text_colors": true,
+        "color_heading": "#f6f7f9",
+        "color_body": "#a8bfd0",
+        "color_button_background": "#1d9e75",
+        "color_button_label": "#ffffff",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48,
+        "placeholder_text": "Add a heading or body text to display this section."
+      }
+    }
+  },
+  "order": [
+    "hero_microsilver_9pBMqK",
+    "stats_bar_cJeGcd",
+    "problem_statement_cXPMHJ",
+    "mechanism_layers_8ykTDa",
+    "situation_grid_GFXUzE",
+    "trial_commitment_6fK2mL"
+  ]
+}

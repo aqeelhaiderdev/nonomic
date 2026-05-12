@@ -1,0 +1,660 @@
+{{ 'section-problem-statement.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign column_blocks = section.blocks | where: 'type', 'column'
+  assign stat_blocks = section.blocks | where: 'type', 'stat'
+
+  assign show_placeholder = false
+  if column_blocks.size == 0 and stat_blocks.size == 0 and section.settings.heading == blank and section.settings.pullquote == blank
+    assign show_placeholder = true
+  endif
+-%}
+
+{%- style -%}
+  #ProblemStatement-{{ section.id }} {
+    --ps-heading-margin-bottom: {{ section.settings.heading_margin_bottom }}px;
+    --ps-column-stack-gap: {{ section.settings.column_stack_gap_mobile }}px;
+    --ps-column-inline-padding: {{ section.settings.column_inline_padding }}px;
+    --ps-divider-width: {{ section.settings.divider_thickness }}px;
+    --ps-divider-color: {{ section.settings.divider_color }};
+    --ps-stats-gap-mobile: {{ section.settings.stats_gap_mobile }}px;
+    --ps-stats-gap-desktop: {{ section.settings.stats_gap_desktop }}px;
+    --ps-stats-margin-top: {{ section.settings.stats_margin_top }}px;
+    --ps-stats-margin-bottom: {{ section.settings.stats_margin_bottom }}px;
+    --ps-icon-size: {{ section.settings.icon_size }}px;
+    --ps-column-count: {{ column_blocks.size }};
+    --ps-stat-count: {{ stat_blocks.size }};
+  }
+
+  {% if section.settings.custom_text_colors %}
+    #ProblemStatement-{{ section.id }} {
+      --ps-c-heading: {{ section.settings.color_heading }};
+      --ps-c-eyebrow: {{ section.settings.color_eyebrow }};
+      --ps-c-body: {{ section.settings.color_body }};
+      --ps-c-stat-value: {{ section.settings.color_stat_value }};
+      --ps-c-stat-label: {{ section.settings.color_stat_label }};
+      --ps-c-pullquote: {{ section.settings.color_pullquote }};
+      --ps-c-icon: {{ section.settings.color_icon }};
+    }
+  {% endif %}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+{%- endstyle -%}
+
+{%- if show_placeholder -%}
+  <div
+    id="ProblemStatement-{{ section.id }}"
+    class="problem-statement problem-section problem-statement--empty color-{{ section.settings.color_scheme }} gradient"
+    {{ section.shopify_attributes }}
+  >
+    <div class="page-width section-{{ section.id }}-padding isolate">
+      <p class="problem-statement__placeholder caption">
+        Add column blocks, stat blocks, or enter a heading and pull quote to get started.
+      </p>
+    </div>
+  </div>
+{%- else -%}
+  <div
+    id="ProblemStatement-{{ section.id }}"
+    class="problem-statement problem-section color-{{ section.settings.color_scheme }} gradient"
+    {{ section.shopify_attributes }}
+  >
+    <div
+      class="page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+      {% if settings.animations_reveal_on_scroll %}
+        data-cascade
+      {% endif %}
+    >
+      {%- if section.settings.heading != blank -%}
+        <header class="problem-statement__header problem-statement__header--{{ section.settings.heading_alignment }}">
+          <h2 class="problem-statement__heading inline-richtext">
+            {{ section.settings.heading }}
+          </h2>
+        </header>
+      {%- endif -%}
+
+      {%- if column_blocks.size > 0 -%}
+        <ul
+          class="problem-statement__columns problem-grid{% if section.settings.show_column_dividers %} problem-statement__columns--divided{% endif %}"
+          role="list"
+        >
+          {%- for block in column_blocks -%}
+            <li
+              class="problem-statement__column problem-column problem-statement__column--align-{{ section.settings.column_text_alignment }}"
+              {{ block.shopify_attributes }}
+              {% if settings.animations_reveal_on_scroll %}
+                style="--animation-order: {{ forloop.index }};"
+              {% endif %}
+            >
+              {%- if block.settings.eyebrow != blank -%}
+                <p class="problem-statement__eyebrow">
+                  {{ block.settings.eyebrow | escape }}
+                </p>
+              {%- endif -%}
+
+              {%- if block.settings.image != blank -%}
+                <div class="problem-statement__icon">
+                  {{
+                    block.settings.image
+                    | image_url: width: 200
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '80, 120, 160, 200',
+                      sizes: '60px',
+                      class: 'problem-statement__icon-img',
+                      alt: block.settings.image.alt | default: block.settings.eyebrow
+                  }}
+                </div>
+              {%- else -%}
+                <div class="problem-statement__icon" aria-hidden="true">
+                  {% render 'icon-problem-statement', icon: block.settings.icon %}
+                </div>
+              {%- endif -%}
+
+              {%- assign body_mobile = block.settings.body_mobile -%}
+              {%- if block.settings.body != blank -%}
+                {%- if body_mobile != blank -%}
+                  <div class="problem-statement__body rte small-hide">{{ block.settings.body }}</div>
+                  <div class="problem-statement__body rte large-up-hide">{{ body_mobile }}</div>
+                {%- else -%}
+                  <div class="problem-statement__body rte">{{ block.settings.body }}</div>
+                {%- endif -%}
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if stat_blocks.size > 0 -%}
+        <ul
+          class="problem-statement__stats stats-row problem-statement__stats--align-{{ section.settings.stats_alignment }}"
+          role="list"
+        >
+          {%- for block in stat_blocks -%}
+            <li
+              class="problem-statement__stat"
+              {{ block.shopify_attributes }}
+              {% if settings.animations_reveal_on_scroll %}
+                style="--animation-order: {{ column_blocks.size | plus: forloop.index }};"
+              {% endif %}
+            >
+              {%- if block.settings.link != blank -%}
+                <a
+                  href="{{ block.settings.link }}"
+                  class="problem-statement__stat-link full-unstyled-link"
+                  {% if block.settings.open_in_new_tab %}
+                    target="_blank" rel="noopener noreferrer"
+                  {% endif %}
+                >
+                  {%- if block.settings.value != blank -%}
+                    <span class="problem-statement__stat-value stat-number">
+                      {{- block.settings.value | escape -}}
+                    </span>
+                  {%- endif -%}
+                  {%- assign stat_label_mobile = block.settings.label_mobile -%}
+                  {%- if block.settings.label != blank -%}
+                    {%- if stat_label_mobile != blank -%}
+                      <div class="problem-statement__stat-label stat-label rte small-hide">{{ block.settings.label }}</div>
+                      <div class="problem-statement__stat-label stat-label rte large-up-hide">{{ stat_label_mobile }}</div>
+                    {%- else -%}
+                      <div class="problem-statement__stat-label stat-label rte">{{ block.settings.label }}</div>
+                    {%- endif -%}
+                  {%- endif -%}
+                </a>
+              {%- else -%}
+                <div class="problem-statement__stat-inner">
+                  {%- if block.settings.value != blank -%}
+                    <p class="problem-statement__stat-value stat-number">
+                      {{ block.settings.value | escape }}
+                    </p>
+                  {%- endif -%}
+                  {%- assign stat_label_mobile = block.settings.label_mobile -%}
+                  {%- if block.settings.label != blank -%}
+                    {%- if stat_label_mobile != blank -%}
+                      <div class="problem-statement__stat-label stat-label rte small-hide">{{ block.settings.label }}</div>
+                      <div class="problem-statement__stat-label stat-label rte large-up-hide">{{ stat_label_mobile }}</div>
+                    {%- else -%}
+                      <div class="problem-statement__stat-label stat-label rte">{{ block.settings.label }}</div>
+                    {%- endif -%}
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.pullquote != blank -%}
+        <p class="problem-statement__pullquote sweat-pullquote">
+          {{ section.settings.pullquote }}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="problem-statement__footer problem-statement__footer--align-{{ section.settings.button_alignment }}">
+          <a
+            class="button{% if section.settings.button_style == 'secondary' %} button--secondary{% elsif section.settings.button_style == 'outline' %} button--tertiary{% else %} button--primary{% endif %}"
+            {% if section.settings.button_link == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ section.settings.button_link }}"
+            {% endif %}
+            {% if section.settings.button_open_new_tab and section.settings.button_link != blank %}
+              target="_blank" rel="noopener noreferrer"
+            {% endif %}
+          >
+            {{ section.settings.button_label | escape }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Problem statement",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 12,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Most Deodorant Is Solving the Wrong Problem."
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 12,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Spacing below heading",
+      "default": 64
+    },
+    {
+      "type": "header",
+      "content": "Columns"
+    },
+    {
+      "type": "range",
+      "id": "column_stack_gap_mobile",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical gap between columns (mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "column_inline_padding",
+      "min": 12,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal padding inside columns (desktop)",
+      "info": "Space between divider and text.",
+      "default": 48
+    },
+    {
+      "type": "checkbox",
+      "id": "show_column_dividers",
+      "label": "Show dividers between columns (desktop)",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Column divider color",
+      "info": "Figma: rgb(221, 225, 232)",
+      "default": "#dde1e8"
+    },
+    {
+      "type": "range",
+      "id": "divider_thickness",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Divider thickness",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 32,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 48
+    },
+    {
+      "type": "select",
+      "id": "column_text_alignment",
+      "label": "Column text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Stats row"
+    },
+    {
+      "type": "range",
+      "id": "stats_margin_top",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Spacing above stats",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "stats_margin_bottom",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Spacing below stats",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "stats_gap_mobile",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between stats (mobile)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "stats_gap_desktop",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between stats (desktop)",
+      "default": 48
+    },
+    {
+      "type": "select",
+      "id": "stats_alignment",
+      "label": "Stats alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Pull quote"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "pullquote",
+      "label": "Text",
+      "default": "Sweat is odorless. Odor is bacterial. Nonomic is built around that fact."
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Style",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" },
+        { "value": "outline", "label": "Outline" }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "select",
+      "id": "button_alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_open_new_tab",
+      "label": "Open link in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_text_colors",
+      "label": "Override text colors",
+      "info": "Matches Figma hex values when off.",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_eyebrow",
+      "label": "Eyebrow",
+      "default": "#7a8899"
+    },
+    {
+      "type": "color",
+      "id": "color_body",
+      "label": "Body text",
+      "default": "#4b5a6b"
+    },
+    {
+      "type": "color",
+      "id": "color_stat_value",
+      "label": "Stat values",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_stat_label",
+      "label": "Stat labels",
+      "default": "#4b5a6b"
+    },
+    {
+      "type": "color",
+      "id": "color_pullquote",
+      "label": "Pull quote",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_icon",
+      "label": "Icons",
+      "info": "Line icons use currentColor.",
+      "default": "#111827"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "Masking with Fragrance"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "waves", "label": "Waves" },
+            { "value": "cross", "label": "Cross lines" },
+            { "value": "bar", "label": "Bar" }
+          ],
+          "default": "waves"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom icon image",
+          "info": "Replaces the icon above when set."
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Text",
+          "default": "<p>Heavy fragrances try to cover bacterial odor. But the bacteria keeps producing it. You're just layering smells — and often making it worse.</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "body_mobile",
+          "label": "Text (mobile)",
+          "info": "Optional shorter text on small screens. Leave blank to use the main text everywhere."
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "90%"
+        },
+        {
+          "type": "richtext",
+          "id": "label",
+          "label": "Label",
+          "default": "<p>of deodorant users report dissatisfaction</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "label_mobile",
+          "label": "Label (mobile)",
+          "info": "Optional shorter label on small screens."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional. Makes the stat clickable."
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open link in new tab",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Problem statement",
+      "blocks": [
+        {
+          "type": "column",
+          "settings": {
+            "eyebrow": "Masking with Fragrance",
+            "icon": "waves",
+            "body": "<p>Heavy fragrances try to cover bacterial odor. But the bacteria keeps producing it. You're just layering smells — and often making it worse.</p>",
+            "body_mobile": "<p>Heavy fragrances cover bacterial odor. The bacteria keeps producing it.</p>"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "eyebrow": "Shocking with Baking Soda",
+            "icon": "cross",
+            "body": "<p>Natural deodorants rely on baking soda to create a harsh pH environment. It works for some — and burns or irritates most. That's not a solution.</p>",
+            "body_mobile": "<p>Creates harsh pH. Burns or irritates most. That's not a solution.</p>"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "eyebrow": "Blocking with Aluminum",
+            "icon": "bar",
+            "body": "<p>Antiperspirants physically plug sweat ducts. Effective at stopping sweat — but sweat isn't the problem. And many people prefer not to block a natural process.</p>",
+            "body_mobile": "<p>Plugs sweat ducts. But sweat isn't the problem.</p>"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "90%",
+            "label": "<p>of deodorant users report dissatisfaction</p>",
+            "label_mobile": "<p>report dissatisfaction</p>"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "67%",
+            "label": "<p>experience irritation from natural options</p>",
+            "label_mobile": "<p>experience irritation</p>"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "61%",
+            "label": "<p>want alternatives to aluminum</p>",
+            "label_mobile": "<p>avoid<br/>aluminum</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

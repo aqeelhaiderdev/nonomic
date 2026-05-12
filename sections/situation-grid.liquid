@@ -1,0 +1,598 @@
+{{ 'section-situation-grid.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign columns_desktop = section.settings.columns_desktop | default: 2 | plus: 0
+  if columns_desktop < 1
+    assign columns_desktop = 1
+  elsif columns_desktop > 2
+    assign columns_desktop = 2
+  endif
+
+  case section.settings.footer_alignment
+    when 'left'
+      assign footer_justify = 'flex-start'
+    when 'right'
+      assign footer_justify = 'flex-end'
+    else
+      assign footer_justify = 'center'
+  endcase
+
+  assign show_placeholder = false
+  if section.blocks.size == 0
+    assign show_placeholder = true
+  endif
+-%}
+
+{%- style -%}
+  #SituationGrid-{{ section.id }} {
+    --sg-heading-margin: {{ section.settings.heading_margin_bottom }}px;
+    --sg-gap-mobile: {{ section.settings.grid_gap_mobile }}px;
+    --sg-gap-desktop: {{ section.settings.grid_gap_desktop }}px;
+    --sg-columns-desktop: {{ columns_desktop }};
+    --sg-card-padding: {{ section.settings.card_padding }}px;
+    --sg-card-radius: {{ section.settings.card_corner_radius }}px;
+    --sg-card-border-width: {{ section.settings.card_border_width }}px;
+    --sg-card-row-gap: {{ section.settings.card_row_gap }}px;
+    --sg-title-icon-gap: {{ section.settings.title_icon_gap }}px;
+    --sg-icon-box: {{ section.settings.icon_box_size }}px;
+    --sg-icon-inner: {{ section.settings.icon_inner_size }}px;
+    --sg-icon-radius: {{ section.settings.icon_corner_radius }}px;
+    --sg-footer-margin: {{ section.settings.footer_margin_top }}px;
+    --sg-footer-justify: {{ footer_justify }};
+  }
+
+  {% if section.settings.custom_card_colors %}
+    #SituationGrid-{{ section.id }} {
+      --sg-card-bg: {{ section.settings.card_background }};
+      --sg-card-border: {{ section.settings.card_border_color }};
+      --sg-card-border-hover: {{ section.settings.card_border_hover }};
+    }
+  {% endif %}
+
+  {% if section.settings.custom_text_colors %}
+    #SituationGrid-{{ section.id }} {
+      --sg-text-muted: {{ section.settings.text_muted_color }};
+    }
+  {% endif %}
+
+  {% if section.settings.custom_icon_colors %}
+    #SituationGrid-{{ section.id }} {
+      --sg-icon-bg: {{ section.settings.icon_background }};
+      --sg-icon-fg: {{ section.settings.icon_foreground }};
+    }
+  {% endif %}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- if show_placeholder -%}
+  <div
+    id="SituationGrid-{{ section.id }}"
+    class="situation-grid situation-grid--empty color-{{ section.settings.color_scheme }} gradient"
+    {{ section.shopify_attributes }}
+  >
+    <div class="page-width section-{{ section.id }}-padding isolate">
+      <p class="situation-grid__placeholder caption">
+        {{ section.settings.placeholder_text | escape }}
+      </p>
+    </div>
+  </div>
+{%- else -%}
+  <div
+    id="SituationGrid-{{ section.id }}"
+    class="situation-grid{% if section.settings.card_hover_border %} situation-grid--card-hover{% endif %} color-{{ section.settings.color_scheme }} gradient"
+    {{ section.shopify_attributes }}
+  >
+    <div
+      class="page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+      {% if settings.animations_reveal_on_scroll %}
+        data-cascade
+      {% endif %}
+    >
+      {%- if section.settings.heading != blank -%}
+        <header class="situation-grid__header situation-grid__header--{{ section.settings.heading_alignment }}">
+          <h2 class="situation-grid__heading inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        </header>
+      {%- endif -%}
+
+      <ul class="situation-grid__grid" role="list">
+        {%- for block in section.blocks -%}
+          <li
+            class="situation-grid__item"
+            {{ block.shopify_attributes }}
+            {% if settings.animations_reveal_on_scroll %}
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+          >
+            {%- assign card_link = block.settings.link -%}
+
+            {%- if card_link != blank -%}
+              <a
+                href="{{ card_link }}"
+                class="situation-grid__card situation-grid__card--link full-unstyled-link"
+                {% if block.settings.open_in_new_tab %}
+                  target="_blank" rel="noopener noreferrer"
+                {% endif %}
+              >
+                <div class="situation-grid__card-inner">
+                  {% render 'situation-grid-card-content', block: block, section: section, card_is_link: true %}
+                </div>
+              </a>
+            {%- else -%}
+              <article class="situation-grid__card">
+                <div class="situation-grid__card-inner">
+                  {% render 'situation-grid-card-content', block: block, section: section %}
+                </div>
+              </article>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="situation-grid__footer">
+          <a
+            class="button{% if section.settings.button_style == 'secondary' %} button--secondary{% elsif section.settings.button_style == 'outline' %} button--tertiary{% else %} button--primary{% endif %}"
+            {% if section.settings.button_link == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ section.settings.button_link }}"
+            {% endif %}
+            {% if section.settings.button_open_new_tab and section.settings.button_link != blank %}
+              target="_blank" rel="noopener noreferrer"
+            {% endif %}
+          >
+            {{ section.settings.button_label | escape }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Situation grid",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 12,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built for Your Situation"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" },
+        { "value": "hxl", "label": "Extra large" },
+        { "value": "hxxl", "label": "Extra extra large" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Space below heading",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Grid layout"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on large screens",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Column gap (mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_desktop",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Column gap (tablet & desktop)",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_corner_radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Card corner radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "label": "Card border width",
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "card_hover_border",
+      "label": "Stronger border on card hover (linked cards)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "card_row_gap",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Space between title row and body text",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "card_title_size",
+      "label": "Card title size",
+      "info": "Uses your theme typography scale (Settings → Typography).",
+      "options": [
+        { "value": "h3", "label": "Heading 3" },
+        { "value": "h4", "label": "Heading 4" },
+        { "value": "h5", "label": "Heading 5" }
+      ],
+      "default": "h4"
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "range",
+      "id": "title_icon_gap",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Space between icon and title",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "icon_box_size",
+      "min": 24,
+      "max": 56,
+      "step": 4,
+      "unit": "px",
+      "label": "Icon tile size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "icon_inner_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon graphic size inside tile",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "icon_corner_radius",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon tile corner radius",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_card_colors",
+      "label": "Custom card background & border",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#f6f7f9"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#dde1e8"
+    },
+    {
+      "type": "color",
+      "id": "card_border_hover",
+      "label": "Card border on hover",
+      "default": "#9ca3af"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_text_colors",
+      "label": "Custom body text color",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "text_muted_color",
+      "label": "Body text color",
+      "default": "#4b5a6b"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_icon_colors",
+      "label": "Custom icon tile colors",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon tile background",
+      "default": "#1a2b3c"
+    },
+    {
+      "type": "color",
+      "id": "icon_foreground",
+      "label": "Icon color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" },
+        { "value": "outline", "label": "Outline" }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "select",
+      "id": "footer_alignment",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "footer_margin_top",
+      "min": 0,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "label": "Space above button",
+      "default": 32
+    },
+    {
+      "type": "checkbox",
+      "id": "button_open_new_tab",
+      "label": "Open button link in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Empty state"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Message when no cards are added",
+      "default": "Add situation cards to this section."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "situation",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom image",
+          "info": "Optional. Replaces the icon when added."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shield", "label": "Shield" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "droplet", "label": "Droplet" },
+            { "value": "lightning_bolt", "label": "Lightning" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "shield"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Situation title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "info": "When a card link is set, rich formatting is flattened to plain text so the layout stays valid (no links inside the clickable card).",
+          "default": "<p>Add supporting copy that speaks to your customer.</p>"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card link",
+          "info": "Optional. Makes the entire card clickable."
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open card link in new tab",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Situation grid",
+      "blocks": [
+        {
+          "type": "situation",
+          "settings": {
+            "icon": "shield",
+            "title": "Switching from Antiperspirant",
+            "text": "<p>You want odor control without blocking sweat. MicroSilver gives you clinical-grade protection that lets your body function naturally.</p>"
+          }
+        },
+        {
+          "type": "situation",
+          "settings": {
+            "icon": "leaf",
+            "title": "Frustrated by Natural Deodorants",
+            "text": "<p>Tried everything \"natural\" and nothing worked? We don't use baking soda or heavy fragrances. We use science.</p>"
+          }
+        },
+        {
+          "type": "situation",
+          "settings": {
+            "icon": "droplet",
+            "title": "Sensitive Skin",
+            "text": "<p>Irritation, redness, or burning from other deodorants? Our pH-balanced formula works with your skin, not against it.</p>"
+          }
+        },
+        {
+          "type": "situation",
+          "settings": {
+            "icon": "lightning_bolt",
+            "title": "High-Performance Needs",
+            "text": "<p>Workouts, long days, high-stress environments. One application holds through it all. You shouldn't have to reapply.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

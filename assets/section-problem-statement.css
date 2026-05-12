@@ -1,0 +1,452 @@
+/* Problem statement — theme font families + Figma px sizes & hex colors */
+
+.problem-statement {
+  /* Figma palette (override via section settings) */
+  --ps-c-heading: #111827;
+  --ps-c-eyebrow: #7a8899;
+  --ps-c-body: #4b5a6b;
+  --ps-c-stat-value: #111827;
+  --ps-c-stat-label: #4b5a6b;
+  --ps-c-pullquote: #111827;
+  --ps-c-icon: #111827;
+  width: 100%;
+}
+
+.problem-statement__header {
+  margin: 0 0 var(--ps-heading-margin-bottom, 4rem);
+}
+
+.problem-statement__header--left {
+  text-align: start;
+}
+
+.problem-statement__header--center {
+  text-align: center;
+}
+
+.problem-statement__header--right {
+  text-align: end;
+}
+
+/* Figma sizes/colors — fonts from theme (heading) */
+.problem-statement__heading {
+  margin: 0;
+  /* max-width: 80rem; */
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--ps-c-heading);
+}
+
+.problem-statement__heading * {
+  font-family: inherit;
+  font-style: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+.problem-statement__header--center .problem-statement__heading {
+  margin-inline: auto;
+}
+
+.problem-statement__columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ps-column-stack-gap, 2.4rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media screen and (min-width: 750px) {
+  .problem-statement__columns {
+    grid-template-columns: repeat(var(--ps-column-count, 3), minmax(0, 1fr));
+    gap: 0;
+  }
+}
+
+.problem-statement__column {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.problem-statement__column--align-left {
+  text-align: start;
+}
+
+.problem-statement__column--align-center {
+  text-align: center;
+}
+
+.problem-statement__column--align-center .problem-statement__icon {
+  margin-inline: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .problem-statement__column {
+    padding-inline: var(--ps-column-inline-padding, 3rem);
+  }
+
+  .problem-statement__column:first-child {
+    padding-inline-start: 0;
+  }
+
+  .problem-statement__column:last-child {
+    padding-inline-end: 0;
+  }
+
+  .problem-statement__columns--divided .problem-statement__column:not(:last-child) {
+    border-inline-end: var(--ps-divider-width, 1px) solid var(--ps-divider-color, #dde1e8);
+  }
+}
+
+/* Eyebrow — theme body font */
+.problem-statement__eyebrow {
+  margin: 0 0 1rem;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ps-c-eyebrow);
+}
+
+.problem-statement__icon {
+  display: block;
+  width: var(--ps-icon-size, 4.8rem);
+  height: var(--ps-icon-size, 4.8rem);
+  margin-bottom: 1rem;
+  color: var(--ps-c-icon);
+}
+
+.problem-statement__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.problem-statement__icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.problem-statement__body {
+  margin: 0;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--ps-c-body);
+}
+
+.problem-statement__body.rte :first-child {
+  margin-top: 0;
+}
+
+.problem-statement__body.rte :last-child {
+  margin-bottom: 0;
+}
+
+.problem-statement__body.rte p,
+.problem-statement__body.rte li,
+.problem-statement__body.rte a {
+  font-family: inherit;
+  font-style: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.problem-statement__stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--ps-stats-gap-mobile, 3rem);
+  row-gap: var(--ps-stats-gap-mobile, 3rem);
+  margin: var(--ps-stats-margin-top, 4rem) 0 var(--ps-stats-margin-bottom, 3rem);
+  padding: 0;
+  list-style: none;
+}
+
+@media screen and (min-width: 750px) {
+  .problem-statement__stats {
+    grid-template-columns: repeat(var(--ps-stat-count, 3), minmax(0, 1fr));
+    gap: var(--ps-stats-gap-desktop, 4.8rem);
+    row-gap: var(--ps-stats-gap-desktop, 4.8rem);
+  }
+}
+
+.problem-statement__stat {
+  margin: 0;
+  padding: 0;
+}
+
+.problem-statement__stats--align-left .problem-statement__stat {
+  text-align: start;
+}
+
+.problem-statement__stats--align-center .problem-statement__stat {
+  text-align: center;
+}
+
+.problem-statement__stats--align-right .problem-statement__stat {
+  text-align: end;
+}
+
+.problem-statement__stat-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  max-width: 28rem;
+  margin-inline: auto;
+}
+
+.problem-statement__stats--align-left .problem-statement__stat-inner {
+  align-items: flex-start;
+  margin-inline: 0 auto;
+}
+
+.problem-statement__stats--align-right .problem-statement__stat-inner {
+  align-items: flex-end;
+  margin-inline: auto 0;
+}
+
+.problem-statement__stat-link {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  max-width: 28rem;
+  margin-inline: auto;
+  text-align: inherit;
+}
+
+.problem-statement__stats--align-left .problem-statement__stat-link {
+  align-items: flex-start;
+  margin-inline: 0 auto;
+}
+
+.problem-statement__stats--align-center .problem-statement__stat-link {
+  align-items: center;
+}
+
+.problem-statement__stats--align-right .problem-statement__stat-link {
+  align-items: flex-end;
+  margin-inline: auto 0;
+}
+
+.problem-statement__stat-value {
+  display: block;
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--ps-c-stat-value);
+}
+
+.problem-statement__stat-label {
+  margin: 0;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--ps-c-stat-label);
+}
+
+.problem-statement__stat-label.rte :first-child {
+  margin-top: 0;
+}
+
+.problem-statement__stat-label.rte :last-child {
+  margin-bottom: 0;
+}
+
+.problem-statement__stat-label.rte p,
+.problem-statement__stat-label.rte {
+  font-family: inherit;
+  font-style: inherit;
+  font-size: 12px;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.problem-statement__pullquote {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-heading-family);
+  font-style: italic;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--ps-c-pullquote);
+}
+
+.problem-statement__pullquote * {
+  font-family: inherit;
+  font-style: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.problem-statement__footer {
+  margin-top: 2.4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.problem-statement__footer--align-left {
+  justify-content: flex-start;
+}
+
+.problem-statement__footer--align-right {
+  justify-content: flex-end;
+}
+
+.problem-statement--empty .problem-statement__placeholder {
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------------
+   Mobile (≤768px) — matches global “problem-section / problem-grid” layout
+   so theme custom CSS hooks (.problem-section, .stats-row, .stat-number, etc.)
+   and this section stay aligned.
+   ------------------------------------------------------------------------- */
+@media screen and (max-width: 749px) {
+  .problem-statement.problem-section {
+    background-color: #f6f7f9 !important;
+    background-image: none !important;
+  }
+
+  .problem-statement__header {
+    margin: 0 0 24px;
+  }
+
+  .problem-statement__heading {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .problem-statement__columns.problem-grid {
+    gap: 16px;
+  }
+
+  .problem-statement__column.problem-column {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: flex-start;
+    padding: 24px !important;
+    border: 0.5px solid #dde1e8;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border-inline-end: none !important;
+  }
+
+  .problem-statement__column.problem-column.problem-statement__column--align-center {
+    text-align: start;
+  }
+
+  .problem-statement__eyebrow {
+    order: 2;
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: normal;
+    text-transform: none;
+    line-height: 1.3;
+    color: #111827;
+  }
+
+  .problem-statement__icon {
+    order: 1;
+    width: 32px;
+    height: 32px;
+    max-width: 32px;
+    max-height: 32px;
+    margin-bottom: 0;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .problem-statement__icon svg path {
+    stroke-width: 2px;
+  }
+
+  .problem-statement__body {
+    order: 3;
+    flex: 0 0 100%;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  /* Horizontal stats row — Figma mobile */
+  .problem-statement__stats.stats-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding: 0;
+  }
+
+  .problem-statement__stat {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+  }
+
+  .problem-statement__stat-inner,
+  .problem-statement__stat-link {
+    max-width: none;
+    width: 100%;
+    margin-inline: 0;
+    align-items: center !important;
+  }
+
+  .problem-statement__stat-value,
+  .problem-statement__stat-value.stat-number {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .problem-statement__stat-label,
+  .problem-statement__stat-label.stat-label {
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: 300;
+  }
+
+  .problem-statement__pullquote.sweat-pullquote {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 24px;
+    padding: 0;
+  }
+}

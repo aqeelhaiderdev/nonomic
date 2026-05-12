@@ -1,0 +1,168 @@
+.trial-commitment {
+  --trial-bg: #1a2b3c;
+  --trial-heading: #f6f7f9;
+  --trial-body: #a8bfd0;
+  --trial-btn-bg: #1d9e75;
+  --trial-btn-label: #ffffff;
+  --trial-inner-max: 1280px;
+  --trial-copy-max: 720px;
+  --trial-heading-size-mobile: 28px;
+  --trial-heading-size-desktop: 40px;
+  --trial-body-size-mobile: 16px;
+  --trial-body-size-desktop: 16px;
+  --trial-button-font-size: 15px;
+  --trial-heading-margin-bottom: 4.8rem;
+  --trial-body-margin-bottom: 4.8rem;
+  --trial-button-margin-top: 4.8rem;
+  --trial-paragraph-gap: 1.6rem;
+  --trial-body-line-height: 1.7;
+  --trial-button-padding-y: 1.6rem;
+  --trial-button-padding-x: 3.6rem;
+  --trial-button-radius: 0.6rem;
+
+  background-color: var(--trial-bg);
+  width: 100%;
+}
+
+.trial-commitment__inner {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--trial-inner-max);
+}
+
+.trial-commitment__inner--left {
+  text-align: left;
+}
+
+.trial-commitment__inner--center {
+  text-align: center;
+}
+
+.trial-commitment__inner--right {
+  text-align: right;
+}
+
+.trial-commitment__heading {
+  margin: 0 0 var(--trial-heading-margin-bottom);
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: 400;
+  letter-spacing: calc(var(--font-heading-scale) * 0.06rem);
+  color: var(--trial-heading);
+  font-size: var(--trial-heading-size-mobile);
+  line-height: calc(1 + 0.25 / max(1, var(--font-heading-scale)));
+}
+
+@media screen and (min-width: 750px) {
+  .trial-commitment__heading {
+    font-size: var(--trial-heading-size-desktop);
+  }
+}
+
+.trial-commitment__body {
+  margin: 0 auto var(--trial-body-margin-bottom);
+  max-width: var(--trial-copy-max);
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: 300;
+  font-size: var(--trial-body-size-mobile);
+  line-height: var(--trial-body-line-height);
+  color: var(--trial-body);
+}
+
+@media screen and (min-width: 750px) {
+  .trial-commitment__body {
+    font-size: var(--trial-body-size-desktop);
+  }
+}
+
+.trial-commitment__inner--left .trial-commitment__body {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.trial-commitment__inner--right .trial-commitment__body {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.trial-commitment__body p {
+  margin: 0;
+}
+
+.trial-commitment__body p + p {
+  margin-top: var(--trial-paragraph-gap);
+}
+
+.trial-commitment__body a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+.trial-commitment__actions {
+  margin-top: var(--trial-button-margin-top);
+}
+
+.trial-commitment__inner--center .trial-commitment__actions {
+  display: flex;
+  justify-content: center;
+}
+
+.trial-commitment__inner--left .trial-commitment__actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.trial-commitment__inner--right .trial-commitment__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.trial-commitment__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--trial-button-padding-y) var(--trial-button-padding-x);
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: 500;
+  font-size: var(--trial-button-font-size);
+  line-height: calc(1 + 0.2 / var(--font-body-scale));
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--trial-button-radius);
+  background-color: var(--trial-btn-bg);
+  color: var(--trial-btn-label);
+  transition: opacity var(--duration-short) ease;
+  min-height: 4.4rem;
+  box-sizing: border-box;
+}
+
+.trial-commitment__button:hover {
+  opacity: 0.9;
+}
+
+.trial-commitment__button:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.trial-commitment__button:focus-visible {
+  outline: var(--focused-base-outline);
+  outline-offset: var(--focused-base-outline-offset);
+  box-shadow: var(--focused-base-box-shadow);
+}
+
+@media screen and (max-width: 749px) {
+  .trial-commitment__button--full-mobile {
+    width: 100%;
+  }
+}
+
+.trial-commitment__placeholder {
+  margin: 0;
+  opacity: 0.7;
+}

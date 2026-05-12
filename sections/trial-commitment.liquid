@@ -1,0 +1,436 @@
+{{ 'section-trial-commitment.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign align = section.settings.text_alignment
+  assign show_placeholder = false
+  if section.settings.heading == blank and section.settings.body == blank and section.settings.button_label == blank
+    assign show_placeholder = true
+  endif
+-%}
+
+{%- style -%}
+  #TrialCommitment-{{ section.id }} {
+    --trial-inner-max: {{ section.settings.inner_max_width }}px;
+    --trial-copy-max: {{ section.settings.copy_max_width }}px;
+    --trial-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --trial-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --trial-body-size-mobile: {{ section.settings.body_size_mobile }}px;
+    --trial-body-size-desktop: {{ section.settings.body_size_desktop }}px;
+    --trial-button-font-size: {{ section.settings.button_font_size }}px;
+    --trial-heading-margin-bottom: {{ section.settings.heading_margin_bottom }}px;
+    --trial-body-margin-bottom: {{ section.settings.body_margin_bottom }}px;
+    --trial-button-margin-top: {{ section.settings.button_margin_top }}px;
+    --trial-paragraph-gap: {{ section.settings.paragraph_spacing }}px;
+    --trial-body-line-height: {{ section.settings.body_line_height | divided_by: 100.0 }};
+    --trial-button-padding-y: {{ section.settings.button_padding_vertical }}px;
+    --trial-button-padding-x: {{ section.settings.button_padding_horizontal }}px;
+    --trial-button-radius: {{ section.settings.button_corner_radius }}px;
+    --trial-bg: {{ section.settings.background_color }};
+  }
+
+  {% if section.settings.use_custom_text_colors %}
+    #TrialCommitment-{{ section.id }} {
+      --trial-heading: {{ section.settings.color_heading }};
+      --trial-body: {{ section.settings.color_body }};
+      --trial-btn-bg: {{ section.settings.color_button_background }};
+      --trial-btn-label: {{ section.settings.color_button_label }};
+    }
+  {% else %}
+    #TrialCommitment-{{ section.id }} {
+      --trial-heading: rgb(var(--color-foreground));
+      --trial-body: rgba(var(--color-foreground), 0.75);
+      --trial-btn-bg: rgb(var(--color-button));
+      --trial-btn-label: rgb(var(--color-button-text));
+    }
+  {% endif %}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  id="TrialCommitment-{{ section.id }}"
+  class="trial-commitment color-{{ section.settings.color_scheme }} gradient"
+  {{ section.shopify_attributes }}
+>
+  {%- if show_placeholder -%}
+    <div class="page-width section-{{ section.id }}-padding isolate">
+      <p class="trial-commitment__placeholder caption">
+        {{ section.settings.placeholder_text | escape }}
+      </p>
+    </div>
+  {%- else -%}
+    <div class="page-width section-{{ section.id }}-padding isolate">
+      <div class="trial-commitment__inner trial-commitment__inner--{{ align }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="trial-commitment__heading inline-richtext">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.body != blank -%}
+          <div class="trial-commitment__body rte">
+            {{ section.settings.body }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <div class="trial-commitment__actions">
+            <a
+              {% if section.settings.button_link == blank %}
+                role="link"
+                aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.button_link }}"
+                {% if section.settings.button_open_new_tab %}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                {% endif %}
+              {% endif %}
+              class="trial-commitment__button{% if section.settings.button_full_width_mobile %} trial-commitment__button--full-mobile{% endif %}"
+            >
+              {{- section.settings.button_label | escape -}}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Trial commitment",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Use It for 45 Days. Decide for Yourself."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Use Nonomic daily and give it real conditions — heat, stress, movement, the gym. Most people notice the difference within the first week.</p><p>If it doesn't outperform your current deodorant, we'll make it right. 45 days. One click. No forms, no friction.</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "inner_max_width",
+      "min": 960,
+      "max": 1440,
+      "step": 8,
+      "unit": "px",
+      "label": "Content row max width",
+      "default": 1280
+    },
+    {
+      "type": "range",
+      "id": "copy_max_width",
+      "min": 480,
+      "max": 896,
+      "step": 8,
+      "unit": "px",
+      "label": "Text column max width",
+      "default": 720
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Space below heading",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "body_margin_bottom",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Space below body",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "button_margin_top",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Space above button",
+      "info": "Extra space above the button row (use with body spacing to fine-tune).",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "paragraph_spacing",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between paragraphs",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 28,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size (desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 22,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size (mobile)",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "body_size_desktop",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Body size (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "body_size_mobile",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Body size (mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "body_line_height",
+      "min": 140,
+      "max": 200,
+      "step": 5,
+      "label": "Body line height",
+      "info": "Percentage (170 = 1.7).",
+      "default": 170
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Label",
+      "default": "Choose Your Formula →"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link",
+      "info": "Use a page anchor (e.g. #your-section-id) to scroll to your formula block."
+    },
+    {
+      "type": "checkbox",
+      "id": "button_open_new_tab",
+      "label": "Open link in new tab",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "button_full_width_mobile",
+      "label": "Full width button on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "min": 8,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Button vertical padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "min": 16,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Button horizontal padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "button_corner_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Button corner radius",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#1a2b3c"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_text_colors",
+      "label": "Custom text and button colors",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading",
+      "default": "#f6f7f9"
+    },
+    {
+      "type": "color",
+      "id": "color_body",
+      "label": "Body text",
+      "default": "#a8bfd0"
+    },
+    {
+      "type": "color",
+      "id": "color_button_background",
+      "label": "Button background",
+      "default": "#1d9e75"
+    },
+    {
+      "type": "color",
+      "id": "color_button_label",
+      "label": "Button label",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (desktop)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (desktop)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Placeholder"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Empty state message",
+      "default": "Add a heading or body text to display this section."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trial commitment"
+    }
+  ]
+}
+{% endschema %}
