@@ -63,10 +63,70 @@
         "padding_bottom": 80,
         "padding_bottom_mobile": 48
       }
+    },
+    "page_the_science_problem_UyaPwA": {
+      "type": "page_the-science-problem",
+      "blocks": {
+        "feature_FABNpP": {
+          "type": "feature",
+          "settings": {
+            "number": "1",
+            "heading": "Bacterial Activity",
+            "text": "<p>Corynebacterium and Staphylococcus species metabolize sweat compounds into odor molecules.</p>"
+          }
+        },
+        "feature_9BXdKw": {
+          "type": "feature",
+          "settings": {
+            "number": "2",
+            "heading": "Enzymatic Breakdown",
+            "text": "<p>Bacterial enzymes convert proteins and fatty acids into thiols, acids, and aldehydes — the source of odor.</p>"
+          }
+        },
+        "feature_pkUaa8": {
+          "type": "feature",
+          "settings": {
+            "number": "3",
+            "heading": "Compounding Effect",
+            "text": "<p>The longer bacteria remain active, the stronger the odor becomes. Masking doesn't stop the process.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_FABNpP",
+        "feature_9BXdKw",
+        "feature_pkUaa8"
+      ],
+      "name": "Science Problem",
+      "settings": {
+        "heading": "The Problem Is Bacterial",
+        "text": "<p>Sweat is odorless. Odor occurs when bacteria on your skin break down proteins and lipids in sweat into volatile organic compounds. That's what you smell. Fragrance masks it. Baking soda shocks the pH environment. Aluminum blocks sweat entirely. None of these address the mechanism.</p>",
+        "background_color": "#ffffff",
+        "color_heading": "#0b1b2a",
+        "color_text": "#607080",
+        "color_number": "#f0f2f4",
+        "color_item_heading": "#0b1b2a",
+        "color_item_text": "#607080",
+        "heading_size_desktop": 44,
+        "text_size_desktop": 16,
+        "number_size_desktop": 64,
+        "item_heading_size_desktop": 16,
+        "item_text_size_desktop": 14,
+        "heading_size_mobile": 36,
+        "text_size_mobile": 16,
+        "number_size_mobile": 80,
+        "item_heading_size_mobile": 18,
+        "item_text_size_mobile": 15,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom_mobile": 48
+      }
     }
   },
   "order": [
     "main",
-    "page_the_science_header_kMX68n"
+    "page_the_science_header_kMX68n",
+    "page_the_science_problem_UyaPwA"
   ]
 }
