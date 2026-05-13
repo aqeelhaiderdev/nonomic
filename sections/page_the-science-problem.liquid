@@ -1,0 +1,357 @@
+{%- style -%}
+  #ScienceProblem-{{ section.id }} {
+    --sp-bg: {{ section.settings.background_color }};
+    --sp-c-heading: {{ section.settings.color_heading }};
+    --sp-c-text: {{ section.settings.color_text }};
+    --sp-c-number: {{ section.settings.color_number }};
+    --sp-c-item-heading: {{ section.settings.color_item_heading }};
+    --sp-c-item-text: {{ section.settings.color_item_text }};
+    
+    background-color: var(--sp-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .science-problem__intro {
+    max-width: 900px;
+    margin-bottom: 48px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-problem__intro {
+      margin-bottom: 64px;
+    }
+  }
+
+  .science-problem__heading {
+    margin: 0 0 20px;
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--sp-c-heading);
+    word-break: break-word;
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-problem__heading {
+      font-size: 48px;
+      margin-bottom: 24px;
+    }
+  }
+
+  .science-problem__text {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--sp-c-text);
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-problem__text {
+      font-size: 18px;
+    }
+  }
+
+  .science-problem__text p {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  .science-problem__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-problem__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .science-problem__grid {
+      gap: 64px;
+    }
+  }
+
+  .science-problem__item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .science-problem__item-number {
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--sp-c-number);
+    margin: 0 0 16px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-problem__item-number {
+      font-size: 100px;
+      margin: 0 0 24px;
+    }
+  }
+
+  .science-problem__item-heading {
+    margin: 0 0 12px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--sp-c-item-heading);
+  }
+
+  .science-problem__item-text {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--sp-c-item-text);
+  }
+
+  .science-problem__item-text p {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+{%- endstyle -%}
+
+<div id="ScienceProblem-{{ section.id }}" class="science-problem section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    
+    <div class="science-problem__intro">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="science-problem__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="science-problem__text rte">
+          {{ section.settings.text }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="science-problem__grid">
+        {%- for block in section.blocks -%}
+          <div class="science-problem__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.number != blank -%}
+              <div class="science-problem__item-number">{{ block.settings.number | escape }}</div>
+            {%- endif -%}
+            
+            {%- if block.settings.heading != blank -%}
+              <h3 class="science-problem__item-heading">{{ block.settings.heading | escape }}</h3>
+            {%- endif -%}
+            
+            {%- if block.settings.text != blank -%}
+              <div class="science-problem__item-text rte">{{ block.settings.text }}</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Science Problem",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Intro Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Problem Is Bacterial"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Sweat is odorless. Odor occurs when bacteria on your skin break down proteins and lipids in sweat into volatile organic compounds. That's what you smell. Fragrance masks it. Baking soda shocks the pH environment. Aluminum blocks sweat entirely. None of these address the mechanism.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#0b1b2a"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Body text",
+      "default": "#607080"
+    },
+    {
+      "type": "color",
+      "id": "color_number",
+      "label": "Large numbers",
+      "default": "#f0f2f4"
+    },
+    {
+      "type": "color",
+      "id": "color_item_heading",
+      "label": "Grid item heading",
+      "default": "#0b1b2a"
+    },
+    {
+      "type": "color",
+      "id": "color_item_text",
+      "label": "Grid item text",
+      "default": "#607080"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (Desktop)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (Desktop)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (Mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (Mobile)",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Column",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Large Number",
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Bacterial Activity"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Corynebacterium and Staphylococcus species metabolize sweat compounds into odor molecules.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Science Problem",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "number": "1",
+            "heading": "Bacterial Activity",
+            "text": "<p>Corynebacterium and Staphylococcus species metabolize sweat compounds into odor molecules.</p>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "number": "2",
+            "heading": "Enzymatic Breakdown",
+            "text": "<p>Bacterial enzymes convert proteins and fatty acids into thiols, acids, and aldehydes — the source of odor.</p>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "number": "3",
+            "heading": "Compounding Effect",
+            "text": "<p>The longer bacteria remain active, the stronger the odor becomes. Masking doesn't stop the process.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
