@@ -11,6 +11,32 @@
     --sh-c-meta: {{ section.settings.color_meta }};
     --sh-c-accent: {{ section.settings.color_accent }};
 
+    /* Element Spacing Variables */
+    --sh-eyebrow-pt-mo: {{ section.settings.eyebrow_padding_top_mobile }}px;
+    --sh-eyebrow-pb-mo: {{ section.settings.eyebrow_padding_bottom_mobile }}px;
+    --sh-eyebrow-pt-dk: {{ section.settings.eyebrow_padding_top }}px;
+    --sh-eyebrow-pb-dk: {{ section.settings.eyebrow_padding_bottom }}px;
+
+    --sh-heading-pt-mo: {{ section.settings.heading_padding_top_mobile }}px;
+    --sh-heading-pb-mo: {{ section.settings.heading_padding_bottom_mobile }}px;
+    --sh-heading-pt-dk: {{ section.settings.heading_padding_top }}px;
+    --sh-heading-pb-dk: {{ section.settings.heading_padding_bottom }}px;
+
+    --sh-desc-pt-mo: {{ section.settings.description_padding_top_mobile }}px;
+    --sh-desc-pb-mo: {{ section.settings.description_padding_bottom_mobile }}px;
+    --sh-desc-pt-dk: {{ section.settings.description_padding_top }}px;
+    --sh-desc-pb-dk: {{ section.settings.description_padding_bottom }}px;
+
+    --sh-meta-pt-mo: {{ section.settings.meta_padding_top_mobile }}px;
+    --sh-meta-pb-mo: {{ section.settings.meta_padding_bottom_mobile }}px;
+    --sh-meta-pt-dk: {{ section.settings.meta_padding_top }}px;
+    --sh-meta-pb-dk: {{ section.settings.meta_padding_bottom }}px;
+
+    --sh-btn-pt-mo: {{ section.settings.button_padding_top_mobile }}px;
+    --sh-btn-pb-mo: {{ section.settings.button_padding_bottom_mobile }}px;
+    --sh-btn-pt-dk: {{ section.settings.button_padding_top }}px;
+    --sh-btn-pb-dk: {{ section.settings.button_padding_bottom }}px;
+
     background-color: var(--sh-bg);
     width: 100%;
     position: relative;
@@ -39,7 +65,9 @@
   }
 
   .science-header__eyebrow {
-    margin: 0 0 24px;
+    margin: 0;
+    padding-top: var(--sh-eyebrow-pt-mo);
+    padding-bottom: var(--sh-eyebrow-pb-mo);
     font-family: var(--font-body-family);
     font-style: var(--font-body-style);
     font-size: 11px;
@@ -50,7 +78,9 @@
   }
 
   .science-header__heading {
-    margin: 0 0 20px;
+    margin: 0;
+    padding-top: var(--sh-heading-pt-mo);
+    padding-bottom: var(--sh-heading-pb-mo);
     font-family: var(--font-heading-family);
     font-style: var(--font-heading-style);
     font-size: var(--sh-heading-size-mobile);
@@ -71,28 +101,16 @@
     color: inherit;
   }
 
-  @media screen and (min-width: 750px) {
-    .science-header__heading {
-      font-size: var(--sh-heading-size-desktop);
-      line-height: 0.95;
-      margin-bottom: 24px;
-    }
-  }
-
   .science-header__description {
-    margin: 0 0 24px;
+    margin: 0;
+    padding-top: var(--sh-desc-pt-mo);
+    padding-bottom: var(--sh-desc-pb-mo);
     font-family: var(--font-body-family);
     font-style: var(--font-body-style);
     font-size: 16px;
     font-weight: 300;
     line-height: 1.5;
     color: var(--sh-c-description);
-  }
-
-  @media screen and (min-width: 750px) {
-    .science-header__description {
-      font-size: 20px;
-    }
   }
 
   .science-header__description p {
@@ -102,11 +120,13 @@
   }
 
   .science-header__meta {
+    margin: 0;
+    padding-top: var(--sh-meta-pt-mo);
+    padding-bottom: var(--sh-meta-pb-mo);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin: 0 0 32px;
     font-family: var(--font-body-family);
     font-style: var(--font-body-style);
     font-size: 12px;
@@ -127,6 +147,15 @@
 
   .science-header__star--empty {
     color: rgba(255, 255, 255, 0.18);
+  }
+
+  .science-header__cta-wrapper {
+    margin: 0;
+    padding-top: var(--sh-btn-pt-mo);
+    padding-bottom: var(--sh-btn-pb-mo);
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .science-header__cta {
@@ -153,6 +182,36 @@
   @media screen and (max-width: 749px) {
     .science-header__cta {
       width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-header__eyebrow {
+      padding-top: var(--sh-eyebrow-pt-dk);
+      padding-bottom: var(--sh-eyebrow-pb-dk);
+    }
+    
+    .science-header__heading {
+      font-size: var(--sh-heading-size-desktop);
+      line-height: 0.95;
+      padding-top: var(--sh-heading-pt-dk);
+      padding-bottom: var(--sh-heading-pb-dk);
+    }
+    
+    .science-header__description {
+      font-size: 20px;
+      padding-top: var(--sh-desc-pt-dk);
+      padding-bottom: var(--sh-desc-pb-dk);
+    }
+
+    .science-header__meta {
+      padding-top: var(--sh-meta-pt-dk);
+      padding-bottom: var(--sh-meta-pb-dk);
+    }
+
+    .science-header__cta-wrapper {
+      padding-top: var(--sh-btn-pt-dk);
+      padding-bottom: var(--sh-btn-pb-dk);
     }
   }
 
@@ -212,15 +271,17 @@
       {%- endif -%}
 
       {%- if section.settings.button_label != blank -%}
-        <a class="science-header__cta"
-          {% if section.settings.button_link == blank %}
-            role="link" aria-disabled="true"
-          {% else %}
-            href="{{ section.settings.button_link }}"
-          {% endif %}
-        >
-          {{ section.settings.button_label | escape }}
-        </a>
+        <div class="science-header__cta-wrapper">
+          <a class="science-header__cta"
+            {% if section.settings.button_link == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ section.settings.button_link }}"
+            {% endif %}
+          >
+            {{ section.settings.button_label | escape }}
+          </a>
+        </div>
       {%- endif -%}
 
     </div>
@@ -298,6 +359,210 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow top padding (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow bottom padding (Desktop)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow top padding (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow bottom padding (Mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding (Desktop)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding (Mobile)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "description_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description top padding (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "description_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description bottom padding (Desktop)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "description_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description top padding (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "description_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description bottom padding (Mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "meta_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Review top padding (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "meta_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Review bottom padding (Desktop)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "meta_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Review top padding (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "meta_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Review bottom padding (Mobile)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "button_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Button top padding (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "button_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Button bottom padding (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "button_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Button top padding (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "button_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Button bottom padding (Mobile)",
+      "default": 0
     },
     {
       "type": "header",
@@ -420,7 +685,7 @@
   ],
   "presets": [
     {
-      "name": "The Science Header"
+      "name": "Science Header"
     }
   ]
 }
