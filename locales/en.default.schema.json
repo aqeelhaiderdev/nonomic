@@ -482,7 +482,7 @@
           "settings": {
             "text": {
               "label": "Text",
-              "default": "Welcome to our store"
+              "default": "Is Nonomic right for you?"
             },
             "text_alignment": {
               "label": "Text alignment",

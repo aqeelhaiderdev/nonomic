@@ -1,0 +1,732 @@
+{{ 'section-nonomic-comparison-chart.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign logo = section.settings.logo
+  assign show_logo_desktop = true
+  if logo == blank
+    assign show_logo_desktop = false
+  endif
+  assign logo_alt_text = section.settings.logo_alt | default: section.settings.mobile_brand_text | default: shop.name
+-%}
+
+{%- style -%}
+  #NonomicComparison-{{ section.id }} {
+    --ncc-max-width: {{ section.settings.max_width }}px;
+    --ncc-pad-x: {{ section.settings.horizontal_padding }}px;
+    --ncc-heading-space: {{ section.settings.heading_spacing_bottom }}px;
+    --ncc-highlight-radius: {{ section.settings.highlight_corner_radius }}px;
+    --ncc-table-fs-desktop: {{ section.settings.table_font_size }}px;
+    --ncc-table-fs-mobile: {{ section.settings.table_font_size_mobile }}px;
+    --ncc-table-head-fs-mobile: {{ section.settings.table_head_font_size_mobile }}px;
+    --ncc-logo-h: {{ section.settings.logo_max_height }}px;
+    --ncc-thead-pad-y: {{ section.settings.table_header_padding_y }}px;
+    --ncc-thead-pad-x: {{ section.settings.table_header_padding_x }}px;
+    --ncc-tbody-pad: {{ section.settings.table_cell_padding }}px;
+    --ncc-border-desktop: {{ section.settings.row_border_width_desktop }}px;
+    --ncc-icon-size: {{ section.settings.icon_size }}px;
+    --ncc-bg: {{ section.settings.color_background }};
+    --ncc-heading: {{ section.settings.color_heading }};
+    --ncc-header-muted: {{ section.settings.color_column_header_muted }};
+    --ncc-highlight-header-bg: {{ section.settings.color_highlight_header_background }};
+    --ncc-highlight-header-fg: {{ section.settings.color_highlight_header_text }};
+    --ncc-feature-text: {{ section.settings.color_feature_text }};
+    --ncc-highlight-column-bg: {{ section.settings.color_highlight_column_background }};
+    --ncc-row-border-desktop: {{ section.settings.color_row_border_desktop }};
+    --ncc-row-border-mobile: {{ section.settings.color_row_border_mobile }};
+    --ncc-row-border-mobile-strong: {{ section.settings.color_row_border_mobile_strong }};
+    --ncc-check-nonomic: {{ section.settings.color_check_nonomic }};
+    --ncc-x-nonomic: {{ section.settings.color_x_nonomic_column }};
+    --ncc-icon-muted: {{ section.settings.color_icon_muted }};
+    --ncc-mobile-brand: {{ section.settings.color_mobile_brand_text }};
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  id="NonomicComparison-{{ section.id }}"
+  class="nonomic-comparison section-{{ section.id }}-padding"
+  {{ section.shopify_attributes }}
+>
+  <div class="nonomic-comparison__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="nonomic-comparison__title inline-richtext {{ section.settings.heading_size }} nonomic-comparison__title--align-{{ section.settings.heading_alignment }}">
+        {{ section.settings.heading }}
+      </h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="nonomic-comparison__scroll">
+        <table class="nonomic-comparison__table">
+          <thead>
+            <tr>
+              <th class="nonomic-comparison__corner" scope="col">
+                <span class="visually-hidden">{{ section.settings.corner_column_label | escape }}</span>
+              </th>
+              <th class="nonomic-comparison__head-highlight" scope="col">
+                {%- if show_logo_desktop -%}
+                  {{
+                    logo
+                    | image_url: width: 400
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'nonomic-comparison__logo',
+                      widths: '80, 120, 160, 200, 240, 300, 400',
+                      sizes: '(max-width: 749px) 160px, 200px',
+                      alt: logo_alt_text
+                  }}
+                {%- else -%}
+                  <span class="nonomic-comparison__fallback-brand">{{ section.settings.mobile_brand_text | escape }}</span>
+                {%- endif -%}
+                <span class="nonomic-comparison__brand-text">{{ section.settings.mobile_brand_text | escape }}</span>
+              </th>
+              <th class="nonomic-comparison__head-muted" scope="col">
+                {{ section.settings.column_natural_heading | escape }}
+              </th>
+              <th class="nonomic-comparison__head-muted" scope="col">
+                <span class="nonomic-comparison__heading-long">{{ section.settings.column_antiperspirant_heading | escape }}</span>
+                <span class="nonomic-comparison__heading-mobile">
+                  {{- section.settings.column_antiperspirant_heading_mobile_line1 | escape -}}
+                  {%- if section.settings.column_antiperspirant_heading_mobile_line2 != blank -%}
+                    <br>
+                    {{- section.settings.column_antiperspirant_heading_mobile_line2 | escape -}}
+                  {%- endif -%}
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'row' -%}
+                {%- liquid
+                  assign row_label = block.settings.feature | strip
+                  assign row_mobile = block.settings.feature_mobile | strip
+                  if row_mobile == blank
+                    assign row_mobile = row_label
+                  endif
+                  assign yes_n = block.settings.nonomic
+                  assign yes_nat = block.settings.natural
+                  assign yes_ap = block.settings.antiperspirant
+                  assign aria_n = 'sections.nonomic_comparison.a11y_included' | t: feature: row_label, column: section.settings.accessibility_nonomic_label
+                  assign aria_n_no = 'sections.nonomic_comparison.a11y_not_included' | t: feature: row_label, column: section.settings.accessibility_nonomic_label
+                  assign aria_nat_yes = 'sections.nonomic_comparison.a11y_included' | t: feature: row_label, column: section.settings.accessibility_natural_label
+                  assign aria_nat_no = 'sections.nonomic_comparison.a11y_not_included' | t: feature: row_label, column: section.settings.accessibility_natural_label
+                  assign aria_ap_yes = 'sections.nonomic_comparison.a11y_included' | t: feature: row_label, column: section.settings.accessibility_antiperspirant_label
+                  assign aria_ap_no = 'sections.nonomic_comparison.a11y_not_included' | t: feature: row_label, column: section.settings.accessibility_antiperspirant_label
+                -%}
+                <tr
+                  class="{% if block.settings.hide_on_mobile %}nonomic-comparison__row--hide-mobile{% endif %}"
+                  {{ block.shopify_attributes }}
+                >
+                  <th class="nonomic-comparison__feature" scope="row">
+                    <span class="nonomic-comparison__feature-long">{{ block.settings.feature | escape }}</span>
+                    <span class="nonomic-comparison__feature-short">{{ row_mobile | escape }}</span>
+                  </th>
+                  <td class="nonomic-comparison__cell nonomic-comparison__cell--highlight{% if forloop.last %} nonomic-comparison__cell--last-row{% endif %}">
+                    <span class="visually-hidden">{% if yes_n %}{{ aria_n }}{% else %}{{ aria_n_no }}{% endif %}</span>
+                    {% render 'nonomic-comparison-chart-icon', positive: yes_n, tone: 'nonomic' %}
+                  </td>
+                  <td class="nonomic-comparison__cell">
+                    <span class="visually-hidden">{% if yes_nat %}{{ aria_nat_yes }}{% else %}{{ aria_nat_no }}{% endif %}</span>
+                    {% render 'nonomic-comparison-chart-icon', positive: yes_nat, tone: 'muted' %}
+                  </td>
+                  <td class="nonomic-comparison__cell">
+                    <span class="visually-hidden">{% if yes_ap %}{{ aria_ap_yes }}{% else %}{{ aria_ap_no }}{% endif %}</span>
+                    {% render 'nonomic-comparison-chart-icon', positive: yes_ap, tone: 'muted' %}
+                  </td>
+                </tr>
+              {%- endif -%}
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+    {%- else -%}
+      <p class="nonomic-comparison__empty caption">{{ 'sections.nonomic_comparison.onboarding' | t }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="nonomic-comparison__actions nonomic-comparison__actions--align-{{ section.settings.button_alignment }}">
+        <a
+          class="button{% if section.settings.button_style == 'secondary' %} button--secondary{% elsif section.settings.button_style == 'outline' %} button--tertiary{% else %} button--primary{% endif %}"
+          {% if section.settings.button_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ section.settings.button_link }}"
+          {% endif %}
+          {% if section.settings.button_open_new_tab and section.settings.button_link != blank %}
+            target="_blank" rel="noopener noreferrer"
+          {% endif %}
+        >
+          {{ section.settings.button_label | escape }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Nonomic comparison chart",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How Nonomic Compares"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" },
+        { "value": "hxl", "label": "Extra large" },
+        { "value": "hxxl", "label": "Extra extra large" }
+      ],
+      "default": "h1",
+      "info": "Uses your theme’s heading font from typography settings."
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Space below heading",
+      "default": 48
+    },
+    {
+      "type": "text",
+      "id": "corner_column_label",
+      "label": "First column header (screen readers only)",
+      "default": "Feature",
+      "info": "Visually hidden; improves table navigation for assistive technology."
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image (desktop header)"
+    },
+    {
+      "type": "text",
+      "id": "logo_alt",
+      "label": "Logo alt text",
+      "default": "Nonomic"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_height",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Logo height",
+      "default": 20
+    },
+    {
+      "type": "text",
+      "id": "mobile_brand_text",
+      "label": "Mobile header text",
+      "default": "nonomic",
+      "info": "Shown in the first product column on small screens when the logo is hidden."
+    },
+    {
+      "type": "header",
+      "content": "Column headings"
+    },
+    {
+      "type": "text",
+      "id": "column_natural_heading",
+      "label": "Second column label",
+      "default": "Natural"
+    },
+    {
+      "type": "text",
+      "id": "column_antiperspirant_heading",
+      "label": "Third column label (desktop)",
+      "default": "Antiperspirant"
+    },
+    {
+      "type": "text",
+      "id": "column_antiperspirant_heading_mobile_line1",
+      "label": "Third column label — mobile line 1",
+      "default": "Anti-"
+    },
+    {
+      "type": "text",
+      "id": "column_antiperspirant_heading_mobile_line2",
+      "label": "Third column label — mobile line 2",
+      "default": "perspirant"
+    },
+    {
+      "type": "header",
+      "content": "Screen reader labels",
+      "info": "Used in invisible text for icon cells."
+    },
+    {
+      "type": "text",
+      "id": "accessibility_nonomic_label",
+      "label": "First product column name",
+      "default": "Nonomic"
+    },
+    {
+      "type": "text",
+      "id": "accessibility_natural_label",
+      "label": "Second column name",
+      "default": "Natural deodorant"
+    },
+    {
+      "type": "text",
+      "id": "accessibility_antiperspirant_label",
+      "label": "Third column name",
+      "default": "Antiperspirant"
+    },
+    {
+      "type": "header",
+      "content": "Typography — table"
+    },
+    {
+      "type": "range",
+      "id": "table_font_size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Table body font size (desktop)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "table_font_size_mobile",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Feature column font size (mobile)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "table_head_font_size_mobile",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Column header font size (mobile)",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 960,
+      "max": 1600,
+      "step": 8,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 1280
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "highlight_corner_radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Highlight column corner radius",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "table_header_padding_y",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Header cell vertical padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "table_header_padding_x",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Header cell horizontal padding (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "table_cell_padding",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Body cell padding",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "row_border_width_desktop",
+      "label": "Row divider thickness (desktop)",
+      "options": [
+        { "value": "0", "label": "None" },
+        { "value": "0.5", "label": "Hairline (0.5px)" },
+        { "value": "1", "label": "1px" },
+        { "value": "2", "label": "2px" }
+      ],
+      "default": "0.5"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Section background",
+      "default": "#1A2B3C"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#F6F7F9"
+    },
+    {
+      "type": "color",
+      "id": "color_column_header_muted",
+      "label": "Column headers (2 & 3)",
+      "default": "#7A8899"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight_header_background",
+      "label": "Highlight column header background",
+      "default": "#F6F7F9"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight_header_text",
+      "label": "Highlight column header text",
+      "default": "#1A2B3C"
+    },
+    {
+      "type": "color",
+      "id": "color_feature_text",
+      "label": "Feature row text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight_column_background",
+      "label": "Highlight column cells background",
+      "default": "#F6F7F9"
+    },
+    {
+      "type": "color",
+      "id": "color_row_border_desktop",
+      "label": "Row borders (desktop)",
+      "default": "#2A3A4A"
+    },
+    {
+      "type": "color",
+      "id": "color_row_border_mobile",
+      "label": "Row borders (mobile)",
+      "default": "rgba(255, 255, 255, 0.08)"
+    },
+    {
+      "type": "color",
+      "id": "color_row_border_mobile_strong",
+      "label": "Header border (mobile)",
+      "default": "rgba(255, 255, 255, 0.08)"
+    },
+    {
+      "type": "color",
+      "id": "color_check_nonomic",
+      "label": "Checkmark (highlight column)",
+      "default": "#1D9E75"
+    },
+    {
+      "type": "color",
+      "id": "color_x_nonomic_column",
+      "label": "X mark (highlight column)",
+      "default": "#1A2B3C"
+    },
+    {
+      "type": "color",
+      "id": "color_icon_muted",
+      "label": "Icons (columns 2 & 3)",
+      "default": "#7A8899"
+    },
+    {
+      "type": "color",
+      "id": "color_mobile_brand_text",
+      "label": "Mobile brand text",
+      "default": "#1D9E75"
+    },
+    {
+      "type": "header",
+      "content": "Optional button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_open_new_tab",
+      "label": "Open link in new tab",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" },
+        { "value": "outline", "label": "Outline" }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "select",
+      "id": "button_alignment",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Comparison row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Feature (desktop)",
+          "default": "Feature label"
+        },
+        {
+          "type": "text",
+          "id": "feature_mobile",
+          "label": "Feature (mobile short label)",
+          "info": "If empty, the desktop label is used on mobile."
+        },
+        {
+          "type": "checkbox",
+          "id": "nonomic",
+          "label": "Nonomic — included",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "natural",
+          "label": "Natural — included",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "antiperspirant",
+          "label": "Antiperspirant — included",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_on_mobile",
+          "label": "Hide this row on mobile",
+          "default": false,
+          "info": "Matches the Figma template when only key rows show on small screens."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nonomic comparison chart",
+      "settings": {
+        "heading_size": "h1"
+      },
+      "blocks": [
+        {
+          "type": "row",
+          "settings": {
+            "feature": "Neutralizes odor at source",
+            "feature_mobile": "Neutralizes odor",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": false,
+            "hide_on_mobile": true
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "Free from aluminum",
+            "feature_mobile": "No aluminum",
+            "nonomic": true,
+            "natural": true,
+            "antiperspirant": false,
+            "hide_on_mobile": false
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "Free from baking soda",
+            "feature_mobile": "No baking soda",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": true,
+            "hide_on_mobile": false
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "Suitable for sensitive skin",
+            "feature_mobile": "Sensitive skin",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": false,
+            "hide_on_mobile": false
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "Doesn't block sweat",
+            "feature_mobile": "No sweat blocking",
+            "nonomic": true,
+            "natural": true,
+            "antiperspirant": false,
+            "hide_on_mobile": true
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "Long-lasting without reapplication",
+            "feature_mobile": "Long-lasting",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": true,
+            "hide_on_mobile": true
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "Powered by studied active ingredient",
+            "feature_mobile": "Studied actives",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": true,
+            "hide_on_mobile": true
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "feature": "MicroSilver technology",
+            "feature_mobile": "MicroSilver",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": false,
+            "hide_on_mobile": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

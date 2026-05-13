@@ -330,6 +330,11 @@
     "stats_bar": {
       "onboarding": "Add stat blocks to display your metrics."
     },
+    "nonomic_comparison": {
+      "onboarding": "Add comparison rows to build your chart.",
+      "a11y_included": "{{ feature }}: included for {{ column }}.",
+      "a11y_not_included": "{{ feature }}: not included for {{ column }}."
+    },
     "featured_blog": {
       "view_all": "View all",
       "onboarding_title": "Blog post",

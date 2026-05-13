@@ -1,5 +1,13 @@
 {{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'section-announcement-bar.css' | asset_url | stylesheet_tag }}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap"
+  rel="stylesheet"
+>
 
 {%- liquid
   assign social_icons = true
@@ -36,17 +44,12 @@
           {%- if section.blocks.first.settings.link != blank -%}
             <a
               href="{{ section.blocks.first.settings.link }}"
-              class="announcement-bar__link link link--text focus-inset animate-arrow"
+              class="announcement-bar__link link link--text focus-inset"
             >
-          {%- endif -%}
-          <p class="announcement-bar__message h5">
-            <span>{{ section.blocks.first.settings.text | escape }}</span>
-            {%- if section.blocks.first.settings.link != blank -%}
-              {{- 'icon-arrow.svg' | inline_asset_content -}}
-            {%- endif -%}
-          </p>
-          {%- if section.blocks.first.settings.link != blank -%}
+              <span class="announcement-bar__message">{{ section.blocks.first.settings.text | escape }}</span>
             </a>
+          {%- else -%}
+            <p class="announcement-bar__message">{{ section.blocks.first.settings.text | escape }}</p>
           {%- endif -%}
         {%- endif -%}
       </div>
@@ -96,17 +99,12 @@
                     {%- if block.settings.link != blank -%}
                       <a
                         href="{{ block.settings.link }}"
-                        class="announcement-bar__link link link--text focus-inset animate-arrow"
+                        class="announcement-bar__link link link--text focus-inset"
                       >
-                    {%- endif -%}
-                    <p class="announcement-bar__message h5">
-                      <span>{{ block.settings.text | escape }}</span>
-                      {%- if block.settings.link != blank -%}
-                        {{- 'icon-arrow.svg' | inline_asset_content -}}
-                      {%- endif -%}
-                    </p>
-                    {%- if block.settings.link != blank -%}
+                        <span class="announcement-bar__message">{{ block.settings.text | escape }}</span>
                       </a>
+                    {%- else -%}
+                      <p class="announcement-bar__message">{{ block.settings.text | escape }}</p>
                     {%- endif -%}
                   {%- endif -%}
                 </div>
