@@ -242,12 +242,105 @@
         "padding_bottom": 80,
         "padding_bottom_mobile": 48
       }
+    },
+    "page_the_science_ingredients_XJW7pg": {
+      "type": "page_the-science-ingredients",
+      "blocks": {
+        "ingredient_iTDhXT": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Magnesium Hydroxide",
+            "role": "PH BALANCE & MOISTURE MANAGEMENT",
+            "description": "<p>Creates a mildly alkaline environment that inhibits bacterial growth while absorbing excess moisture. Unlike baking soda, it's gentle on skin and doesn't cause irritation.</p>"
+          }
+        },
+        "ingredient_jMJnYa": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zinc Oxide",
+            "role": "ADHESION & SECONDARY PROTECTION",
+            "description": "<p>Helps the formula bond to skin and provides additional antimicrobial support. Commonly used in medical-grade skin applications for its safety profile.</p>"
+          }
+        },
+        "ingredient_KRhcCj": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Triethyl Citrate",
+            "role": "ENZYMATIC CONTROL",
+            "description": "<p>Manages the enzymatic breakdown of proteins and lipids. Acts as a secondary defense layer, reducing the formation of odor compounds even if bacteria are present.</p>"
+          }
+        },
+        "ingredient_tgxade": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Natural Waxes & Emollients",
+            "role": "DELIVERY SYSTEM",
+            "description": "<p>Candelilla and sunflower wax provide structure and smooth application. Coconut oil and shea butter ensure the formula glides without dragging or clumping.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_iTDhXT",
+        "ingredient_jMJnYa",
+        "ingredient_KRhcCj",
+        "ingredient_tgxade"
+      ],
+      "name": "Science Ingredients",
+      "settings": {
+        "heading": "Supporting Ingredients",
+        "link_label": "View Full Ingredient List →",
+        "link_url": "",
+        "content_max_width": 1280,
+        "heading_size_desktop": 40,
+        "card_name_size_desktop": 16,
+        "card_role_size_desktop": 12,
+        "card_desc_size_desktop": 14,
+        "link_size_desktop": 12,
+        "heading_size_mobile": 36,
+        "card_name_size_mobile": 16,
+        "card_role_size_mobile": 12,
+        "card_desc_size_mobile": 14,
+        "link_size_mobile": 12,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 48,
+        "grid_padding_top_desktop": 0,
+        "grid_padding_bottom_desktop": 0,
+        "grid_gap_desktop": 32,
+        "card_padding_top_desktop": 24,
+        "card_padding_bottom_desktop": 24,
+        "card_padding_horizontal_desktop": 24,
+        "link_padding_top_desktop": 32,
+        "link_padding_bottom_desktop": 0,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 24,
+        "grid_padding_top_mobile": 0,
+        "grid_padding_bottom_mobile": 0,
+        "grid_gap_mobile": 16,
+        "card_padding_top_mobile": 20,
+        "card_padding_bottom_mobile": 20,
+        "card_padding_horizontal_mobile": 20,
+        "link_padding_top_mobile": 24,
+        "link_padding_bottom_mobile": 0,
+        "background_color": "#FFFFFF",
+        "color_heading": "#111827",
+        "color_card_bg": "#F6F7F9",
+        "color_card_border": "#DDE1E8",
+        "color_card_name": "#111827",
+        "color_card_role": "#7A8899",
+        "color_card_desc": "#4B5A6B",
+        "color_link": "#1D9E75",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
     }
   },
   "order": [
     "main",
     "page_the_science_header_UAY6gc",
     "page_the_science_problem_UyaPwA",
-    "page_the_science_mechanism_edCbEB"
+    "page_the_science_mechanism_edCbEB",
+    "page_the_science_ingredients_XJW7pg"
   ]
 }
