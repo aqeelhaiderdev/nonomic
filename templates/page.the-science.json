@@ -418,18 +418,110 @@
         "trust_padding_top_mobile": 16,
         "trust_padding_bottom_mobile": 0,
         "background_color": "#111827",
-        "color_heading": "#F6F7F9",
-        "color_desc": "#A8BFD0",
-        "color_stat_val": "#FFFFFF",
-        "color_stat_lbl": "#7A8899",
+        "color_heading": "#f6f7f9",
+        "color_desc": "#a8bfd0",
+        "color_stat_val": "#ffffff",
+        "color_stat_lbl": "#7a8899",
         "color_foot": "#6b7280",
-        "color_btn_bg": "#1D9E75",
-        "color_btn_text": "#FFFFFF",
-        "color_trust": "#7A8899",
-        "color_trust_icon": "#1D9E75",
+        "color_btn_bg": "#1d9e75",
+        "color_btn_text": "#ffffff",
+        "color_trust": "#7a8899",
+        "color_trust_icon": "#1d9e75",
         "padding_top": 80,
         "padding_top_mobile": 48,
         "padding_bottom": 64,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_the_science_excluded_hdPnqC": {
+      "type": "page_the-science-excluded",
+      "blocks": {
+        "ingredient_xcNwnN": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Baking Soda",
+            "reason": "<p>Causes irritation and pH imbalance in most users.</p>"
+          }
+        },
+        "ingredient_Uc8T68": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Aluminum Compounds",
+            "reason": "<p>Blocks sweat ducts. Many prefer not to use it daily.</p>"
+          }
+        },
+        "ingredient_8HtkCw": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Parabens",
+            "reason": "<p>Unnecessary preservatives with questionable safety data.</p>"
+          }
+        },
+        "ingredient_gw4DLW": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Synthetic Fragrances",
+            "reason": "<p>Often irritating. We use essential oils only when needed.</p>"
+          }
+        },
+        "ingredient_mTiY7j": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Talc",
+            "reason": "<p>No functional benefit. Potential contamination concerns.</p>"
+          }
+        },
+        "ingredient_X6zpiX": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Propylene Glycol",
+            "reason": "<p>Sensitizing in some individuals. We use alternatives.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_xcNwnN",
+        "ingredient_Uc8T68",
+        "ingredient_8HtkCw",
+        "ingredient_gw4DLW",
+        "ingredient_mTiY7j",
+        "ingredient_X6zpiX"
+      ],
+      "name": "Science Excluded",
+      "settings": {
+        "heading": "What We Don't Use",
+        "content_max_width": 1280,
+        "heading_size_desktop": 40,
+        "card_name_size_desktop": 15,
+        "card_text_size_desktop": 13,
+        "heading_size_mobile": 36,
+        "card_name_size_mobile": 15,
+        "card_text_size_mobile": 13,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 48,
+        "grid_padding_top_desktop": 0,
+        "grid_padding_bottom_desktop": 0,
+        "grid_gap_desktop": 24,
+        "card_padding_top_desktop": 20,
+        "card_padding_bottom_desktop": 20,
+        "card_padding_horizontal_desktop": 20,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 32,
+        "grid_padding_top_mobile": 0,
+        "grid_padding_bottom_mobile": 0,
+        "grid_gap_mobile": 16,
+        "card_padding_top_mobile": 20,
+        "card_padding_bottom_mobile": 20,
+        "card_padding_horizontal_mobile": 20,
+        "background_color": "#EBEEF2",
+        "color_heading": "#111827",
+        "color_card_bg": "#FFFFFF",
+        "color_card_border": "#DDE1E8",
+        "color_card_name": "#111827",
+        "color_card_text": "#4B5A6B",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
         "padding_bottom_mobile": 48
       }
     }
@@ -440,6 +532,7 @@
     "page_the_science_problem_UyaPwA",
     "page_the_science_mechanism_edCbEB",
     "page_the_science_ingredients_XJW7pg",
-    "page_the_science_clinical_KcDHin"
+    "page_the_science_clinical_KcDHin",
+    "page_the_science_excluded_hdPnqC"
   ]
 }
