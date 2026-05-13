@@ -7,6 +7,22 @@
     --sp-c-item-heading: {{ section.settings.color_item_heading }};
     --sp-c-item-text: {{ section.settings.color_item_text }};
     
+    /* Typography Variables */
+    --sp-heading-size-mo: {{ section.settings.heading_size_mobile }}px;
+    --sp-heading-size-dk: {{ section.settings.heading_size_desktop }}px;
+    
+    --sp-text-size-mo: {{ section.settings.text_size_mobile }}px;
+    --sp-text-size-dk: {{ section.settings.text_size_desktop }}px;
+
+    --sp-number-size-mo: {{ section.settings.number_size_mobile }}px;
+    --sp-number-size-dk: {{ section.settings.number_size_desktop }}px;
+
+    --sp-item-heading-size-mo: {{ section.settings.item_heading_size_mobile }}px;
+    --sp-item-heading-size-dk: {{ section.settings.item_heading_size_desktop }}px;
+
+    --sp-item-text-size-mo: {{ section.settings.item_text_size_mobile }}px;
+    --sp-item-text-size-dk: {{ section.settings.item_text_size_desktop }}px;
+
     background-color: var(--sp-bg);
     width: 100%;
     position: relative;
@@ -40,7 +56,7 @@
     margin: 0 0 20px;
     font-family: var(--font-heading-family);
     font-style: var(--font-heading-style);
-    font-size: 36px;
+    font-size: var(--sp-heading-size-mo);
     font-weight: 400;
     line-height: 1.1;
     letter-spacing: -0.02em;
@@ -50,7 +66,7 @@
 
   @media screen and (min-width: 750px) {
     .science-problem__heading {
-      font-size: 48px;
+      font-size: var(--sp-heading-size-dk);
       margin-bottom: 24px;
     }
   }
@@ -59,7 +75,7 @@
     margin: 0;
     font-family: var(--font-body-family);
     font-style: var(--font-body-style);
-    font-size: 16px;
+    font-size: var(--sp-text-size-mo);
     font-weight: 300;
     line-height: 1.6;
     color: var(--sp-c-text);
@@ -67,7 +83,7 @@
 
   @media screen and (min-width: 750px) {
     .science-problem__text {
-      font-size: 18px;
+      font-size: var(--sp-text-size-dk);
     }
   }
 
@@ -104,7 +120,7 @@
   .science-problem__item-number {
     font-family: var(--font-heading-family);
     font-style: var(--font-heading-style);
-    font-size: 80px;
+    font-size: var(--sp-number-size-mo);
     font-weight: 400;
     line-height: 1;
     color: var(--sp-c-number);
@@ -113,7 +129,7 @@
 
   @media screen and (min-width: 750px) {
     .science-problem__item-number {
-      font-size: 100px;
+      font-size: var(--sp-number-size-dk);
       margin: 0 0 24px;
     }
   }
@@ -122,20 +138,32 @@
     margin: 0 0 12px;
     font-family: var(--font-body-family);
     font-style: var(--font-body-style);
-    font-size: 18px;
+    font-size: var(--sp-item-heading-size-mo);
     font-weight: 400;
     line-height: 1.3;
     color: var(--sp-c-item-heading);
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-problem__item-heading {
+      font-size: var(--sp-item-heading-size-dk);
+    }
   }
 
   .science-problem__item-text {
     margin: 0;
     font-family: var(--font-body-family);
     font-style: var(--font-body-style);
-    font-size: 15px;
+    font-size: var(--sp-item-text-size-mo);
     font-weight: 300;
     line-height: 1.6;
     color: var(--sp-c-item-text);
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-problem__item-text {
+      font-size: var(--sp-item-text-size-dk);
+    }
   }
 
   .science-problem__item-text p {
@@ -249,6 +277,114 @@
       "id": "color_item_text",
       "label": "Grid item text",
       "default": "#607080"
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 24,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "text_size_desktop",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Intro text size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "number_size_desktop",
+      "min": 40,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "label": "Large number size",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "item_heading_size_desktop",
+      "min": 14,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Grid item heading size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "item_text_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Grid item text size",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "text_size_mobile",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Intro text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "number_size_mobile",
+      "min": 40,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Large number size",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "item_heading_size_mobile",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Grid item heading size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "item_text_size_mobile",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Grid item text size",
+      "default": 15
     },
     {
       "type": "header",
