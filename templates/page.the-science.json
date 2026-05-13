@@ -128,11 +128,126 @@
         "padding_top_mobile": 48,
         "padding_bottom_mobile": 48
       }
+    },
+    "page_the_science_mechanism_edCbEB": {
+      "type": "page_the-science-mechanism",
+      "blocks": {
+        "bullet_point_BgB7yC": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Silver ions released from the porous structure"
+          }
+        },
+        "bullet_point_KKtAi7": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Ions bind to bacterial cell wall proteins"
+          }
+        },
+        "bullet_point_Hiwx9z": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Disruption of cellular respiration and reproduction"
+          }
+        },
+        "bullet_point_xfQDHi": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Bacteria cannot produce odor compounds"
+          }
+        },
+        "bullet_point_yJYDrH": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Mechanism persists for 24+ hours"
+          }
+        }
+      },
+      "block_order": [
+        "bullet_point_BgB7yC",
+        "bullet_point_KKtAi7",
+        "bullet_point_Hiwx9z",
+        "bullet_point_xfQDHi",
+        "bullet_point_yJYDrH"
+      ],
+      "name": "Science Mechanism",
+      "settings": {
+        "eyebrow": "THE ACTIVE MECHANISM",
+        "heading": "MicroSilver",
+        "description": "<p>MicroSilver is a pharmaceutical-grade antimicrobial technology made of ultra-fine silver particles with a highly porous structure. That porosity dramatically increases surface area, enabling a sustained release of silver ions that disrupt bacterial cell walls on contact.</p><p>Unlike ionic silver or nanosilver, MicroSilver doesn't dissolve or absorb into the body. It stays on the skin surface, anchors, and maintains continuous antimicrobial activity throughout the day.</p>",
+        "card_heading": "How It Works",
+        "show_price_chip": true,
+        "price_text": "$26",
+        "pack_text": "one-time",
+        "highlight_text": "Subscribe & save 20%",
+        "button_label": "Choose Your Formula →",
+        "button_link": "",
+        "content_max_width": 1300,
+        "eyebrow_size_desktop": 11,
+        "heading_size_desktop": 48,
+        "description_size_desktop": 16,
+        "card_heading_size_desktop": 14,
+        "card_text_size_desktop": 14,
+        "eyebrow_size_mobile": 11,
+        "heading_size_mobile": 48,
+        "description_size_mobile": 16,
+        "card_heading_size_mobile": 14,
+        "card_text_size_mobile": 14,
+        "eyebrow_padding_top_desktop": 0,
+        "eyebrow_padding_bottom_desktop": 16,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 32,
+        "description_padding_top_desktop": 0,
+        "description_padding_bottom_desktop": 0,
+        "card_padding_top_desktop": 0,
+        "card_padding_bottom_desktop": 0,
+        "card_heading_padding_top_desktop": 0,
+        "card_heading_padding_bottom_desktop": 24,
+        "card_text_padding_top_desktop": 0,
+        "card_text_padding_bottom_desktop": 0,
+        "chip_padding_top_desktop": 0,
+        "chip_padding_bottom_desktop": 16,
+        "button_padding_top_desktop": 0,
+        "button_padding_bottom_desktop": 0,
+        "eyebrow_padding_top_mobile": 0,
+        "eyebrow_padding_bottom_mobile": 16,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 24,
+        "description_padding_top_mobile": 0,
+        "description_padding_bottom_mobile": 0,
+        "card_padding_top_mobile": 32,
+        "card_padding_bottom_mobile": 40,
+        "card_heading_padding_top_mobile": 0,
+        "card_heading_padding_bottom_mobile": 20,
+        "card_text_padding_top_mobile": 0,
+        "card_text_padding_bottom_mobile": 0,
+        "chip_padding_top_mobile": 0,
+        "chip_padding_bottom_mobile": 16,
+        "button_padding_top_mobile": 0,
+        "button_padding_bottom_mobile": 0,
+        "background_color": "#ebeef2",
+        "color_eyebrow": "#7a8899",
+        "color_heading": "#0b1b2a",
+        "color_description": "#607080",
+        "color_card_bg": "#ffffff",
+        "color_card_heading": "#0b1b2a",
+        "color_card_text": "#607080",
+        "color_card_bullet": "#1b2b3c",
+        "color_chip_bg": "#ffffff",
+        "color_chip_text": "#0b1b2a",
+        "color_chip_highlight": "#1d9e75",
+        "color_chip_divider": "#e5e7eb",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
     }
   },
   "order": [
     "main",
     "page_the_science_header_UAY6gc",
-    "page_the_science_problem_UyaPwA"
+    "page_the_science_problem_UyaPwA",
+    "page_the_science_mechanism_edCbEB"
   ]
 }
