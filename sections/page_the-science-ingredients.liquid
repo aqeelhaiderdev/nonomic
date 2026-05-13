@@ -1,0 +1,785 @@
+{%- style -%}
+  #ScienceIngredients-{{ section.id }} {
+    --si-bg: {{ section.settings.background_color }};
+    --si-content-max-width: {{ section.settings.content_max_width }}px;
+    
+    --si-c-heading: {{ section.settings.color_heading }};
+    --si-c-card-bg: {{ section.settings.color_card_bg }};
+    --si-c-card-border: {{ section.settings.color_card_border }};
+    --si-c-card-name: {{ section.settings.color_card_name }};
+    --si-c-card-role: {{ section.settings.color_card_role }};
+    --si-c-card-desc: {{ section.settings.color_card_desc }};
+    --si-c-link: {{ section.settings.color_link }};
+
+    /* Typography Variables (Mobile) */
+    --si-heading-size-mo: {{ section.settings.heading_size_mobile }}px;
+    --si-card-name-size-mo: {{ section.settings.card_name_size_mobile }}px;
+    --si-card-role-size-mo: {{ section.settings.card_role_size_mobile }}px;
+    --si-card-desc-size-mo: {{ section.settings.card_desc_size_mobile }}px;
+    --si-link-size-mo: {{ section.settings.link_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --si-heading-size-dk: {{ section.settings.heading_size_desktop }}px;
+    --si-card-name-size-dk: {{ section.settings.card_name_size_desktop }}px;
+    --si-card-role-size-dk: {{ section.settings.card_role_size_desktop }}px;
+    --si-card-desc-size-dk: {{ section.settings.card_desc_size_desktop }}px;
+    --si-link-size-dk: {{ section.settings.link_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --si-heading-pt-mo: {{ section.settings.heading_padding_top_mobile }}px;
+    --si-heading-pb-mo: {{ section.settings.heading_padding_bottom_mobile }}px;
+    --si-grid-pt-mo: {{ section.settings.grid_padding_top_mobile }}px;
+    --si-grid-pb-mo: {{ section.settings.grid_padding_bottom_mobile }}px;
+    --si-grid-gap-mo: {{ section.settings.grid_gap_mobile }}px;
+    --si-card-pt-mo: {{ section.settings.card_padding_top_mobile }}px;
+    --si-card-pb-mo: {{ section.settings.card_padding_bottom_mobile }}px;
+    --si-card-px-mo: {{ section.settings.card_padding_horizontal_mobile }}px;
+    --si-link-pt-mo: {{ section.settings.link_padding_top_mobile }}px;
+    --si-link-pb-mo: {{ section.settings.link_padding_bottom_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --si-heading-pt-dk: {{ section.settings.heading_padding_top_desktop }}px;
+    --si-heading-pb-dk: {{ section.settings.heading_padding_bottom_desktop }}px;
+    --si-grid-pt-dk: {{ section.settings.grid_padding_top_desktop }}px;
+    --si-grid-pb-dk: {{ section.settings.grid_padding_bottom_desktop }}px;
+    --si-grid-gap-dk: {{ section.settings.grid_gap_desktop }}px;
+    --si-card-pt-dk: {{ section.settings.card_padding_top_desktop }}px;
+    --si-card-pb-dk: {{ section.settings.card_padding_bottom_desktop }}px;
+    --si-card-px-dk: {{ section.settings.card_padding_horizontal_desktop }}px;
+    --si-link-pt-dk: {{ section.settings.link_padding_top_desktop }}px;
+    --si-link-pb-dk: {{ section.settings.link_padding_bottom_desktop }}px;
+
+    background-color: var(--si-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .science-ingredients__inner {
+    max-width: var(--si-content-max-width);
+    margin: 0 auto;
+  }
+
+  .science-ingredients__heading {
+    margin: 0;
+    padding-top: var(--si-heading-pt-mo);
+    padding-bottom: var(--si-heading-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--si-heading-size-mo);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--si-c-heading);
+    word-break: break-word;
+  }
+
+  .science-ingredients__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--si-grid-gap-mo);
+    padding-top: var(--si-grid-pt-mo);
+    padding-bottom: var(--si-grid-pb-mo);
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-ingredients__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--si-grid-gap-dk);
+      padding-top: var(--si-grid-pt-dk);
+      padding-bottom: var(--si-grid-pb-dk);
+    }
+  }
+
+  .science-ingredients__card {
+    background-color: var(--si-c-card-bg);
+    border: 0.5px solid var(--si-c-card-border);
+    border-radius: 8px;
+    padding: var(--si-card-pt-mo) var(--si-card-px-mo) var(--si-card-pb-mo);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .science-ingredients__card-name {
+    margin: 0 0 8px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--si-card-name-size-mo);
+    font-weight: 500;
+    color: var(--si-c-card-name);
+  }
+
+  .science-ingredients__card-role {
+    margin: 0 0 12px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--si-card-role-size-mo);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--si-c-card-role);
+  }
+
+  .science-ingredients__card-desc {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--si-card-desc-size-mo);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--si-c-card-desc);
+  }
+
+  .science-ingredients__card-desc p {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  .science-ingredients__footer {
+    text-align: center;
+    padding-top: var(--si-link-pt-mo);
+    padding-bottom: var(--si-link-pb-mo);
+  }
+
+  .science-ingredients__link {
+    display: inline-block;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--si-link-size-mo);
+    font-weight: 300;
+    color: var(--si-c-link);
+    text-decoration: underline;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .science-ingredients__link:hover {
+    opacity: 0.7;
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-ingredients__heading {
+      font-size: var(--si-heading-size-dk);
+      padding-top: var(--si-heading-pt-dk);
+      padding-bottom: var(--si-heading-pb-dk);
+    }
+
+    .science-ingredients__card {
+      padding: var(--si-card-pt-dk) var(--si-card-px-dk) var(--si-card-pb-dk);
+    }
+
+    .science-ingredients__card-name {
+      font-size: var(--si-card-name-size-dk);
+    }
+
+    .science-ingredients__card-role {
+      font-size: var(--si-card-role-size-dk);
+    }
+
+    .science-ingredients__card-desc {
+      font-size: var(--si-card-desc-size-dk);
+    }
+
+    .science-ingredients__footer {
+      padding-top: var(--si-link-pt-dk);
+      padding-bottom: var(--si-link-pb-dk);
+    }
+
+    .science-ingredients__link {
+      font-size: var(--si-link-size-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="ScienceIngredients-{{ section.id }}" class="science-ingredients section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="science-ingredients__inner">
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="science-ingredients__heading">
+          {{ section.settings.heading | newline_to_br }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="science-ingredients__grid">
+          {%- for block in section.blocks -%}
+            <div class="science-ingredients__card" {{ block.shopify_attributes }}>
+              {%- if block.settings.name != blank -%}
+                <h3 class="science-ingredients__card-name">{{ block.settings.name | escape }}</h3>
+              {%- endif -%}
+              
+              {%- if block.settings.role != blank -%}
+                <div class="science-ingredients__card-role">{{ block.settings.role | escape }}</div>
+              {%- endif -%}
+              
+              {%- if block.settings.description != blank -%}
+                <div class="science-ingredients__card-desc">{{ block.settings.description }}</div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.link_label != blank -%}
+        <div class="science-ingredients__footer">
+          <a class="science-ingredients__link"
+            {% if section.settings.link_url == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ section.settings.link_url }}"
+            {% endif %}
+          >
+            {{ section.settings.link_label | escape }}
+          </a>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Science Ingredients",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Use Enter to add line breaks.",
+      "default": "Supporting Ingredients"
+    },
+    {
+      "type": "header",
+      "content": "Footer Link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "View Full Ingredient List →"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 800,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 1280
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_name_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Name size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_role_size_desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Role size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size_desktop",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Description size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "link_size_desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Link size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "card_name_size_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Name size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_role_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Role size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size_mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Description size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "link_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Link size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid bottom padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card top padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card side padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "link_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Link top margin",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "link_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Link bottom margin",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid bottom padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card bottom padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card side padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "link_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Link top margin",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "link_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Link bottom margin",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_card_bg",
+      "label": "Card Background",
+      "default": "#F6F7F9"
+    },
+    {
+      "type": "color",
+      "id": "color_card_border",
+      "label": "Card Border",
+      "default": "#DDE1E8"
+    },
+    {
+      "type": "color",
+      "id": "color_card_name",
+      "label": "Card Ingredient Name",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_card_role",
+      "label": "Card Role/Eyebrow",
+      "default": "#7A8899"
+    },
+    {
+      "type": "color",
+      "id": "color_card_desc",
+      "label": "Card Description",
+      "default": "#4B5A6B"
+    },
+    {
+      "type": "color",
+      "id": "color_link",
+      "label": "Footer Link Color",
+      "default": "#1D9E75"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient Card",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Ingredient Name",
+          "default": "Magnesium Hydroxide"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Ingredient Role",
+          "default": "PH BALANCE & MOISTURE MANAGEMENT"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Creates a mildly alkaline environment that inhibits bacterial growth while absorbing excess moisture. Unlike baking soda, it's gentle on skin and doesn't cause irritation.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Science Ingredients",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Magnesium Hydroxide",
+            "role": "PH BALANCE & MOISTURE MANAGEMENT",
+            "description": "<p>Creates a mildly alkaline environment that inhibits bacterial growth while absorbing excess moisture. Unlike baking soda, it's gentle on skin and doesn't cause irritation.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zinc Oxide",
+            "role": "ADHESION & SECONDARY PROTECTION",
+            "description": "<p>Helps the formula bond to skin and provides additional antimicrobial support. Commonly used in medical-grade skin applications for its safety profile.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Triethyl Citrate",
+            "role": "ENZYMATIC CONTROL",
+            "description": "<p>Manages the enzymatic breakdown of proteins and lipids. Acts as a secondary defense layer, reducing the formation of odor compounds even if bacteria are present.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Natural Waxes & Emollients",
+            "role": "DELIVERY SYSTEM",
+            "description": "<p>Candelilla and sunflower wax provide structure and smooth application. Coconut oil and shea butter ensure the formula glides without dragging or clumping.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
