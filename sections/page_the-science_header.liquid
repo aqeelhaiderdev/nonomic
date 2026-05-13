@@ -1,0 +1,427 @@
+{%- style -%}
+  #ScienceHeader-{{ section.id }} {
+    --sh-bg: {{ section.settings.background_color }};
+    --sh-content-max-width: {{ section.settings.content_max_width }}px;
+    --sh-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+    --sh-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    
+    --sh-c-eyebrow: {{ section.settings.color_eyebrow }};
+    --sh-c-heading: {{ section.settings.color_heading }};
+    --sh-c-description: {{ section.settings.color_description }};
+    --sh-c-meta: {{ section.settings.color_meta }};
+    --sh-c-accent: {{ section.settings.color_accent }};
+
+    background-color: var(--sh-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .science-header__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: var(--sh-content-max-width);
+    margin: 0 auto;
+  }
+
+  .science-header__eyebrow {
+    margin: 0 0 24px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sh-c-eyebrow);
+  }
+
+  .science-header__heading {
+    margin: 0 0 20px;
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--sh-heading-size-mobile);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--sh-c-heading);
+    word-break: break-word;
+  }
+
+  .science-header__heading * {
+    font-family: inherit;
+    font-style: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-header__heading {
+      font-size: var(--sh-heading-size-desktop);
+      line-height: 0.95;
+      margin-bottom: 24px;
+    }
+  }
+
+  .science-header__description {
+    margin: 0 0 24px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--sh-c-description);
+  }
+
+  @media screen and (min-width: 750px) {
+    .science-header__description {
+      font-size: 20px;
+    }
+  }
+
+  .science-header__description p {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  .science-header__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 0 32px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--sh-c-meta);
+  }
+
+  .science-header__stars {
+    display: inline-flex;
+    gap: 2px;
+  }
+
+  .science-header__star {
+    width: 14px;
+    height: 14px;
+    color: var(--sh-c-accent);
+  }
+
+  .science-header__star--empty {
+    color: rgba(255, 255, 255, 0.18);
+  }
+
+  .science-header__cta {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 36px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    color: #ffffff;
+    background: linear-gradient(rgb(27, 169, 122) 0%, rgb(23, 138, 100) 100%);
+    border: 0;
+    border-radius: 6px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    min-width: 260px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .science-header__cta {
+      width: 100%;
+    }
+  }
+
+  .science-header__cta:hover,
+  .science-header__cta:focus-visible {
+    opacity: 0.9;
+  }
+
+  .science-header__cta[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+{%- endstyle -%}
+
+<div id="ScienceHeader-{{ section.id }}" class="science-header section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="science-header__inner">
+      
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="science-header__eyebrow">
+          {{- section.settings.eyebrow | escape -}}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="science-header__heading">
+          {{ section.settings.heading }}
+        </h1>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="science-header__description rte">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_rating -%}
+        {%- assign rating_value = section.settings.rating_value | default: 5 -%}
+        {%- if rating_value > 5 -%}{%- assign rating_value = 5 -%}{%- endif -%}
+        {%- if rating_value < 0 -%}{%- assign rating_value = 0 -%}{%- endif -%}
+        
+        <div class="science-header__meta">
+          <div class="science-header__stars" role="img" aria-label="{{ rating_value }} out of 5 stars">
+            {%- for i in (1..5) -%}
+              <svg class="science-header__star{% if forloop.index > rating_value %} science-header__star--empty{% endif %}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" focusable="false">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            {%- endfor -%}
+          </div>
+          {%- if section.settings.rating_text != blank -%}
+            <span class="science-header__rating-text">
+              {{- section.settings.rating_text | escape -}}
+            </span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a class="science-header__cta"
+          {% if section.settings.button_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ section.settings.button_link }}"
+          {% endif %}
+        >
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Science Header",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "THE SCIENCE"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Use Shift+Enter to add line breaks.",
+      "default": "One Mechanism. Zero Compromise."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Most deodorants mask or block. Nonomic disrupts odor-causing bacteria at the source using MicroSilver, a clinical-grade antimicrobial technology.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Trust Meta"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "rating_value",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "label": "Filled stars",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "4.8 from 1,200+ customers"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Choose Your Formula →"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout & Typography"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 40,
+      "max": 140,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size (desktop)",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 28,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size (mobile)",
+      "default": 44
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#1a2b3c"
+    },
+    {
+      "type": "color",
+      "id": "color_eyebrow",
+      "label": "Eyebrow text",
+      "default": "#7a8899"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_description",
+      "label": "Description text",
+      "default": "#a8bfd0"
+    },
+    {
+      "type": "color",
+      "id": "color_meta",
+      "label": "Review text",
+      "default": "#7a8899"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Stars color",
+      "default": "#1d9e75"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Science Header"
+    }
+  ]
+}
+{% endschema %}
