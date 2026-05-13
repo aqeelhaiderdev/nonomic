@@ -321,17 +321,115 @@
         "card_padding_horizontal_mobile": 20,
         "link_padding_top_mobile": 24,
         "link_padding_bottom_mobile": 0,
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
         "color_heading": "#111827",
-        "color_card_bg": "#F6F7F9",
-        "color_card_border": "#DDE1E8",
+        "color_card_bg": "#f6f7f9",
+        "color_card_border": "#dde1e8",
         "color_card_name": "#111827",
-        "color_card_role": "#7A8899",
-        "color_card_desc": "#4B5A6B",
-        "color_link": "#1D9E75",
+        "color_card_role": "#7a8899",
+        "color_card_desc": "#4b5a6b",
+        "color_link": "#1d9e75",
         "padding_top": 80,
         "padding_top_mobile": 48,
         "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_the_science_clinical_KcDHin": {
+      "type": "page_the-science-clinical",
+      "blocks": {
+        "stat_jyGdiF": {
+          "type": "stat",
+          "settings": {
+            "value": "99.9%",
+            "label": "BACTERIAL REDUCTION IN CLINICAL TESTS"
+          }
+        },
+        "stat_cWHEQT": {
+          "type": "stat",
+          "settings": {
+            "value": "24+",
+            "label": "HOURS OF CONTINUOUS PROTECTION"
+          }
+        },
+        "stat_nGxwXD": {
+          "type": "stat",
+          "settings": {
+            "value": "0",
+            "label": "SYSTEMIC ABSORPTION"
+          }
+        }
+      },
+      "block_order": [
+        "stat_jyGdiF",
+        "stat_cWHEQT",
+        "stat_nGxwXD"
+      ],
+      "name": "Science Clinical",
+      "settings": {
+        "heading": "Clinical Backing",
+        "description": "<p>MicroSilver BG™ has been independently tested across institutions including Charité University Research Hospital (Berlin) and the IGSF Institute for Health System Research (Kiel, Germany). On the market since 2005 — 200+ brand customers, 35+ countries, zero reported skin complications.</p>",
+        "footnote": "<p>99.9% bacterial reduction based on in-vitro testing of MicroSilver BG™ by Bio-Gate AG. 24+ hour mechanism confirmed via in-vivo confocal microscopy, Charité University Research Hospital, Berlin. Zero systemic absorption confirmed via Franz Diffusion Cell testing (CIBA) and in-vivo tape stripping, Institute Dr. Schrader, Germany.</p>",
+        "button_label": "Try It Risk-Free for 45 Days →",
+        "button_link": "shopify://products/nonomic-deodorant-stick",
+        "trust_1": "45-day guarantee",
+        "trust_2": "Free returns",
+        "trust_3": "No subscription required",
+        "content_max_width": 1280,
+        "cta_max_width": 720,
+        "heading_size_desktop": 40,
+        "desc_size_desktop": 16,
+        "stat_val_size_desktop": 56,
+        "stat_lbl_size_desktop": 12,
+        "foot_size_desktop": 11,
+        "btn_size_desktop": 15,
+        "trust_size_desktop": 12,
+        "heading_size_mobile": 36,
+        "desc_size_mobile": 15,
+        "stat_val_size_mobile": 48,
+        "stat_lbl_size_mobile": 11,
+        "foot_size_mobile": 10,
+        "btn_size_mobile": 15,
+        "trust_size_mobile": 11,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 24,
+        "desc_padding_top_desktop": 0,
+        "desc_padding_bottom_desktop": 48,
+        "grid_padding_top_desktop": 0,
+        "grid_padding_bottom_desktop": 0,
+        "grid_gap_desktop": 32,
+        "foot_padding_top_desktop": 24,
+        "foot_padding_bottom_desktop": 0,
+        "btn_padding_top_desktop": 32,
+        "btn_padding_bottom_desktop": 16,
+        "trust_padding_top_desktop": 10,
+        "trust_padding_bottom_desktop": 0,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 24,
+        "desc_padding_top_mobile": 0,
+        "desc_padding_bottom_mobile": 40,
+        "grid_padding_top_mobile": 0,
+        "grid_padding_bottom_mobile": 0,
+        "grid_gap_mobile": 24,
+        "foot_padding_top_mobile": 24,
+        "foot_padding_bottom_mobile": 0,
+        "btn_padding_top_mobile": 32,
+        "btn_padding_bottom_mobile": 16,
+        "trust_padding_top_mobile": 10,
+        "trust_padding_bottom_mobile": 0,
+        "background_color": "#111827",
+        "color_heading": "#F6F7F9",
+        "color_desc": "#A8BFD0",
+        "color_stat_val": "#FFFFFF",
+        "color_stat_lbl": "#7A8899",
+        "color_foot": "#6b7280",
+        "color_btn_bg": "#1D9E75",
+        "color_btn_text": "#FFFFFF",
+        "color_trust": "#7A8899",
+        "color_trust_icon": "#1D9E75",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 64,
         "padding_bottom_mobile": 48
       }
     }
@@ -341,6 +439,7 @@
     "page_the_science_header_UAY6gc",
     "page_the_science_problem_UyaPwA",
     "page_the_science_mechanism_edCbEB",
-    "page_the_science_ingredients_XJW7pg"
+    "page_the_science_ingredients_XJW7pg",
+    "page_the_science_clinical_KcDHin"
   ]
 }
