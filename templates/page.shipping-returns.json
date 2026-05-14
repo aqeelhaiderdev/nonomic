@@ -109,7 +109,63 @@
         "heading_padding_bottom_mobile": 24,
         "block_gap_mobile": 24,
         "block_heading_padding_bottom_mobile": 8,
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
+        "color_heading": "#111827",
+        "color_block_heading": "#111827",
+        "color_block_text": "#4b5a6b",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_shipping_returns_info_ABCj3c": {
+      "type": "page_shipping-returns-info",
+      "blocks": {
+        "info_block_aw63GB": {
+          "type": "info_block",
+          "settings": {
+            "heading": "45-Day Return Window",
+            "text": "<p>Try Nonomic for up to 45 days. If your first order doesn't work for you, email us for a full refund. Keep the product. No questions asked.</p>"
+          }
+        },
+        "info_block_TBVkpQ": {
+          "type": "info_block",
+          "settings": {
+            "heading": "How to Return",
+            "text": "<p>Email us at returns@nonomic.com within 45 days of your first order. No shipping required — keep the product.</p>"
+          }
+        },
+        "info_block_UatiAG": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Condition",
+            "text": "<p>Applies to first orders only, up to $60. One refund per customer.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "info_block_aw63GB",
+        "info_block_TBVkpQ",
+        "info_block_UatiAG"
+      ],
+      "name": "Shipping Returns Info",
+      "settings": {
+        "heading": "Returns",
+        "content_max_width": 840,
+        "heading_size_desktop": 40,
+        "block_heading_size_desktop": 16,
+        "block_text_size_desktop": 14,
+        "heading_size_mobile": 32,
+        "block_heading_size_mobile": 16,
+        "block_text_size_mobile": 14,
+        "heading_padding_bottom_desktop": 32,
+        "block_gap_desktop": 24,
+        "block_heading_padding_bottom_desktop": 8,
+        "heading_padding_bottom_mobile": 24,
+        "block_gap_mobile": 24,
+        "block_heading_padding_bottom_mobile": 8,
+        "background_color": "#EBEEF2",
         "color_heading": "#111827",
         "color_block_heading": "#111827",
         "color_block_text": "#4B5A6B",
@@ -123,6 +179,7 @@
   "order": [
     "main",
     "page_shipping_hero_WzDVHU",
-    "page_shipping_info_7bTkNH"
+    "page_shipping_info_7bTkNH",
+    "page_shipping_returns_info_ABCj3c"
   ]
 }
