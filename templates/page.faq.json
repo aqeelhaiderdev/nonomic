@@ -53,186 +53,43 @@
         "padding_bottom_mobile": 48
       }
     },
-    "collapsible_content_nDXEDe": {
-      "type": "collapsible-content",
+    "page_faq_accordion_Wp6mBT": {
+      "type": "page_faq-accordion",
       "blocks": {
-        "collapsible_row_9TJwPP": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "How is Nonomic different from other natural deodorants?",
-            "icon": "check_mark",
-            "row_content": "<p>Most natural deodorants use baking soda to create a harsh pH environment  that inhibits bacteria — which often causes irritation. Nonomic uses MicroSilver, a clinical-grade antimicrobial that disrupts bacterial cell  walls at contact. It's gentler, more effective, and doesn't rely on shocking your skin into submission.</p>",
-            "page": ""
-          }
-        },
-        "collapsible_row_Y9Lqje": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Collapsible row",
-            "icon": "check_mark",
-            "row_content": "",
-            "page": ""
-          }
-        },
-        "collapsible_row_E6mnUA": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Collapsible row",
-            "icon": "check_mark",
-            "row_content": "",
-            "page": ""
-          }
-        },
-        "collapsible_row_L643Jc": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Collapsible row",
-            "icon": "check_mark",
-            "row_content": "",
-            "page": ""
-          }
-        }
-      },
-      "block_order": [
-        "collapsible_row_9TJwPP",
-        "collapsible_row_Y9Lqje",
-        "collapsible_row_E6mnUA",
-        "collapsible_row_L643Jc"
-      ],
-      "disabled": true,
-      "name": "t:sections.collapsible_content.presets.name",
-      "settings": {
-        "caption": "",
-        "heading": "",
-        "heading_size": "h1",
-        "heading_alignment": "center",
-        "layout": "row",
-        "container_color_scheme": "scheme-5afe3df2-334b-4cd0-ae02-304a19beedad",
-        "color_scheme": "",
-        "open_first_collapsible_row": true,
-        "image_ratio": "adapt",
-        "desktop_layout": "image_second",
-        "padding_top": 100,
-        "padding_bottom": 100
-      }
-    },
-    "faq_accordion_AzGcNR": {
-      "type": "faq-accordion",
-      "blocks": {
-        "faq_item_kRCBmG": {
+        "faq_item_jiGM3F": {
           "type": "faq_item",
           "settings": {
             "question": "How is Nonomic different from other natural deodorants?",
             "answer": "<p>Most natural deodorants use baking soda to create a harsh pH environment that inhibits bacteria — which often causes irritation. Nonomic uses MicroSilver, a clinical-grade antimicrobial that disrupts bacterial cell walls at contact. It's gentler, more effective, and doesn't rely on shocking your skin into submission.</p>"
           }
         },
-        "faq_item_iRef6K": {
+        "faq_item_iGkVww": {
           "type": "faq_item",
           "settings": {
             "question": "What is MicroSilver and how does it work?",
             "answer": "<p>MicroSilver is a patented antimicrobial technology consisting of ultra-fine metallic silver particles with a porous, sponge-like structure. Silver ions are released continuously throughout the day, binding to bacterial cell wall proteins and disrupting their ability to function. Bacteria can't produce odor compounds if they can't function. It's used in medical-grade skincare and has extensive clinical backing.</p>"
           }
         },
-        "faq_item_YebhyL": {
+        "faq_item_rMLUd6": {
           "type": "faq_item",
           "settings": {
             "question": "Will this stop me from sweating?",
             "answer": "<p>No. Nonomic is not an antiperspirant. It doesn't block sweat ducts. Sweat is odorless — odor comes from bacteria breaking down sweat into volatile compounds. We eliminate the bacteria, not the sweat. If you specifically want to stop sweating, you'll need an aluminum-based antiperspirant.</p>"
           }
         },
-        "faq_item_dLwrTC": {
+        "faq_item_HjN6KJ": {
           "type": "faq_item",
           "settings": {
             "question": "Is it safe for sensitive skin?",
             "answer": "<p>Yes. Our formula is pH-balanced and free from baking soda, aluminum, parabens, and synthetic fragrances — the most common irritants in deodorants. MicroSilver is non-systemic and remains on the skin surface. It's used in dermatological applications for eczema and wound healing. That said, everyone's skin is different. If you experience irritation, stop use and contact us for a refund.</p>"
           }
-        },
-        "faq_item_qU8bc9": {
-          "type": "faq_item",
-          "settings": {
-            "question": "How long does one stick last?",
-            "answer": "<p>Each stick is 2.65 oz (75g). With daily use, most people get 4-6 months from one stick. Application amount varies by individual, but you shouldn't need to reapply throughout the day.</p>"
-          }
-        },
-        "faq_item_jXNQA3": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Does it leave white marks or stains?",
-            "answer": "<p>Minimal. The formula is designed to absorb quickly. You may see a slight residue immediately after application, but it shouldn't transfer to clothing if you let it dry for 30-60 seconds. Dark clothing won't show white marks like traditional deodorants or antiperspirants.</p>"
-          }
-        },
-        "faq_item_8brxc6": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What do the scents smell like?",
-            "answer": "<p><strong>Clean Forest:</strong> Fresh cedarwood and eucalyptus. Grounded and subtle. Not cologne-like. <br/><strong>Citrus Grove:</strong> Bright bergamot and grapefruit. Energizing but not overpowering. <br/><strong>Coconut Vanilla: </strong>Warm coconut with vanilla undertones. Comforting, not sweet. <br/><strong>Unscented: </strong>Pure formula with zero fragrance. Just the mechanism. </p><p>All scents fade into skin-neutral within an hour — they're not meant to function as fragrance.</p>"
-          }
-        },
-        "faq_item_fFFKhc": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Can I use this if I'm switching from antiperspirant?",
-            "answer": "<p>Yes. Many of our customers are former antiperspirant users. You may notice increased sweating in the first 1-2 weeks as your body adjusts — this is normal. Your sweat ducts have been blocked, and they need time to recalibrate. Odor control should be immediate. Sweat normalization takes a bit longer.</p>"
-          }
-        },
-        "faq_item_MJYBNq": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What if it doesn't work for me?",
-            "answer": "<p>We offer a 45-day risk-free guarantee. Use it for 45 days. If you're not completely satisfied with odor control, skin feel, or overall performance, email us. We'll process a full refund immediately. You don't need to return the product. You don't need to explain why. If it's not working, we want to make it right.</p>"
-          }
-        },
-        "faq_item_nXXB34": {
-          "type": "faq_item",
-          "settings": {
-            "question": "How should I apply it?",
-            "answer": "<p>Apply to clean, dry skin. One or two swipes per underarm. Let it dry for 30-60 seconds before dressing. That's it. You shouldn't need to reapply throughout the day. If you're applying after a shower, make sure your underarms are completely dry — moisture can interfere with adhesion.</p>"
-          }
-        },
-        "faq_item_zwyft6": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Is this vegan and cruelty-free?",
-            "answer": "<p>Yes. All ingredients are plant-based or mineral-based. We don't test on animals, and none of our ingredient suppliers test on animals. MicroSilver is metallic silver — not derived from animals.</p>"
-          }
-        },
-        "faq_item_kGkrKD": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Can I use this during pregnancy or breastfeeding?",
-            "answer": "<p>Our ingredients are safe and non-systemic, but we always recommend consulting your doctor before using any new personal care product during pregnancy or breastfeeding. MicroSilver does not absorb into the bloodstream, but your healthcare provider should make the final call.</p>"
-          }
-        },
-        "faq_item_dwhXiG": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Do you ship internationally?",
-            "answer": "<p>Currently, we ship within the United States only. International shipping is on our roadmap, but we want to ensure a smooth domestic experience first. If you're outside the US and want to be notified when we expand, email us at support@nonomic.com.</p>"
-          }
-        },
-        "faq_item_n6KwdW": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What's your return policy?",
-            "answer": "<p>45-day risk-free guarantee. If you're not satisfied, email us within 45 days of purchase and we'll refund you in full. No need to return the product. No questions asked.</p>"
-          }
         }
       },
       "block_order": [
-        "faq_item_kRCBmG",
-        "faq_item_iRef6K",
-        "faq_item_YebhyL",
-        "faq_item_dLwrTC",
-        "faq_item_qU8bc9",
-        "faq_item_jXNQA3",
-        "faq_item_8brxc6",
-        "faq_item_fFFKhc",
-        "faq_item_MJYBNq",
-        "faq_item_nXXB34",
-        "faq_item_zwyft6",
-        "faq_item_kGkrKD",
-        "faq_item_dwhXiG",
-        "faq_item_n6KwdW"
+        "faq_item_jiGM3F",
+        "faq_item_iGkVww",
+        "faq_item_rMLUd6",
+        "faq_item_HjN6KJ"
       ],
       "name": "FAQ Accordion",
       "settings": {
@@ -264,7 +121,6 @@
   "order": [
     "main",
     "page_faq_hero_yXxzHi",
-    "collapsible_content_nDXEDe",
-    "faq_accordion_AzGcNR"
+    "page_faq_accordion_Wp6mBT"
   ]
 }
