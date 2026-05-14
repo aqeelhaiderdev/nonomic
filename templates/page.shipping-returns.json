@@ -174,12 +174,44 @@
         "padding_bottom": 80,
         "padding_bottom_mobile": 48
       }
+    },
+    "rich_text_XzXnwm": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_JBhhXg": {
+          "type": "heading",
+          "settings": {
+            "heading": "Questions About Shipping or Returns?",
+            "heading_size": "h1"
+          }
+        },
+        "text_WTm6U7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Email us at support@nonomic.com. We respond within 24 hours.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_JBhhXg",
+        "text_WTm6U7"
+      ],
+      "name": "Contact Info",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
     "main",
     "page_shipping_hero_WzDVHU",
     "page_shipping_info_7bTkNH",
-    "page_shipping_returns_info_ABCj3c"
+    "page_shipping_returns_info_ABCj3c",
+    "rich_text_XzXnwm"
   ]
 }
