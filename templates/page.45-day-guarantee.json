@@ -108,11 +108,76 @@
         "grid_gap_mobile": 40,
         "num_padding_bottom_mobile": 12,
         "step_head_padding_bottom_mobile": 8,
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
         "color_heading": "#111827",
-        "color_step_num": "#EBEEF2",
+        "color_step_num": "#ebeef2",
         "color_step_head": "#111827",
-        "color_step_text": "#4B5A6B",
+        "color_step_text": "#4b5a6b",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_guarantee_details_jP7iiP": {
+      "type": "page_guarantee-details",
+      "blocks": {
+        "info_block_HEKdTk": {
+          "type": "info_block",
+          "settings": {
+            "heading": "What's Covered",
+            "text": "<p>First orders up to $60. One per customer. No exceptions.</p>"
+          }
+        },
+        "info_block_KrWhHa": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Condition",
+            "text": "<p>We accept returns on first orders only.</p>"
+          }
+        },
+        "info_block_zVVqQF": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Refund Timeline",
+            "text": "<p>Refunds are processed within 3-5 business days of receiving your return. Funds appear in your account within 5-10 business days depending on your bank.</p>"
+          }
+        },
+        "info_block_eNqL9y": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Subscriptions",
+            "text": "<p>If you're on a subscription, you can return your first order under the 45-day guarantee and cancel at any time. No penalties. No lock-in periods.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "info_block_HEKdTk",
+        "info_block_KrWhHa",
+        "info_block_zVVqQF",
+        "info_block_eNqL9y"
+      ],
+      "name": "Guarantee Details",
+      "settings": {
+        "heading": "The Details",
+        "heading_alignment": "left",
+        "content_max_width": 840,
+        "heading_size_desktop": 40,
+        "block_heading_size_desktop": 16,
+        "block_text_size_desktop": 14,
+        "heading_size_mobile": 32,
+        "block_heading_size_mobile": 16,
+        "block_text_size_mobile": 14,
+        "heading_padding_bottom_desktop": 32,
+        "block_gap_desktop": 24,
+        "block_heading_padding_bottom_desktop": 8,
+        "heading_padding_bottom_mobile": 24,
+        "block_gap_mobile": 24,
+        "block_heading_padding_bottom_mobile": 8,
+        "background_color": "#EBEEF2",
+        "color_heading": "#111827",
+        "color_block_heading": "#111827",
+        "color_block_text": "#4B5A6B",
         "padding_top": 80,
         "padding_top_mobile": 48,
         "padding_bottom": 80,
@@ -123,6 +188,7 @@
   "order": [
     "main",
     "page_guarantee_hero_UYftEy",
-    "page_guarantee_steps_9PNCTm"
+    "page_guarantee_steps_9PNCTm",
+    "page_guarantee_details_jP7iiP"
   ]
 }
