@@ -104,6 +104,20 @@
             "question": "What do the scents smell like?",
             "answer": "<p>Clean Forest: Fresh cedarwood and eucalyptus. Grounded and subtle. Not cologne-like. <br/>Citrus Grove: Bright bergamot and grapefruit. Energizing but not overpowering. <br/>Coconut Vanilla: Warm coconut with vanilla undertones. Comforting, not sweet. <br/>Unscented: Pure formula with zero fragrance. Just the mechanism. </p><p>All scents fade into skin-neutral within an hour — they're not meant to function as fragrance.</p>"
           }
+        },
+        "faq_item_zwCjR8": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use this if I'm switching from antiperspirant?",
+            "answer": "<p>Yes. Many of our customers are former antiperspirant users. You may notice increased sweating in the first 1-2 weeks as your body adjusts — this is normal. Your sweat ducts have been blocked, and they need time to recalibrate. Odor control should be immediate. Sweat normalization takes a bit longer.</p>"
+          }
+        },
+        "faq_item_dzMpxz": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What if it doesn't work for me?",
+            "answer": "<p>We offer a 45-day risk-free guarantee. Use it for 45 days. If you're not completely satisfied with odor control, skin feel, or overall performance, email us. We'll process a full refund immediately. You don't need to return the product. You don't need to explain why. If it's not working, we want to make it right.</p>"
+          }
         }
       },
       "block_order": [
@@ -113,7 +127,9 @@
         "faq_item_HjN6KJ",
         "faq_item_tLJmjT",
         "faq_item_frLhhU",
-        "faq_item_KULtyf"
+        "faq_item_KULtyf",
+        "faq_item_zwCjR8",
+        "faq_item_dzMpxz"
       ],
       "name": "FAQ Accordion",
       "settings": {
