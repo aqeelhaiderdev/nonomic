@@ -188,6 +188,34 @@
             "question": "How should I apply it?",
             "answer": "<p>Apply to clean, dry skin. One or two swipes per underarm. Let it dry for 30-60 seconds before dressing. That's it. You shouldn't need to reapply throughout the day. If you're applying after a shower, make sure your underarms are completely dry — moisture can interfere with adhesion.</p>"
           }
+        },
+        "faq_item_zwyft6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is this vegan and cruelty-free?",
+            "answer": "<p>Yes. All ingredients are plant-based or mineral-based. We don't test on animals, and none of our ingredient suppliers test on animals. MicroSilver is metallic silver — not derived from animals.</p>"
+          }
+        },
+        "faq_item_kGkrKD": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use this during pregnancy or breastfeeding?",
+            "answer": "<p>Our ingredients are safe and non-systemic, but we always recommend consulting your doctor before using any new personal care product during pregnancy or breastfeeding. MicroSilver does not absorb into the bloodstream, but your healthcare provider should make the final call.</p>"
+          }
+        },
+        "faq_item_dwhXiG": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you ship internationally?",
+            "answer": "<p>Currently, we ship within the United States only. International shipping is on our roadmap, but we want to ensure a smooth domestic experience first. If you're outside the US and want to be notified when we expand, email us at support@nonomic.com.</p>"
+          }
+        },
+        "faq_item_n6KwdW": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What's your return policy?",
+            "answer": "<p>45-day risk-free guarantee. If you're not satisfied, email us within 45 days of purchase and we'll refund you in full. No need to return the product. No questions asked.</p>"
+          }
         }
       },
       "block_order": [
@@ -200,7 +228,11 @@
         "faq_item_8brxc6",
         "faq_item_fFFKhc",
         "faq_item_MJYBNq",
-        "faq_item_nXXB34"
+        "faq_item_nXXB34",
+        "faq_item_zwyft6",
+        "faq_item_kGkrKD",
+        "faq_item_dwhXiG",
+        "faq_item_n6KwdW"
       ],
       "name": "FAQ Accordion",
       "settings": {
