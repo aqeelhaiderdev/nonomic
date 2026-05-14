@@ -267,12 +267,105 @@
         "padding_bottom": 80,
         "padding_bottom_mobile": 48
       }
+    },
+    "page_ingredients_excluded_FEGFHY": {
+      "type": "page_ingredients-excluded",
+      "blocks": {
+        "ingredient_tKPttz": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Baking Soda",
+            "reason": "<p>Causes irritation and pH imbalance in most users.</p>"
+          }
+        },
+        "ingredient_iaGi6k": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Aluminum Compounds",
+            "reason": "<p>Blocks sweat ducts. Many prefer not to use it daily.</p>"
+          }
+        },
+        "ingredient_6EVkCn": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Parabens",
+            "reason": "<p>Unnecessary preservatives with questionable safety data.</p>"
+          }
+        },
+        "ingredient_6h9gxF": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Synthetic Fragrances",
+            "reason": "<p>Often irritating. We use essential oils only when needed.</p>"
+          }
+        },
+        "ingredient_hfHECR": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Talc",
+            "reason": "<p>No functional benefit. Potential contamination concerns.</p>"
+          }
+        },
+        "ingredient_8kaCae": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Propylene Glycol",
+            "reason": "<p>Sensitizing in some individuals. We use alternatives.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_tKPttz",
+        "ingredient_iaGi6k",
+        "ingredient_6EVkCn",
+        "ingredient_6h9gxF",
+        "ingredient_hfHECR",
+        "ingredient_8kaCae"
+      ],
+      "name": "Ingredients Excluded",
+      "settings": {
+        "heading": "What We Don't Use",
+        "content_max_width": 1280,
+        "heading_size_desktop": 40,
+        "card_name_size_desktop": 15,
+        "card_text_size_desktop": 13,
+        "heading_size_mobile": 36,
+        "card_name_size_mobile": 15,
+        "card_text_size_mobile": 13,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 48,
+        "grid_padding_top_desktop": 0,
+        "grid_padding_bottom_desktop": 0,
+        "grid_gap_desktop": 24,
+        "card_padding_top_desktop": 20,
+        "card_padding_bottom_desktop": 20,
+        "card_padding_horizontal_desktop": 20,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 32,
+        "grid_padding_top_mobile": 0,
+        "grid_padding_bottom_mobile": 0,
+        "grid_gap_mobile": 16,
+        "card_padding_top_mobile": 20,
+        "card_padding_bottom_mobile": 20,
+        "card_padding_horizontal_mobile": 20,
+        "background_color": "#FFFFFF",
+        "color_heading": "#111827",
+        "color_card_bg": "#F6F7F9",
+        "color_card_border": "#DDE1E8",
+        "color_card_name": "#111827",
+        "color_card_text": "#4B5A6B",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
     }
   },
   "order": [
     "main",
     "page_ingredients_hero_dBDLg4",
     "page_ingredients_card_hc7eWE",
-    "page_ingredients_list_d7xbGU"
+    "page_ingredients_list_d7xbGU",
+    "page_ingredients_excluded_FEGFHY"
   ]
 }
