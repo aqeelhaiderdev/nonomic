@@ -52,10 +52,73 @@
         "padding_bottom": 80,
         "padding_bottom_mobile": 48
       }
+    },
+    "collapsible_content_nDXEDe": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_9TJwPP": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Collapsible row",
+            "icon": "check_mark",
+            "row_content": "",
+            "page": ""
+          }
+        },
+        "collapsible_row_Y9Lqje": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Collapsible row",
+            "icon": "check_mark",
+            "row_content": "",
+            "page": ""
+          }
+        },
+        "collapsible_row_E6mnUA": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Collapsible row",
+            "icon": "check_mark",
+            "row_content": "",
+            "page": ""
+          }
+        },
+        "collapsible_row_L643Jc": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Collapsible row",
+            "icon": "check_mark",
+            "row_content": "",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_9TJwPP",
+        "collapsible_row_Y9Lqje",
+        "collapsible_row_E6mnUA",
+        "collapsible_row_L643Jc"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "row",
+        "container_color_scheme": "scheme-5afe3df2-334b-4cd0-ae02-304a19beedad",
+        "color_scheme": "",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
     }
   },
   "order": [
     "main",
-    "page_faq_hero_yXxzHi"
+    "page_faq_hero_yXxzHi",
+    "collapsible_content_nDXEDe"
   ]
 }
