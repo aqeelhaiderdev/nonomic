@@ -160,6 +160,46 @@
             "role": "Odor Trapping",
             "description": "<p>Traps and neutralizes odor molecules at the molecular level. Works in tandem with MicroSilver for comprehensive odor control.</p>"
           }
+        },
+        "ingredient_FdLXYr": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Triethyl Citrate",
+            "role": "Enzymatic Odor Prevention",
+            "description": "<p>Blocks enzymatic breakdown of sweat proteins. Secondary defense mechanism that prevents odor compound formation before it starts.</p>"
+          }
+        },
+        "ingredient_7GVxCT": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zinc Oxide (NN)",
+            "role": "Adhesion & Anchoring",
+            "description": "<p>Medical-grade ingredient that anchors formula to skin and provides all-day adhesion. Also offers secondary antimicrobial properties.</p>"
+          }
+        },
+        "ingredient_LDztgf": {
+          "type": "ingredient",
+          "settings": {
+            "name": "MicroSilver",
+            "role": "Primary Antimicrobial Mechanism",
+            "description": "<p>Pharmaceutical-grade antimicrobial technology. Ultra-fine metallic silver particles that disrupt bacterial cell walls at contact. The core active ingredient.</p>"
+          }
+        },
+        "ingredient_dGgMcE": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Rosemary Antioxidant",
+            "role": "Natural Preservative",
+            "description": "<p>Plant-based antioxidant that protects formula integrity and extends shelf life. Prevents oxidation without synthetic preservatives.</p>"
+          }
+        },
+        "ingredient_rjLJrW": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Essential Oils Blend*",
+            "role": "Scent Profile",
+            "description": "<p>Natural essential oil blends specific to each scent profile. Carefully selected for their aromatic properties. Not present in Unscented formula.</p>"
+          }
         }
       },
       "block_order": [
@@ -170,7 +210,12 @@
         "ingredient_tmJ3TD",
         "ingredient_TddzpK",
         "ingredient_AQP6KA",
-        "ingredient_4JE4P8"
+        "ingredient_4JE4P8",
+        "ingredient_FdLXYr",
+        "ingredient_7GVxCT",
+        "ingredient_LDztgf",
+        "ingredient_dGgMcE",
+        "ingredient_rjLJrW"
       ],
       "name": "Ingredients List",
       "settings": {
