@@ -525,8 +525,8 @@
         "padding_bottom_mobile": 48
       }
     },
-    "page_the_science_cta_7Gnedd": {
-      "type": "page__the-science-cta",
+    "page_the_science_cta_C4hdfH": {
+      "type": "page_the-science-cta",
       "name": "Science CTA",
       "settings": {
         "heading": "Most deodorants ask you to trust the brand. We built ours around a mechanism.",
@@ -572,6 +572,6 @@
     "page_the_science_ingredients_XJW7pg",
     "page_the_science_clinical_KcDHin",
     "page_the_science_excluded_hdPnqC",
-    "page_the_science_cta_7Gnedd"
+    "page_the_science_cta_C4hdfH"
   ]
 }
