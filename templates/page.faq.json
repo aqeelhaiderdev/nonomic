@@ -83,13 +83,37 @@
             "question": "Is it safe for sensitive skin?",
             "answer": "<p>Yes. Our formula is pH-balanced and free from baking soda, aluminum, parabens, and synthetic fragrances — the most common irritants in deodorants. MicroSilver is non-systemic and remains on the skin surface. It's used in dermatological applications for eczema and wound healing. That said, everyone's skin is different. If you experience irritation, stop use and contact us for a refund.</p>"
           }
+        },
+        "faq_item_tLJmjT": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does one stick last?",
+            "answer": "<p>Each stick is 2.65 oz (75g). With daily use, most people get 4-6 months from one stick. Application amount varies by individual, but you shouldn't need to reapply throughout the day.</p>"
+          }
+        },
+        "faq_item_frLhhU": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does it leave white marks or stains?",
+            "answer": "<p>Minimal. The formula is designed to absorb quickly. You may see a slight residue immediately after application, but it shouldn't transfer to clothing if you let it dry for 30-60 seconds. Dark clothing won't show white marks like traditional deodorants or antiperspirants.</p>"
+          }
+        },
+        "faq_item_KULtyf": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What do the scents smell like?",
+            "answer": "<p>Clean Forest: Fresh cedarwood and eucalyptus. Grounded and subtle. Not cologne-like. <br/>Citrus Grove: Bright bergamot and grapefruit. Energizing but not overpowering. <br/>Coconut Vanilla: Warm coconut with vanilla undertones. Comforting, not sweet. <br/>Unscented: Pure formula with zero fragrance. Just the mechanism. </p><p>All scents fade into skin-neutral within an hour — they're not meant to function as fragrance.</p>"
+          }
         }
       },
       "block_order": [
         "faq_item_jiGM3F",
         "faq_item_iGkVww",
         "faq_item_rMLUd6",
-        "faq_item_HjN6KJ"
+        "faq_item_HjN6KJ",
+        "faq_item_tLJmjT",
+        "faq_item_frLhhU",
+        "faq_item_KULtyf"
       ],
       "name": "FAQ Accordion",
       "settings": {
@@ -104,13 +128,13 @@
         "item_gap_mobile": 16,
         "item_padding_y_mobile": 24,
         "item_padding_x_mobile": 24,
-        "background_color": "#FFFFFF",
-        "color_item_bg": "#FFFFFF",
-        "color_item_bg_open": "#F6F7F9",
-        "color_item_border": "#DDE1E8",
+        "background_color": "#ffffff",
+        "color_item_bg": "#ffffff",
+        "color_item_bg_open": "#f6f7f9",
+        "color_item_border": "#dde1e8",
         "color_question": "#111827",
-        "color_answer": "#4B5A6B",
-        "color_icon": "#7A8899",
+        "color_answer": "#4b5a6b",
+        "color_icon": "#7a8899",
         "padding_top": 80,
         "padding_top_mobile": 48,
         "padding_bottom": 80,
