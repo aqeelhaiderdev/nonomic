@@ -45,19 +45,71 @@
         "heading_padding_bottom_mobile": 32,
         "desc_padding_top_mobile": 0,
         "desc_padding_bottom_mobile": 0,
-        "background_color": "#1A2B3C",
-        "color_eyebrow": "#7A8899",
-        "color_heading": "#FFFFFF",
-        "color_desc": "#A8BFD0",
+        "background_color": "#1a2b3c",
+        "color_eyebrow": "#7a8899",
+        "color_heading": "#ffffff",
+        "color_desc": "#a8bfd0",
         "padding_top": 96,
         "padding_top_mobile": 48,
         "padding_bottom": 96,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_contact_methods_PXC4yt": {
+      "type": "page_contact-methods",
+      "blocks": {
+        "contact_method_atiwBM": {
+          "type": "contact_method",
+          "settings": {
+            "heading": "Email",
+            "link_text": "support@nonomic.com",
+            "link_url": "mailto:support@nonomic.com",
+            "text": "<p>Orders, returns, and general questions —<br>we respond within 24 hours.</p>"
+          }
+        },
+        "contact_method_eXMMVK": {
+          "type": "contact_method",
+          "settings": {
+            "heading": "Wholesale",
+            "link_text": "wholesale@nonomic.com",
+            "link_url": "mailto:wholesale@nonomic.com",
+            "text": "<p>For retail inquiries</p>"
+          }
+        }
+      },
+      "block_order": [
+        "contact_method_atiwBM",
+        "contact_method_eXMMVK"
+      ],
+      "name": "Contact Methods",
+      "settings": {
+        "content_max_width": 1280,
+        "heading_size_desktop": 14,
+        "link_size_desktop": 14,
+        "text_size_desktop": 12,
+        "heading_size_mobile": 14,
+        "link_size_mobile": 14,
+        "text_size_mobile": 12,
+        "grid_gap_desktop": 32,
+        "heading_margin_bottom_desktop": 8,
+        "text_margin_top_desktop": 8,
+        "grid_gap_mobile": 32,
+        "heading_margin_bottom_mobile": 8,
+        "text_margin_top_mobile": 8,
+        "background_color": "#FFFFFF",
+        "color_heading": "#111827",
+        "color_link": "#1A2B3C",
+        "color_text": "#7A8899",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
         "padding_bottom_mobile": 48
       }
     }
   },
   "order": [
     "main",
-    "page_contact_hero_iyW9iA"
+    "page_contact_hero_iyW9iA",
+    "page_contact_methods_PXC4yt"
   ]
 }
