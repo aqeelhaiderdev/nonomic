@@ -45,19 +45,84 @@
         "heading_padding_bottom_mobile": 32,
         "desc_padding_top_mobile": 0,
         "desc_padding_bottom_mobile": 0,
-        "background_color": "#1A2B3C",
-        "color_eyebrow": "#7A8899",
-        "color_heading": "#FFFFFF",
-        "color_desc": "#A8BFD0",
+        "background_color": "#1a2b3c",
+        "color_eyebrow": "#7a8899",
+        "color_heading": "#ffffff",
+        "color_desc": "#a8bfd0",
         "padding_top": 96,
         "padding_top_mobile": 48,
         "padding_bottom": 96,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_guarantee_steps_9PNCTm": {
+      "type": "page_guarantee-steps",
+      "blocks": {
+        "step_3ydNhq": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "heading": "Try It for 45 Days",
+            "text": "<p>Use Nonomic daily. Test it through workouts, long days, stressful meetings. We want you to actually experience how it works.</p>"
+          }
+        },
+        "step_LqV6De": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "heading": "Not Satisfied? Let Us Know",
+            "text": "<p>Email us at returns@nonomic.com within 45 days of your first order. No forms. No shipping required. We'll take your word for it.</p>"
+          }
+        },
+        "step_wXTt9N": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "heading": "Get Your Full Refund",
+            "text": "<p>Refund processed within 3–5 business days of your email. Full purchase price returned to your original payment method.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_3ydNhq",
+        "step_LqV6De",
+        "step_wXTt9N"
+      ],
+      "name": "Guarantee Steps",
+      "settings": {
+        "heading": "How the Guarantee Works",
+        "content_max_width": 1280,
+        "heading_size_desktop": 40,
+        "num_size_desktop": 64,
+        "step_head_size_desktop": 18,
+        "step_text_size_desktop": 14,
+        "heading_size_mobile": 32,
+        "num_size_mobile": 48,
+        "step_head_size_mobile": 16,
+        "step_text_size_mobile": 14,
+        "heading_padding_bottom_desktop": 48,
+        "grid_gap_desktop": 48,
+        "num_padding_bottom_desktop": 16,
+        "step_head_padding_bottom_desktop": 12,
+        "heading_padding_bottom_mobile": 32,
+        "grid_gap_mobile": 40,
+        "num_padding_bottom_mobile": 12,
+        "step_head_padding_bottom_mobile": 8,
+        "background_color": "#FFFFFF",
+        "color_heading": "#111827",
+        "color_step_num": "#EBEEF2",
+        "color_step_head": "#111827",
+        "color_step_text": "#4B5A6B",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
         "padding_bottom_mobile": 48
       }
     }
   },
   "order": [
     "main",
-    "page_guarantee_hero_UYftEy"
+    "page_guarantee_hero_UYftEy",
+    "page_guarantee_steps_9PNCTm"
   ]
 }
