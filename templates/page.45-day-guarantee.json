@@ -174,10 +174,32 @@
         "heading_padding_bottom_mobile": 24,
         "block_gap_mobile": 24,
         "block_heading_padding_bottom_mobile": 8,
-        "background_color": "#EBEEF2",
+        "background_color": "#ebeef2",
         "color_heading": "#111827",
         "color_block_heading": "#111827",
-        "color_block_text": "#4B5A6B",
+        "color_block_text": "#4b5a6b",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_guarantee_why_UL7gea": {
+      "type": "page_guarantee-why",
+      "name": "Guarantee Why",
+      "settings": {
+        "heading": "Why We Offer This Guarantee",
+        "text": "<p>We built Nonomic around a proven antimicrobial mechanism. MicroSilver has been studied extensively. We know it works. But everyone's body chemistry is different, and we want you to be absolutely certain before committing.</p><p>This isn't a gimmick. It's confidence in the product. Try it. Test it. If it doesn't work for you, we'll make it right — on your first order, up to $60.</p>",
+        "content_max_width": 720,
+        "heading_size_desktop": 36,
+        "text_size_desktop": 16,
+        "heading_size_mobile": 28,
+        "text_size_mobile": 16,
+        "heading_padding_bottom_desktop": 24,
+        "heading_padding_bottom_mobile": 20,
+        "background_color": "#FFFFFF",
+        "color_heading": "#111827",
+        "color_text": "#4B5A6B",
         "padding_top": 80,
         "padding_top_mobile": 48,
         "padding_bottom": 80,
@@ -189,6 +211,7 @@
     "main",
     "page_guarantee_hero_UYftEy",
     "page_guarantee_steps_9PNCTm",
-    "page_guarantee_details_jP7iiP"
+    "page_guarantee_details_jP7iiP",
+    "page_guarantee_why_UL7gea"
   ]
 }
