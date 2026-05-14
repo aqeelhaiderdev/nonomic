@@ -1,0 +1,527 @@
+{%- style -%}
+  #GuaranteeSteps-{{ section.id }} {
+    --gs-bg: {{ section.settings.background_color }};
+    --gs-content-max-width: {{ section.settings.content_max_width }}px;
+    
+    --gs-c-heading: {{ section.settings.color_heading }};
+    --gs-c-step-num: {{ section.settings.color_step_num }};
+    --gs-c-step-head: {{ section.settings.color_step_head }};
+    --gs-c-step-text: {{ section.settings.color_step_text }};
+
+    /* Typography Variables (Mobile) */
+    --gs-heading-size-mo: {{ section.settings.heading_size_mobile }}px;
+    --gs-num-size-mo: {{ section.settings.num_size_mobile }}px;
+    --gs-step-head-size-mo: {{ section.settings.step_head_size_mobile }}px;
+    --gs-step-text-size-mo: {{ section.settings.step_text_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --gs-heading-size-dk: {{ section.settings.heading_size_desktop }}px;
+    --gs-num-size-dk: {{ section.settings.num_size_desktop }}px;
+    --gs-step-head-size-dk: {{ section.settings.step_head_size_desktop }}px;
+    --gs-step-text-size-dk: {{ section.settings.step_text_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --gs-heading-pb-mo: {{ section.settings.heading_padding_bottom_mobile }}px;
+    --gs-grid-gap-mo: {{ section.settings.grid_gap_mobile }}px;
+    --gs-num-pb-mo: {{ section.settings.num_padding_bottom_mobile }}px;
+    --gs-step-head-pb-mo: {{ section.settings.step_head_padding_bottom_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --gs-heading-pb-dk: {{ section.settings.heading_padding_bottom_desktop }}px;
+    --gs-grid-gap-dk: {{ section.settings.grid_gap_desktop }}px;
+    --gs-num-pb-dk: {{ section.settings.num_padding_bottom_desktop }}px;
+    --gs-step-head-pb-dk: {{ section.settings.step_head_padding_bottom_desktop }}px;
+
+    background-color: var(--gs-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .guarantee-steps__inner {
+    max-width: var(--gs-content-max-width);
+    margin: 0 auto;
+  }
+
+  .guarantee-steps__heading {
+    margin: 0 0 var(--gs-heading-pb-mo);
+    text-align: center;
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--gs-heading-size-mo);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--gs-c-heading);
+  }
+
+  .guarantee-steps__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gs-grid-gap-mo);
+  }
+
+  @media screen and (min-width: 750px) {
+    .guarantee-steps__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gs-grid-gap-dk);
+    }
+  }
+
+  .guarantee-steps__item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .guarantee-steps__number {
+    margin: 0 0 var(--gs-num-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--gs-num-size-mo);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--gs-c-step-num);
+  }
+
+  .guarantee-steps__item-heading {
+    margin: 0 0 var(--gs-step-head-pb-mo);
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--gs-step-head-size-mo);
+    font-weight: 500;
+    color: var(--gs-c-step-head);
+  }
+
+  .guarantee-steps__item-text {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--gs-step-text-size-mo);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--gs-c-step-text);
+  }
+
+  .guarantee-steps__item-text p {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  @media screen and (min-width: 750px) {
+    .guarantee-steps__heading {
+      font-size: var(--gs-heading-size-dk);
+      margin-bottom: var(--gs-heading-pb-dk);
+    }
+
+    .guarantee-steps__number {
+      font-size: var(--gs-num-size-dk);
+      margin-bottom: var(--gs-num-pb-dk);
+    }
+
+    .guarantee-steps__item-heading {
+      font-size: var(--gs-step-head-size-dk);
+      margin-bottom: var(--gs-step-head-pb-dk);
+    }
+
+    .guarantee-steps__item-text {
+      font-size: var(--gs-step-text-size-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="GuaranteeSteps-{{ section.id }}" class="guarantee-steps section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="guarantee-steps__inner">
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="guarantee-steps__heading">
+          {{ section.settings.heading | escape }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="guarantee-steps__grid">
+          {%- for block in section.blocks -%}
+            <div class="guarantee-steps__item" {{ block.shopify_attributes }}>
+              {%- if block.settings.number != blank -%}
+                <div class="guarantee-steps__number">{{ block.settings.number | escape }}</div>
+              {%- endif -%}
+              
+              {%- if block.settings.heading != blank -%}
+                <h3 class="guarantee-steps__item-heading">{{ block.settings.heading | escape }}</h3>
+              {%- endif -%}
+
+              {%- if block.settings.text != blank -%}
+                <div class="guarantee-steps__item-text rte">
+                  {{ block.settings.text }}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Guarantee Steps",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How the Guarantee Works"
+    },
+    {
+      "type": "header",
+      "content": "Layout constraints"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 1280
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "num_size_desktop",
+      "min": 24,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Large Number size",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "step_head_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Step Heading size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "step_text_size_desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Step Text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "num_size_mobile",
+      "min": 24,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Large Number size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "step_head_size_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Step Heading size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "step_text_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Step Text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between steps",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "num_padding_bottom_desktop",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Number bottom margin",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "step_head_padding_bottom_desktop",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Step Heading bottom margin",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between steps",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "num_padding_bottom_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Number bottom margin",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "step_head_padding_bottom_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Step Heading bottom margin",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_step_num",
+      "label": "Step Number",
+      "default": "#EBEEF2"
+    },
+    {
+      "type": "color",
+      "id": "color_step_head",
+      "label": "Step Heading",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_step_text",
+      "label": "Step Text",
+      "default": "#4B5A6B"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Try It for 45 Days"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Use Nonomic daily. Test it through workouts, long days, stressful meetings. We want you to actually experience how it works.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Guarantee Steps",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "heading": "Try It for 45 Days",
+            "text": "<p>Use Nonomic daily. Test it through workouts, long days, stressful meetings. We want you to actually experience how it works.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "heading": "Not Satisfied? Let Us Know",
+            "text": "<p>Email us at returns@nonomic.com within 45 days of your first order. No forms. No shipping required. We'll take your word for it.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "heading": "Get Your Full Refund",
+            "text": "<p>Refund processed within 3–5 business days of your email. Full purchase price returned to your original payment method.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
