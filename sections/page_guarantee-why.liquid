@@ -1,0 +1,299 @@
+{%- style -%}
+  #GuaranteeWhy-{{ section.id }} {
+    --gw-bg: {{ section.settings.background_color }};
+    --gw-content-max-width: {{ section.settings.content_max_width }}px;
+    
+    --gw-c-heading: {{ section.settings.color_heading }};
+    --gw-c-text: {{ section.settings.color_text }};
+
+    /* Typography Variables (Mobile) */
+    --gw-heading-size-mo: {{ section.settings.heading_size_mobile }}px;
+    --gw-text-size-mo: {{ section.settings.text_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --gw-heading-size-dk: {{ section.settings.heading_size_desktop }}px;
+    --gw-text-size-dk: {{ section.settings.text_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --gw-heading-pb-mo: {{ section.settings.heading_padding_bottom_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --gw-heading-pb-dk: {{ section.settings.heading_padding_bottom_desktop }}px;
+
+    background-color: var(--gw-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .guarantee-why__inner {
+    max-width: var(--gw-content-max-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .guarantee-why__heading {
+    margin: 0 0 var(--gw-heading-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--gw-heading-size-mo);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--gw-c-heading);
+    word-break: break-word;
+  }
+
+  .guarantee-why__text {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--gw-text-size-mo);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--gw-c-text);
+  }
+
+  .guarantee-why__text p {
+    margin: 0 0 24px;
+    font: inherit;
+    color: inherit;
+  }
+
+  .guarantee-why__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .guarantee-why__heading {
+      font-size: var(--gw-heading-size-dk);
+      margin-bottom: var(--gw-heading-pb-dk);
+    }
+
+    .guarantee-why__text {
+      font-size: var(--gw-text-size-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="GuaranteeWhy-{{ section.id }}" class="guarantee-why section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="guarantee-why__inner">
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="guarantee-why__heading">
+          {{ section.settings.heading | newline_to_br }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="guarantee-why__text rte">
+          {{ section.settings.text }}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Guarantee Why",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Use Enter to add line breaks.",
+      "default": "Why We Offer This Guarantee"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>We built Nonomic around a proven antimicrobial mechanism. MicroSilver has been studied extensively. We know it works. But everyone's body chemistry is different, and we want you to be absolutely certain before committing.</p><p>This isn't a gimmick. It's confidence in the product. Try it. Test it. If it doesn't work for you, we'll make it right — on your first order, up to $60.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout constraints"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 720
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "text_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "text_size_mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Body text",
+      "default": "#4B5A6B"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Guarantee Why"
+    }
+  ]
+}
+{% endschema %}
