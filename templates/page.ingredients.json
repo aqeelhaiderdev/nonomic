@@ -82,12 +82,123 @@
         "number_margin_bottom_mobile": 8,
         "symbol_margin_bottom_mobile": 8,
         "name_margin_bottom_mobile": 24,
-        "background_color": "#FFFFFF",
-        "color_card_bg": "#1A2B3C",
-        "color_number": "#7A8899",
-        "color_symbol": "#FFFFFF",
-        "color_name": "#A8BFD0",
-        "color_mass": "#7A8899",
+        "background_color": "#ffffff",
+        "color_card_bg": "#1a2b3c",
+        "color_number": "#7a8899",
+        "color_symbol": "#ffffff",
+        "color_name": "#a8bfd0",
+        "color_mass": "#7a8899",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_ingredients_list_d7xbGU": {
+      "type": "page_ingredients-list",
+      "blocks": {
+        "ingredient_yKQhdG": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Caprylic/Capric Triglyceride",
+            "role": "BASE & DELIVERY SYSTEM",
+            "description": "<p>Lightweight, skin-conditioning base derived from coconut oil. Delivers active ingredients to skin while providing moisturization without heaviness.</p>"
+          }
+        },
+        "ingredient_m7zDxA": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Tapioca Starch",
+            "role": "MOISTURE ABSORPTION",
+            "description": "<p>Natural starch that absorbs moisture and creates a smooth, dry feel on application. Keeps underarms comfortable throughout the day.</p>"
+          }
+        },
+        "ingredient_tLV33L": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Rice Bran Wax",
+            "role": "STRUCTURE & GLIDE",
+            "description": "<p>Provides formula structure and ensures smooth, effortless glide across skin. Natural wax with excellent skin-feel properties.</p>"
+          }
+        },
+        "ingredient_rVgr7a": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Cocoa Butter",
+            "role": "SKIN SOFTENING",
+            "description": "<p>Rich emollient that softens and protects skin. Prevents dryness and maintains skin barrier integrity with repeated use.</p>"
+          }
+        },
+        "ingredient_tmJ3TD": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Magnesium Hydroxide",
+            "role": "PH MANAGEMENT",
+            "description": "<p>Creates a mildly alkaline environment that inhibits bacterial growth. Unlike baking soda, it is non-irritating and pH-balanced.</p>"
+          }
+        },
+        "ingredient_TddzpK": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Carnauba Wax",
+            "role": "HOLD & STABILITY",
+            "description": "<p>Plant-derived wax from Brazilian palm trees. Provides structural stability and ensures the formula maintains its integrity in varying temperatures.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_yKQhdG",
+        "ingredient_m7zDxA",
+        "ingredient_tLV33L",
+        "ingredient_rVgr7a",
+        "ingredient_tmJ3TD",
+        "ingredient_TddzpK"
+      ],
+      "name": "Ingredients List",
+      "settings": {
+        "heading": "Complete Ingredient List",
+        "footer_text": "*Essential oil composition varies by formula. Unscented contains zero fragrance compounds.",
+        "content_max_width": 1280,
+        "card_radius": 0,
+        "heading_size_desktop": 40,
+        "card_name_size_desktop": 16,
+        "card_role_size_desktop": 11,
+        "card_desc_size_desktop": 14,
+        "footer_size_desktop": 13,
+        "heading_size_mobile": 32,
+        "card_name_size_mobile": 16,
+        "card_role_size_mobile": 11,
+        "card_desc_size_mobile": 14,
+        "footer_size_mobile": 13,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 48,
+        "grid_padding_top_desktop": 0,
+        "grid_padding_bottom_desktop": 0,
+        "grid_gap_desktop": 24,
+        "card_padding_top_desktop": 24,
+        "card_padding_bottom_desktop": 24,
+        "card_padding_horizontal_desktop": 24,
+        "footer_padding_top_desktop": 32,
+        "footer_padding_bottom_desktop": 0,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 32,
+        "grid_padding_top_mobile": 0,
+        "grid_padding_bottom_mobile": 0,
+        "grid_gap_mobile": 16,
+        "card_padding_top_mobile": 24,
+        "card_padding_bottom_mobile": 24,
+        "card_padding_horizontal_mobile": 24,
+        "footer_padding_top_mobile": 32,
+        "footer_padding_bottom_mobile": 0,
+        "background_color": "#EBEEF2",
+        "color_heading": "#111827",
+        "color_card_bg": "#FFFFFF",
+        "color_card_border": "#DDE1E8",
+        "color_card_border_left": "#1A2B3C",
+        "color_card_name": "#111827",
+        "color_card_role": "#7A8899",
+        "color_card_desc": "#4B5A6B",
+        "color_footer": "#7A8899",
         "padding_top": 80,
         "padding_top_mobile": 48,
         "padding_bottom": 80,
@@ -98,6 +209,7 @@
   "order": [
     "main",
     "page_ingredients_hero_dBDLg4",
-    "page_ingredients_card_hc7eWE"
+    "page_ingredients_card_hc7eWE",
+    "page_ingredients_list_d7xbGU"
   ]
 }
