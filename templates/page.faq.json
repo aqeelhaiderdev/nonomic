@@ -115,11 +115,100 @@
         "padding_top": 100,
         "padding_bottom": 100
       }
+    },
+    "faq_accordion_AzGcNR": {
+      "type": "faq-accordion",
+      "blocks": {
+        "faq_item_kRCBmG": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How is Nonomic different from other natural deodorants?",
+            "answer": "<p>Most natural deodorants use baking soda to create a harsh pH environment that inhibits bacteria — which often causes irritation. Nonomic uses MicroSilver, a clinical-grade antimicrobial that disrupts bacterial cell walls at contact. It's gentler, more effective, and doesn't rely on shocking your skin into submission.</p>"
+          }
+        },
+        "faq_item_iRef6K": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is MicroSilver and how does it work?",
+            "answer": "<p>MicroSilver is a patented antimicrobial technology consisting of ultra-fine metallic silver particles with a porous, sponge-like structure. Silver ions are released continuously throughout the day, binding to bacterial cell wall proteins and disrupting their ability to function. Bacteria can't produce odor compounds if they can't function. It's used in medical-grade skincare and has extensive clinical backing.</p>"
+          }
+        },
+        "faq_item_YebhyL": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will this stop me from sweating?",
+            "answer": "<p>No. Nonomic is not an antiperspirant. It doesn't block sweat ducts. Sweat is odorless — odor comes from bacteria breaking down sweat into volatile compounds. We eliminate the bacteria, not the sweat. If you specifically want to stop sweating, you'll need an aluminum-based antiperspirant.</p>"
+          }
+        },
+        "faq_item_dLwrTC": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it safe for sensitive skin?",
+            "answer": "<p>Yes. Our formula is pH-balanced and free from baking soda, aluminum, parabens, and synthetic fragrances — the most common irritants in deodorants. MicroSilver is non-systemic and remains on the skin surface. It's used in dermatological applications for eczema and wound healing. That said, everyone's skin is different. If you experience irritation, stop use and contact us for a refund.</p>"
+          }
+        },
+        "faq_item_qU8bc9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does one stick last?",
+            "answer": "<p>Each stick is 2.65 oz (75g). With daily use, most people get 4-6 months from one stick. Application amount varies by individual, but you shouldn't need to reapply throughout the day.</p>"
+          }
+        },
+        "faq_item_jXNQA3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does it leave white marks or stains?",
+            "answer": "<p>Minimal. The formula is designed to absorb quickly. You may see a slight residue immediately after application, but it shouldn't transfer to clothing if you let it dry for 30-60 seconds. Dark clothing won't show white marks like traditional deodorants or antiperspirants.</p>"
+          }
+        },
+        "faq_item_8brxc6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What do the scents smell like?",
+            "answer": "<p><strong>Clean Forest:</strong> Fresh cedarwood and eucalyptus. Grounded and subtle. Not cologne-like. <br/><strong>Citrus Grove:</strong> Bright bergamot and grapefruit. Energizing but not overpowering. <br/><strong>Coconut Vanilla: </strong>Warm coconut with vanilla undertones. Comforting, not sweet. <br/><strong>Unscented: </strong>Pure formula with zero fragrance. Just the mechanism. </p><p>All scents fade into skin-neutral within an hour — they're not meant to function as fragrance.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_kRCBmG",
+        "faq_item_iRef6K",
+        "faq_item_YebhyL",
+        "faq_item_dLwrTC",
+        "faq_item_qU8bc9",
+        "faq_item_jXNQA3",
+        "faq_item_8brxc6"
+      ],
+      "name": "FAQ Accordion",
+      "settings": {
+        "content_max_width": 840,
+        "question_size_desktop": 16,
+        "answer_size_desktop": 15,
+        "question_size_mobile": 16,
+        "answer_size_mobile": 15,
+        "item_gap_desktop": 16,
+        "item_padding_y_desktop": 24,
+        "item_padding_x_desktop": 24,
+        "item_gap_mobile": 16,
+        "item_padding_y_mobile": 24,
+        "item_padding_x_mobile": 24,
+        "background_color": "#FFFFFF",
+        "color_item_bg": "#FFFFFF",
+        "color_item_bg_open": "#F6F7F9",
+        "color_item_border": "#DDE1E8",
+        "color_question": "#111827",
+        "color_answer": "#4B5A6B",
+        "color_icon": "#7A8899",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
     }
   },
   "order": [
     "main",
     "page_faq_hero_yXxzHi",
-    "collapsible_content_nDXEDe"
+    "collapsible_content_nDXEDe",
+    "faq_accordion_AzGcNR"
   ]
 }
