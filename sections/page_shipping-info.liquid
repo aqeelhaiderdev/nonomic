@@ -1,0 +1,469 @@
+{%- style -%}
+  #ShippingInfo-{{ section.id }} {
+    --si-bg: {{ section.settings.background_color }};
+    --si-content-max-width: {{ section.settings.content_max_width }}px;
+    
+    --si-c-heading: {{ section.settings.color_heading }};
+    --si-c-block-heading: {{ section.settings.color_block_heading }};
+    --si-c-block-text: {{ section.settings.color_block_text }};
+
+    /* Typography Variables (Mobile) */
+    --si-heading-size-mo: {{ section.settings.heading_size_mobile }}px;
+    --si-block-heading-size-mo: {{ section.settings.block_heading_size_mobile }}px;
+    --si-block-text-size-mo: {{ section.settings.block_text_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --si-heading-size-dk: {{ section.settings.heading_size_desktop }}px;
+    --si-block-heading-size-dk: {{ section.settings.block_heading_size_desktop }}px;
+    --si-block-text-size-dk: {{ section.settings.block_text_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --si-heading-pb-mo: {{ section.settings.heading_padding_bottom_mobile }}px;
+    --si-gap-mo: {{ section.settings.block_gap_mobile }}px;
+    --si-block-heading-pb-mo: {{ section.settings.block_heading_padding_bottom_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --si-heading-pb-dk: {{ section.settings.heading_padding_bottom_desktop }}px;
+    --si-gap-dk: {{ section.settings.block_gap_desktop }}px;
+    --si-block-heading-pb-dk: {{ section.settings.block_heading_padding_bottom_desktop }}px;
+
+    background-color: var(--si-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .shipping-info__inner {
+    max-width: var(--si-content-max-width);
+    margin: 0 auto;
+  }
+
+  .shipping-info__heading {
+    margin: 0 0 var(--si-heading-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--si-heading-size-mo);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--si-c-heading);
+  }
+
+  .shipping-info__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--si-gap-mo);
+  }
+
+  .shipping-info__block-heading {
+    margin: 0 0 var(--si-block-heading-pb-mo);
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--si-block-heading-size-mo);
+    font-weight: 500;
+    color: var(--si-c-block-heading);
+  }
+
+  .shipping-info__block-text {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--si-block-text-size-mo);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--si-c-block-text);
+  }
+
+  .shipping-info__block-text p {
+    margin: 0 0 12px;
+    font: inherit;
+    color: inherit;
+  }
+
+  .shipping-info__block-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .shipping-info__block-text ul {
+    padding-left: 24px;
+    margin: 0 0 12px;
+    list-style-type: disc;
+  }
+
+  .shipping-info__block-text ul:last-child {
+    margin-bottom: 0;
+  }
+
+  .shipping-info__block-text li {
+    margin-bottom: 8px;
+    font: inherit;
+    color: inherit;
+  }
+
+  .shipping-info__block-text li:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .shipping-info__heading {
+      font-size: var(--si-heading-size-dk);
+      margin-bottom: var(--si-heading-pb-dk);
+    }
+
+    .shipping-info__list {
+      gap: var(--si-gap-dk);
+    }
+
+    .shipping-info__block-heading {
+      font-size: var(--si-block-heading-size-dk);
+      margin-bottom: var(--si-block-heading-pb-dk);
+    }
+
+    .shipping-info__block-text {
+      font-size: var(--si-block-text-size-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="ShippingInfo-{{ section.id }}" class="shipping-info section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="shipping-info__inner">
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="shipping-info__heading">
+          {{ section.settings.heading | escape }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="shipping-info__list">
+          {%- for block in section.blocks -%}
+            <div class="shipping-info__block" {{ block.shopify_attributes }}>
+              {%- if block.settings.heading != blank -%}
+                <h3 class="shipping-info__block-heading">{{ block.settings.heading | escape }}</h3>
+              {%- endif -%}
+              
+              {%- if block.settings.text != blank -%}
+                <div class="shipping-info__block-text rte">
+                  {{ block.settings.text }}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shipping Info",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shipping"
+    },
+    {
+      "type": "header",
+      "content": "Layout constraints"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 840
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "block_heading_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Block Heading size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "block_text_size_desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Block Text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "block_heading_size_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Block Heading size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "block_text_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Block Text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "block_gap_desktop",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between blocks",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "block_heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Block heading bottom margin",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "block_gap_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between blocks",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "block_heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Block heading bottom margin",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_block_heading",
+      "label": "Block heading text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_block_text",
+      "label": "Block text",
+      "default": "#4B5A6B"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info_block",
+      "name": "Info Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Processing Time"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>All orders ship within 1-2 business days. Orders placed before 2 PM PST ship same day.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shipping Info",
+      "blocks": [
+        {
+          "type": "info_block",
+          "settings": {
+            "heading": "Processing Time",
+            "text": "<p>All orders ship within 1-2 business days. Orders placed before 2 PM PST ship same day.</p>"
+          }
+        },
+        {
+          "type": "info_block",
+          "settings": {
+            "heading": "Delivery Time",
+            "text": "<p>Domestic shipping (US):</p><ul><li>Standard (USPS): 3-5 business days</li><li>Priority (USPS): 2-3 business days</li></ul>"
+          }
+        },
+        {
+          "type": "info_block",
+          "settings": {
+            "heading": "Shipping Cost",
+            "text": "<p>Free standard shipping on all orders over $35. Flat rate $5 for orders under $35.</p>"
+          }
+        },
+        {
+          "type": "info_block",
+          "settings": {
+            "heading": "Tracking",
+            "text": "<p>You'll receive a tracking number via email as soon as your order ships. Track your package directly through USPS.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
