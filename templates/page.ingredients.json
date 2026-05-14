@@ -144,6 +144,22 @@
             "role": "HOLD & STABILITY",
             "description": "<p>Plant-derived wax from Brazilian palm trees. Provides structural stability and ensures the formula maintains its integrity in varying temperatures.</p>"
           }
+        },
+        "ingredient_AQP6KA": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Jojoba Esters 60",
+            "role": "Skin Conditioning",
+            "description": "<p>Derived from jojoba oil. Enhances skin conditioning and creates a protective, breathable layer that feels natural and comfortable.</p>"
+          }
+        },
+        "ingredient_4JE4P8": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zinc Ricinoleate",
+            "role": "Odor Trapping",
+            "description": "<p>Traps and neutralizes odor molecules at the molecular level. Works in tandem with MicroSilver for comprehensive odor control.</p>"
+          }
         }
       },
       "block_order": [
@@ -152,7 +168,9 @@
         "ingredient_tLV33L",
         "ingredient_rVgr7a",
         "ingredient_tmJ3TD",
-        "ingredient_TddzpK"
+        "ingredient_TddzpK",
+        "ingredient_AQP6KA",
+        "ingredient_4JE4P8"
       ],
       "name": "Ingredients List",
       "settings": {
@@ -190,15 +208,15 @@
         "card_padding_horizontal_mobile": 24,
         "footer_padding_top_mobile": 32,
         "footer_padding_bottom_mobile": 0,
-        "background_color": "#EBEEF2",
+        "background_color": "#ebeef2",
         "color_heading": "#111827",
-        "color_card_bg": "#FFFFFF",
-        "color_card_border": "#DDE1E8",
-        "color_card_border_left": "#1A2B3C",
+        "color_card_bg": "#ffffff",
+        "color_card_border": "#dde1e8",
+        "color_card_border_left": "#1a2b3c",
         "color_card_name": "#111827",
-        "color_card_role": "#7A8899",
-        "color_card_desc": "#4B5A6B",
-        "color_footer": "#7A8899",
+        "color_card_role": "#7a8899",
+        "color_card_desc": "#4b5a6b",
+        "color_footer": "#7a8899",
         "padding_top": 80,
         "padding_top_mobile": 48,
         "padding_bottom": 80,
