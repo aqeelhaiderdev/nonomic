@@ -1,0 +1,458 @@
+{%- style -%}
+  #FaqAccordion-{{ section.id }} {
+    --fa-bg: {{ section.settings.background_color }};
+    --fa-content-max-width: {{ section.settings.content_max_width }}px;
+    
+    --fa-c-item-bg: {{ section.settings.color_item_bg }};
+    --fa-c-item-bg-open: {{ section.settings.color_item_bg_open }};
+    --fa-c-item-border: {{ section.settings.color_item_border }};
+    --fa-c-question: {{ section.settings.color_question }};
+    --fa-c-answer: {{ section.settings.color_answer }};
+    --fa-c-icon: {{ section.settings.color_icon }};
+
+    /* Typography Variables (Mobile) */
+    --fa-question-size-mo: {{ section.settings.question_size_mobile }}px;
+    --fa-answer-size-mo: {{ section.settings.answer_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --fa-question-size-dk: {{ section.settings.question_size_desktop }}px;
+    --fa-answer-size-dk: {{ section.settings.answer_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --fa-item-gap-mo: {{ section.settings.item_gap_mobile }}px;
+    --fa-item-py-mo: {{ section.settings.item_padding_y_mobile }}px;
+    --fa-item-px-mo: {{ section.settings.item_padding_x_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --fa-item-gap-dk: {{ section.settings.item_gap_desktop }}px;
+    --fa-item-py-dk: {{ section.settings.item_padding_y_desktop }}px;
+    --fa-item-px-dk: {{ section.settings.item_padding_x_desktop }}px;
+
+    background-color: var(--fa-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .faq-accordion__inner {
+    max-width: var(--fa-content-max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--fa-item-gap-mo);
+  }
+
+  @media screen and (min-width: 750px) {
+    .faq-accordion__inner {
+      gap: var(--fa-item-gap-dk);
+    }
+  }
+
+  .faq-accordion__item {
+    background-color: var(--fa-c-item-bg);
+    border: 0.5px solid var(--fa-c-item-border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: background-color 0.2s ease;
+  }
+
+  /* Target the open state of the native details element */
+  .faq-accordion__item[open] {
+    background-color: var(--fa-c-item-bg-open);
+  }
+
+  .faq-accordion__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: var(--fa-item-py-mo) var(--fa-item-px-mo);
+    cursor: pointer;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--fa-question-size-mo);
+    font-weight: 500;
+    color: var(--fa-c-question);
+    transition: opacity 0.2s ease;
+    /* Remove default markers */
+    list-style: none; 
+  }
+
+  .faq-accordion__question:hover {
+    opacity: 0.7;
+  }
+
+  /* Remove default markers in webkit browsers */
+  .faq-accordion__question::-webkit-details-marker {
+    display: none; 
+  }
+
+  .faq-accordion__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--fa-c-icon);
+    transition: transform 0.2s ease;
+  }
+
+  /* Rotate icon when details is open */
+  .faq-accordion__item[open] .faq-accordion__icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-accordion__answer {
+    padding: 0 var(--fa-item-px-mo) var(--fa-item-py-mo) var(--fa-item-px-mo);
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--fa-answer-size-mo);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--fa-c-answer);
+  }
+
+  .faq-accordion__answer p {
+    margin: 0 0 1em;
+    font: inherit;
+    color: inherit;
+  }
+
+  .faq-accordion__answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .faq-accordion__question {
+      padding: var(--fa-item-py-dk) var(--fa-item-px-dk);
+      font-size: var(--fa-question-size-dk);
+    }
+    
+    .faq-accordion__answer {
+      padding: 0 var(--fa-item-px-dk) var(--fa-item-py-dk) var(--fa-item-px-dk);
+      font-size: var(--fa-answer-size-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="FaqAccordion-{{ section.id }}" class="faq-accordion section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="faq-accordion__inner">
+      
+      {%- for block in section.blocks -%}
+        <details class="faq-accordion__item" {{ block.shopify_attributes }}>
+          <summary class="faq-accordion__question">
+            <span>{{ block.settings.question | escape }}</span>
+            <svg class="faq-accordion__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </summary>
+          <div class="faq-accordion__answer rte">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout constraints"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 600,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "label": "Accordion max width",
+      "default": 840
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "question_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Question size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "answer_size_desktop",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Answer size",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "question_size_mobile",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Question size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "answer_size_mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Answer size",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "item_gap_desktop",
+      "min": 0,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between questions",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "item_padding_y_desktop",
+      "min": 8,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Inside padding (Top/Bottom)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "item_padding_x_desktop",
+      "min": 8,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Inside padding (Left/Right)",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "item_gap_mobile",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between questions",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "item_padding_y_mobile",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Inside padding (Top/Bottom)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "item_padding_x_mobile",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Inside padding (Left/Right)",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_item_bg",
+      "label": "Item background (Closed)",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_item_bg_open",
+      "label": "Item background (Open)",
+      "default": "#F6F7F9"
+    },
+    {
+      "type": "color",
+      "id": "color_item_border",
+      "label": "Item border",
+      "default": "#DDE1E8"
+    },
+    {
+      "type": "color",
+      "id": "color_question",
+      "label": "Question text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_answer",
+      "label": "Answer text",
+      "default": "#4B5A6B"
+    },
+    {
+      "type": "color",
+      "id": "color_icon",
+      "label": "Arrow icon",
+      "default": "#7A8899"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Question",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How is Nonomic different from other natural deodorants?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Most natural deodorants use baking soda to create a harsh pH environment that inhibits bacteria — which often causes irritation. Nonomic uses MicroSilver, a clinical-grade antimicrobial that disrupts bacterial cell walls at contact. It's gentler, more effective, and doesn't rely on shocking your skin into submission.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How is Nonomic different from other natural deodorants?",
+            "answer": "<p>Most natural deodorants use baking soda to create a harsh pH environment that inhibits bacteria — which often causes irritation. Nonomic uses MicroSilver, a clinical-grade antimicrobial that disrupts bacterial cell walls at contact. It's gentler, more effective, and doesn't rely on shocking your skin into submission.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is MicroSilver and how does it work?",
+            "answer": "<p>MicroSilver is a patented antimicrobial technology consisting of ultra-fine metallic silver particles with a porous, sponge-like structure. Silver ions are released continuously throughout the day, binding to bacterial cell wall proteins and disrupting their ability to function. Bacteria can't produce odor compounds if they can't function. It's used in medical-grade skincare and has extensive clinical backing.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will this stop me from sweating?",
+            "answer": "<p>No. Nonomic is not an antiperspirant. It doesn't block sweat ducts. Sweat is odorless — odor comes from bacteria breaking down sweat into volatile compounds. We eliminate the bacteria, not the sweat. If you specifically want to stop sweating, you'll need an aluminum-based antiperspirant.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it safe for sensitive skin?",
+            "answer": "<p>Yes. Our formula is pH-balanced and free from baking soda, aluminum, parabens, and synthetic fragrances — the most common irritants in deodorants. MicroSilver is non-systemic and remains on the skin surface. It's used in dermatological applications for eczema and wound healing. That said, everyone's skin is different. If you experience irritation, stop use and contact us for a refund.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
