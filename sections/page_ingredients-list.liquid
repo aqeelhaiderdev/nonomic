@@ -1,0 +1,791 @@
+{%- style -%}
+  #IngredientsList-{{ section.id }} {
+    --il-bg: {{ section.settings.background_color }};
+    --il-content-max-width: {{ section.settings.content_max_width }}px;
+    
+    --il-c-heading: {{ section.settings.color_heading }};
+    --il-c-card-bg: {{ section.settings.color_card_bg }};
+    --il-c-card-border: {{ section.settings.color_card_border }};
+    --il-c-card-border-left: {{ section.settings.color_card_border_left }};
+    --il-c-card-name: {{ section.settings.color_card_name }};
+    --il-c-card-role: {{ section.settings.color_card_role }};
+    --il-c-card-desc: {{ section.settings.color_card_desc }};
+    --il-c-footer: {{ section.settings.color_footer }};
+
+    /* Typography Variables (Mobile) */
+    --il-heading-size-mo: {{ section.settings.heading_size_mobile }}px;
+    --il-card-name-size-mo: {{ section.settings.card_name_size_mobile }}px;
+    --il-card-role-size-mo: {{ section.settings.card_role_size_mobile }}px;
+    --il-card-desc-size-mo: {{ section.settings.card_desc_size_mobile }}px;
+    --il-footer-size-mo: {{ section.settings.footer_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --il-heading-size-dk: {{ section.settings.heading_size_desktop }}px;
+    --il-card-name-size-dk: {{ section.settings.card_name_size_desktop }}px;
+    --il-card-role-size-dk: {{ section.settings.card_role_size_desktop }}px;
+    --il-card-desc-size-dk: {{ section.settings.card_desc_size_desktop }}px;
+    --il-footer-size-dk: {{ section.settings.footer_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --il-heading-pt-mo: {{ section.settings.heading_padding_top_mobile }}px;
+    --il-heading-pb-mo: {{ section.settings.heading_padding_bottom_mobile }}px;
+    --il-grid-pt-mo: {{ section.settings.grid_padding_top_mobile }}px;
+    --il-grid-pb-mo: {{ section.settings.grid_padding_bottom_mobile }}px;
+    --il-grid-gap-mo: {{ section.settings.grid_gap_mobile }}px;
+    --il-card-pt-mo: {{ section.settings.card_padding_top_mobile }}px;
+    --il-card-pb-mo: {{ section.settings.card_padding_bottom_mobile }}px;
+    --il-card-px-mo: {{ section.settings.card_padding_horizontal_mobile }}px;
+    --il-footer-pt-mo: {{ section.settings.footer_padding_top_mobile }}px;
+    --il-footer-pb-mo: {{ section.settings.footer_padding_bottom_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --il-heading-pt-dk: {{ section.settings.heading_padding_top_desktop }}px;
+    --il-heading-pb-dk: {{ section.settings.heading_padding_bottom_desktop }}px;
+    --il-grid-pt-dk: {{ section.settings.grid_padding_top_desktop }}px;
+    --il-grid-pb-dk: {{ section.settings.grid_padding_bottom_desktop }}px;
+    --il-grid-gap-dk: {{ section.settings.grid_gap_desktop }}px;
+    --il-card-pt-dk: {{ section.settings.card_padding_top_desktop }}px;
+    --il-card-pb-dk: {{ section.settings.card_padding_bottom_desktop }}px;
+    --il-card-px-dk: {{ section.settings.card_padding_horizontal_desktop }}px;
+    --il-footer-pt-dk: {{ section.settings.footer_padding_top_desktop }}px;
+    --il-footer-pb-dk: {{ section.settings.footer_padding_bottom_desktop }}px;
+
+    --il-card-radius: {{ section.settings.card_radius }}px;
+
+    background-color: var(--il-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .ingredients-list__inner {
+    max-width: var(--il-content-max-width);
+    margin: 0 auto;
+  }
+
+  .ingredients-list__heading {
+    margin: 0;
+    text-align: center;
+    padding-top: var(--il-heading-pt-mo);
+    padding-bottom: var(--il-heading-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--il-heading-size-mo);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--il-c-heading);
+    word-break: break-word;
+  }
+
+  .ingredients-list__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--il-grid-gap-mo);
+    padding-top: var(--il-grid-pt-mo);
+    padding-bottom: var(--il-grid-pb-mo);
+  }
+
+  @media screen and (min-width: 750px) {
+    .ingredients-list__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--il-grid-gap-dk);
+      padding-top: var(--il-grid-pt-dk);
+      padding-bottom: var(--il-grid-pb-dk);
+    }
+  }
+
+  .ingredients-list__card {
+    background-color: var(--il-c-card-bg);
+    border: 0.5px solid var(--il-c-card-border);
+    border-left: 3px solid var(--il-c-card-border-left);
+    border-radius: var(--il-card-radius);
+    padding: var(--il-card-pt-mo) var(--il-card-px-mo) var(--il-card-pb-mo);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ingredients-list__card-name {
+    margin: 0 0 8px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--il-card-name-size-mo);
+    font-weight: 500;
+    color: var(--il-c-card-name);
+  }
+
+  .ingredients-list__card-role {
+    margin: 0 0 12px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--il-card-role-size-mo);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--il-c-card-role);
+  }
+
+  .ingredients-list__card-desc {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--il-card-desc-size-mo);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--il-c-card-desc);
+  }
+
+  .ingredients-list__card-desc p {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  .ingredients-list__footer {
+    margin: 0;
+    text-align: center;
+    padding-top: var(--il-footer-pt-mo);
+    padding-bottom: var(--il-footer-pb-mo);
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--il-footer-size-mo);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--il-c-footer);
+  }
+
+  @media screen and (min-width: 750px) {
+    .ingredients-list__heading {
+      font-size: var(--il-heading-size-dk);
+      padding-top: var(--il-heading-pt-dk);
+      padding-bottom: var(--il-heading-pb-dk);
+    }
+
+    .ingredients-list__card {
+      padding: var(--il-card-pt-dk) var(--il-card-px-dk) var(--il-card-pb-dk);
+    }
+
+    .ingredients-list__card-name {
+      font-size: var(--il-card-name-size-dk);
+    }
+
+    .ingredients-list__card-role {
+      font-size: var(--il-card-role-size-dk);
+    }
+
+    .ingredients-list__card-desc {
+      font-size: var(--il-card-desc-size-dk);
+    }
+
+    .ingredients-list__footer {
+      font-size: var(--il-footer-size-dk);
+      padding-top: var(--il-footer-pt-dk);
+      padding-bottom: var(--il-footer-pb-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="IngredientsList-{{ section.id }}" class="ingredients-list section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="ingredients-list__inner">
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="ingredients-list__heading">
+          {{ section.settings.heading | newline_to_br }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="ingredients-list__grid">
+          {%- for block in section.blocks -%}
+            <div class="ingredients-list__card" {{ block.shopify_attributes }}>
+              {%- if block.settings.name != blank -%}
+                <h3 class="ingredients-list__card-name">{{ block.settings.name | escape }}</h3>
+              {%- endif -%}
+              
+              {%- if block.settings.role != blank -%}
+                <div class="ingredients-list__card-role">{{ block.settings.role | escape }}</div>
+              {%- endif -%}
+              
+              {%- if block.settings.description != blank -%}
+                <div class="ingredients-list__card-desc rte">{{ block.settings.description }}</div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.footer_text != blank -%}
+        <div class="ingredients-list__footer">
+          {{ section.settings.footer_text | escape }}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Ingredients List",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Use Enter to add line breaks.",
+      "default": "Complete Ingredient List"
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Footer Note",
+      "default": "*Essential oil composition varies by formula. Unscented contains zero fragrance compounds."
+    },
+    {
+      "type": "header",
+      "content": "Layout constraints"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 800,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 1280
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card corner radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_name_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient Name size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_role_size_desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient Role size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size_desktop",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "footer_size_desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Footer Note size",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_name_size_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient Name size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_role_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient Role size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size_mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "footer_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Footer Note size",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid bottom padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card top/bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card left/right padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "footer_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Footer top margin",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "footer_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Footer bottom margin",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid bottom padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card top padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card left/right padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "footer_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Footer top margin",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "footer_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Footer bottom margin",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#EBEEF2"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_card_bg",
+      "label": "Card Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_card_border",
+      "label": "Card Border",
+      "default": "#DDE1E8"
+    },
+    {
+      "type": "color",
+      "id": "color_card_border_left",
+      "label": "Card Left Border Accent",
+      "default": "#1A2B3C"
+    },
+    {
+      "type": "color",
+      "id": "color_card_name",
+      "label": "Card Ingredient Name",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_card_role",
+      "label": "Card Role / Eyebrow",
+      "default": "#7A8899"
+    },
+    {
+      "type": "color",
+      "id": "color_card_desc",
+      "label": "Card Description",
+      "default": "#4B5A6B"
+    },
+    {
+      "type": "color",
+      "id": "color_footer",
+      "label": "Footer Text",
+      "default": "#7A8899"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient Card",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Ingredient Name",
+          "default": "Caprylic/Capric Triglyceride"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Role",
+          "default": "BASE & DELIVERY SYSTEM"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Lightweight, skin-conditioning base derived from coconut oil. Delivers active ingredients to skin while providing moisturization without heaviness.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients List",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Caprylic/Capric Triglyceride",
+            "role": "BASE & DELIVERY SYSTEM",
+            "description": "<p>Lightweight, skin-conditioning base derived from coconut oil. Delivers active ingredients to skin while providing moisturization without heaviness.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Tapioca Starch",
+            "role": "MOISTURE ABSORPTION",
+            "description": "<p>Natural starch that absorbs moisture and creates a smooth, dry feel on application. Keeps underarms comfortable throughout the day.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Rice Bran Wax",
+            "role": "STRUCTURE & GLIDE",
+            "description": "<p>Provides formula structure and ensures smooth, effortless glide across skin. Natural wax with excellent skin-feel properties.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Cocoa Butter",
+            "role": "SKIN SOFTENING",
+            "description": "<p>Rich emollient that softens and protects skin. Prevents dryness and maintains skin barrier integrity with repeated use.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Magnesium Hydroxide",
+            "role": "PH MANAGEMENT",
+            "description": "<p>Creates a mildly alkaline environment that inhibits bacterial growth. Unlike baking soda, it is non-irritating and pH-balanced.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Carnauba Wax",
+            "role": "HOLD & STABILITY",
+            "description": "<p>Plant-derived wax from Brazilian palm trees. Provides structural stability and ensures the formula maintains its integrity in varying temperatures.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
