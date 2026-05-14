@@ -1,0 +1,476 @@
+{%- style -%}
+  #FaqHero-{{ section.id }} {
+    --fh-bg: {{ section.settings.background_color }};
+    --fh-text-max-width: {{ section.settings.text_max_width }}px;
+    
+    --fh-c-eyebrow: {{ section.settings.color_eyebrow }};
+    --fh-c-heading: {{ section.settings.color_heading }};
+    --fh-c-desc: {{ section.settings.color_desc }};
+
+    /* Typography Variables (Mobile) */
+    --fh-eyebrow-size-mo: {{ section.settings.eyebrow_size_mobile }}px;
+    --fh-heading-size-mo: {{ section.settings.heading_size_mobile }}px;
+    --fh-desc-size-mo: {{ section.settings.desc_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --fh-eyebrow-size-dk: {{ section.settings.eyebrow_size_desktop }}px;
+    --fh-heading-size-dk: {{ section.settings.heading_size_desktop }}px;
+    --fh-desc-size-dk: {{ section.settings.desc_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --fh-eyebrow-pt-mo: {{ section.settings.eyebrow_padding_top_mobile }}px;
+    --fh-eyebrow-pb-mo: {{ section.settings.eyebrow_padding_bottom_mobile }}px;
+    --fh-heading-pt-mo: {{ section.settings.heading_padding_top_mobile }}px;
+    --fh-heading-pb-mo: {{ section.settings.heading_padding_bottom_mobile }}px;
+    --fh-desc-pt-mo: {{ section.settings.desc_padding_top_mobile }}px;
+    --fh-desc-pb-mo: {{ section.settings.desc_padding_bottom_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --fh-eyebrow-pt-dk: {{ section.settings.eyebrow_padding_top_desktop }}px;
+    --fh-eyebrow-pb-dk: {{ section.settings.eyebrow_padding_bottom_desktop }}px;
+    --fh-heading-pt-dk: {{ section.settings.heading_padding_top_desktop }}px;
+    --fh-heading-pb-dk: {{ section.settings.heading_padding_bottom_desktop }}px;
+    --fh-desc-pt-dk: {{ section.settings.desc_padding_top_desktop }}px;
+    --fh-desc-pb-dk: {{ section.settings.desc_padding_bottom_desktop }}px;
+
+    background-color: var(--fh-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .faq-hero__inner {
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .faq-hero__eyebrow {
+    margin: 0;
+    padding-top: var(--fh-eyebrow-pt-mo);
+    padding-bottom: var(--fh-eyebrow-pb-mo);
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--fh-eyebrow-size-mo);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fh-c-eyebrow);
+  }
+
+  .faq-hero__heading {
+    margin: 0;
+    padding-top: var(--fh-heading-pt-mo);
+    padding-bottom: var(--fh-heading-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--fh-heading-size-mo);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--fh-c-heading);
+    word-break: break-word;
+  }
+
+  .faq-hero__desc {
+    margin: 0 auto;
+    max-width: var(--fh-text-max-width);
+    padding-top: var(--fh-desc-pt-mo);
+    padding-bottom: var(--fh-desc-pb-mo);
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--fh-desc-size-mo);
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--fh-c-desc);
+  }
+
+  .faq-hero__desc p {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  @media screen and (min-width: 750px) {
+    .faq-hero__eyebrow {
+      font-size: var(--fh-eyebrow-size-dk);
+      padding-top: var(--fh-eyebrow-pt-dk);
+      padding-bottom: var(--fh-eyebrow-pb-dk);
+    }
+    
+    .faq-hero__heading {
+      font-size: var(--fh-heading-size-dk);
+      padding-top: var(--fh-heading-pt-dk);
+      padding-bottom: var(--fh-heading-pb-dk);
+    }
+
+    .faq-hero__desc {
+      font-size: var(--fh-desc-size-dk);
+      padding-top: var(--fh-desc-pt-dk);
+      padding-bottom: var(--fh-desc-pb-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="FaqHero-{{ section.id }}" class="faq-hero section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="faq-hero__inner">
+      
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="faq-hero__eyebrow">
+          {{- section.settings.eyebrow | escape -}}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="faq-hero__heading">
+          {{ section.settings.heading | newline_to_br }}
+        </h1>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="faq-hero__desc rte">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ Hero",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "FREQUENTLY ASKED QUESTIONS"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Use Enter to add line breaks.",
+      "default": "Questions? Answered."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Everything you need to know about Nonomic, MicroSilver, and how our deodorant works.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout constraints"
+    },
+    {
+      "type": "range",
+      "id": "text_max_width",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Text max width",
+      "default": 640
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size_desktop",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Eyebrow size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 24,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "desc_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size_mobile",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Eyebrow size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "desc_size_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description bottom padding",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description bottom padding",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#1A2B3C"
+    },
+    {
+      "type": "color",
+      "id": "color_eyebrow",
+      "label": "Eyebrow text",
+      "default": "#7A8899"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_desc",
+      "label": "Description text",
+      "default": "#A8BFD0"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Hero"
+    }
+  ]
+}
+{% endschema %}
