@@ -196,11 +196,57 @@
         "padding_bottom": 80,
         "padding_bottom_mobile": 48
       }
+    },
+    "page_faq_contact_DWP7YJ": {
+      "type": "page_faq-contact",
+      "name": "FAQ Contact",
+      "settings": {
+        "heading": "Still Have Questions?",
+        "description": "<p>We're here to help. Email us at <a href=\"mailto:support@nonomic.com\">support@nonomic.com</a> and we'll get back to you within 24 hours.</p>",
+        "card_heading": "45-Day Risk-Free Guarantee",
+        "card_text": "<p>Not sure if it'll work for you? Try it for 45 days. If you're not completely satisfied, we'll refund you in full. No questions, no hassle.</p>",
+        "content_max_width": 720,
+        "heading_size_desktop": 36,
+        "desc_size_desktop": 15,
+        "card_heading_size_desktop": 14,
+        "card_text_size_desktop": 13,
+        "heading_size_mobile": 36,
+        "desc_size_mobile": 15,
+        "card_heading_size_mobile": 14,
+        "card_text_size_mobile": 13,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 24,
+        "desc_padding_top_desktop": 0,
+        "desc_padding_bottom_desktop": 32,
+        "card_padding_top_desktop": 24,
+        "card_padding_bottom_desktop": 24,
+        "card_padding_horizontal_desktop": 24,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 24,
+        "desc_padding_top_mobile": 0,
+        "desc_padding_bottom_mobile": 32,
+        "card_padding_top_mobile": 24,
+        "card_padding_bottom_mobile": 24,
+        "card_padding_horizontal_mobile": 24,
+        "background_color": "#EBEEF2",
+        "color_heading": "#111827",
+        "color_desc": "#4B5A6B",
+        "color_link": "#1A2B3C",
+        "color_card_bg": "#FFFFFF",
+        "color_card_border": "#DDE1E8",
+        "color_card_heading": "#111827",
+        "color_card_text": "#4B5A6B",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
     }
   },
   "order": [
     "main",
     "page_faq_hero_yXxzHi",
-    "page_faq_accordion_Wp6mBT"
+    "page_faq_accordion_Wp6mBT",
+    "page_faq_contact_DWP7YJ"
   ]
 }
