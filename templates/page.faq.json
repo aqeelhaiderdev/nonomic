@@ -118,6 +118,13 @@
             "question": "What if it doesn't work for me?",
             "answer": "<p>We offer a 45-day risk-free guarantee. Use it for 45 days. If you're not completely satisfied with odor control, skin feel, or overall performance, email us. We'll process a full refund immediately. You don't need to return the product. You don't need to explain why. If it's not working, we want to make it right.</p>"
           }
+        },
+        "faq_item_AGVrHq": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How should I apply it?",
+            "answer": "<p>Apply to clean, dry skin. One or two swipes per underarm. Let it dry for 30-60 seconds before dressing. That's it. You shouldn't need to reapply throughout the day. If you're applying after a shower, make sure your underarms are completely dry — moisture can interfere with adhesion.</p>"
+          }
         }
       },
       "block_order": [
@@ -129,7 +136,8 @@
         "faq_item_frLhhU",
         "faq_item_KULtyf",
         "faq_item_zwCjR8",
-        "faq_item_dzMpxz"
+        "faq_item_dzMpxz",
+        "faq_item_AGVrHq"
       ],
       "name": "FAQ Accordion",
       "settings": {
