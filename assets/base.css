@@ -1255,9 +1255,9 @@ button.shopify-payment-button__button--unbranded {
   left: var(--buttons-border-width);
   z-index: 1;
   border-radius: var(--buttons-radius);
-  box-shadow: 0 0 0 calc(var(--buttons-border-width) + var(--border-offset))
+  /* box-shadow: 0 0 0 calc(var(--buttons-border-width) + var(--border-offset))
       rgba(var(--color-button-text), var(--border-opacity)),
-    0 0 0 var(--buttons-border-width) rgba(var(--color-button), var(--alpha-button-background));
+    0 0 0 var(--buttons-border-width) rgba(var(--color-button), var(--alpha-button-background)); */
   transition: box-shadow var(--duration-short) ease;
 }
 
@@ -1266,9 +1266,9 @@ button.shopify-payment-button__button--unbranded {
 .customer button:hover::after,
 .shopify-payment-button__button--unbranded:hover::after {
   --border-offset: 1.3px;
-  box-shadow: 0 0 0 calc(var(--buttons-border-width) + var(--border-offset))
+  /* box-shadow: 0 0 0 calc(var(--buttons-border-width) + var(--border-offset))
       rgba(var(--color-button-text), var(--border-opacity)),
-    0 0 0 calc(var(--buttons-border-width) + 1px) rgba(var(--color-button), var(--alpha-button-background));
+    0 0 0 calc(var(--buttons-border-width) + 1px) rgba(var(--color-button), var(--alpha-button-background)); */
 }
 
 .button--secondary:after {
@@ -3489,9 +3489,9 @@ details-disclosure > details {
   .animate--hover-vertical-lift .customer button:not([disabled]):hover:after,
   .animate--hover-vertical-lift .shopify-payment-button__button:not([disabled]):hover:after {
     --border-offset: 0.3px; /* Default is 1.3px as defined above in this file. This removes 1px to prevent the border from growing on buttons when this effect is on.  */
-    box-shadow: 0 0 0 calc(var(--buttons-border-width) + var(--border-offset))
+    /* box-shadow: 0 0 0 calc(var(--buttons-border-width) + var(--border-offset))
         rgba(var(--color-button-text), var(--border-opacity)),
-      0 0 0 var(--buttons-border-width) rgba(var(--color-button), var(--alpha-button-background));
+      0 0 0 var(--buttons-border-width) rgba(var(--color-button), var(--alpha-button-background)); */
   }
 
   .animate--hover-vertical-lift .button:not([disabled]).button--secondary:hover:after {
@@ -3595,4 +3595,106 @@ details-disclosure > details {
   100% {
     transform: translateX(100%) scaleX(0);
   }
+}
+
+#appstle_subscription_widget0 .appstle_subscription_wrapper_option {
+  background: #fff !important;
+  border: 1px solid rgb(221, 225, 232) !important;
+}
+#appstle_subscription_widget0 .appstle-active-option {
+  background: transparent !important;
+  border: 2px solid rgb(26, 43, 60) !important;
+}
+
+#appstle_subscription_widget0 .appstle_circle {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+  border: 2px solid rgb(201, 205, 212) !important;
+  background-color: rgb(255, 255, 255) !important;
+}
+
+#appstle_subscription_widget0 .appstle-active-option .appstle_circle {
+  border: 6px solid rgb(26, 43, 60) !important;
+  background-color: rgb(255, 255, 255) !important;
+
+}
+
+span.appstle_dot {
+  background-color: rgb(255, 255, 255) !important;
+}
+
+.appstle_circle:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}
+
+.appstle_subscription_wrapper_option input[type=radio]:focus + label .appstle_circle:before {
+  display: none !important;
+}
+
+.appstle_subscription_wrapper_option {
+  border: 1px solid rgb(221, 225, 232) !important;
+  cursor: pointer !important;
+}
+.appstle_subscription_wrapper_option, .appstle_subscription_radio_wrapper {
+  cursor: pointer !important;
+}
+
+.WIDGET_TYPE_7 .appstle_one_time_text, .appstle_subscribe_save_text {
+  font-size: 14px !important;
+}
+
+.WIDGET_TYPE_7 span.appstle-save-badge {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;;
+  font-weight: normal !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: rgb(29, 158, 117) !important;
+  white-space: nowrap !important;
+}
+
+.appstle_subscription_amount_wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.appstle_subscription_compare_amount {
+  text-decoration: line-through;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(122, 136, 153);
+}
+
+#appstle_subscription_widget0 .appstle_subscription_amount {
+  margin-left: auto;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(29, 158, 117);
+}
+
+.appstle_one_time_details_wrapper .appstle_subscription_amount {
+  color: rgb(17, 24, 39) !important;
+}
+
+#appstle_subscription_widget0 .appstle_select_label {
+  font-size: 12px !important;
+  color: rgb(122, 136, 153) !important;
+  margin-bottom: 12px !important;
+}
+
+.WIDGET_TYPE_7 .appstle_select {
+  background: #fff !important;
+  border: 1px solid rgb(221, 225, 232) !important;
+  border-radius: 8px !important;
+}
+
+.WIDGET_TYPE_7 .appstle_custom_select {
+  max-width: 200px !important;
 }

@@ -188,7 +188,9 @@
       "taxes_included": "Taxes included.",
       "duties_included": "Duties included.",
       "duties_and_taxes_included": "Duties and taxes included.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout."
+      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+      "rating_reviews_count": "({{ count }} reviews)",
+      "gallery_slide_dot": "Go to gallery slide {{ index }}"
     },
     "modal": {
       "label": "Media gallery"

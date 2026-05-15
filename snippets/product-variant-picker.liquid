@@ -113,11 +113,11 @@
                 {%- if enable_pack_scents -%}
                   <button
                     type="button"
-                    class="button button--secondary js-mix-scents-toggle hidden"
+                    class="button button--secondary js-mix-scents-toggle nonomic-pdp__mix-toggle hidden"
                     aria-expanded="false"
                   >
                     <span class="js-mix-scents-label-show">+ Mix scents</span>
-                    <span class="js-mix-scents-label-hide hidden">Hide</span>
+                    <span class="js-mix-scents-label-hide hidden">+ Hide</span>
                   </button>
                 {%- endif -%}
               </legend>
@@ -126,11 +126,9 @@
               option: option,
               block: block,
               picker_type: picker_type,
-              option_role: 'default'
+              option_role: 'default',
+              nonomic_scent_row: true
             %}
-          </fieldset>
-        {%- else -%}
-          <fieldset class="js product-form__input product-form__input--swatch">
             <legend class="form__label">
               {{ option.name }}:
               <span data-selected-value>
@@ -165,11 +163,11 @@
                 <span class="js-primary-scent-heading">STICK 1</span>
                 <button
                   type="button"
-                  class="button button--secondary js-mix-scents-toggle hidden"
+                  class="button button--secondary js-mix-scents-toggle nonomic-pdp__mix-toggle hidden"
                   aria-expanded="false"
                 >
                   <span class="js-mix-scents-label-show">+ Mix scents</span>
-                  <span class="js-mix-scents-label-hide hidden">Hide</span>
+                  <span class="js-mix-scents-label-hide hidden">+ Hide</span>
                 </button>
               </legend>
             {%- else -%}
@@ -180,7 +178,8 @@
               option: option,
               block: block,
               picker_type: picker_type,
-              option_role: 'default'
+              option_role: 'default',
+              nonomic_scent_row: true
             %}
           </fieldset>
         {%- else -%}
@@ -243,11 +242,11 @@
                 </label>
                 <button
                   type="button"
-                  class="button button--secondary js-mix-scents-toggle hidden"
+                  class="button button--secondary js-mix-scents-toggle nonomic-pdp__mix-toggle hidden"
                   aria-expanded="false"
                 >
                   <span class="js-mix-scents-label-show">+ Mix scents</span>
-                  <span class="js-mix-scents-label-hide hidden">Hide</span>
+                  <span class="js-mix-scents-label-hide hidden">+ Hide</span>
                 </button>
               </div>
             {%- else -%}
@@ -278,16 +277,9 @@
                   option: option,
                   block: block,
                   picker_type: picker_type,
-                  option_role: 'default'
+                  option_role: 'default',
+                  nonomic_scent_row: true
                 %}
-              </select>
-              <span class="svg-wrapper">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
-            </div>
-          </div>
-        {%- else -%}
-          <div class="product-form__input product-form__input--dropdown">
             <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
               {{ option.name }}
             </label>
@@ -345,7 +337,8 @@
           input_name_override: 'properties[_Scent 2]',
           id_variant_prefix: 'scent-slot-2',
           variant_data_mode: false,
-          property_slot: true
+          property_slot: true,
+          nonomic_scent_row: true
         %}
       </fieldset>
       <fieldset
@@ -361,7 +354,8 @@
           input_name_override: 'properties[_Scent 3]',
           id_variant_prefix: 'scent-slot-3',
           variant_data_mode: false,
-          property_slot: true
+          property_slot: true,
+          nonomic_scent_row: true
         %}
       </fieldset>
     </div>

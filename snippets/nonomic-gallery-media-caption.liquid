@@ -1,0 +1,70 @@
+{% comment %}
+  Nonomic PDP: below main gallery slide, show variant scent label + color dot when this media is a variant's featured image.
+
+  Accepts:
+  - media: {Object} product media
+  - product: {Object} product
+  - section: {Object} parent section
+{% endcomment %}
+{%- if section.settings.enable_nonomic_pdp and media.media_type == 'image' -%}
+  {%- liquid
+    assign vm = false
+    for variant in product.variants
+      if vm == false and variant.featured_media and variant.featured_media.id == media.id
+        assign vm = variant
+      endif
+    endfor
+  -%}
+  {%- if vm -%}
+    {%- liquid
+      assign scent_block_name = 'Scent'
+      for block in section.blocks
+        if block.type == 'variant_picker' and block.settings.scent_option_name != blank
+          assign scent_block_name = block.settings.scent_option_name | strip
+        endif
+      endfor
+      assign scent_option_label = ''
+      for option in product.options_with_values
+        if option.name == scent_block_name
+          case option.position
+            when 1
+              assign scent_option_label = vm.option1
+            when 2
+              assign scent_option_label = vm.option2
+            when 3
+              assign scent_option_label = vm.option3
+          endcase
+        endif
+      endfor
+      if scent_option_label == blank and media.alt != blank
+        assign scent_option_label = media.alt
+      endif
+      assign dot_rgb = ''
+      assign dot_hex = ''
+      if vm.metafields.custom.color_code != blank and vm.metafields.custom.color_code.value != blank
+        if vm.metafields.custom.color_code.value.rgb != blank
+          assign dot_rgb = vm.metafields.custom.color_code.value.rgb
+        elsif vm.metafields.custom.color_code.value.hex != blank
+          assign dot_hex = vm.metafields.custom.color_code.value.hex
+        endif
+      endif
+    -%}
+    {%- if scent_option_label != blank or dot_rgb != blank or dot_hex != blank -%}
+      <div
+        class="nonomic-gallery-media-caption"
+        {% if dot_rgb != blank %}
+          style="--nonomic-gallery-dot: rgb({{ dot_rgb }});"
+        {% elsif dot_hex != blank %}
+          style="--nonomic-gallery-dot: {{ dot_hex }};"
+        {% endif %}
+      >
+        {%- if scent_option_label != blank -%}
+          <span class="nonomic-gallery-media-caption__title">{{ scent_option_label | upcase }}</span>
+        {%- endif -%}
+        {%- if dot_rgb != blank or dot_hex != blank -%}
+          <span class="nonomic-gallery-media-caption__dot" aria-hidden="true"></span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}

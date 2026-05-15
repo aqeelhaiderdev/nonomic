@@ -10,11 +10,26 @@ if (!customElements.get('product-form')) {
         this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
         this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
         this.submitButton = this.querySelector('[type="submit"]');
-        this.submitButtonText = this.submitButton.querySelector('span');
+        this.submitButtonText =
+          this.submitButton.querySelector('.product-form__submit-text') || this.submitButton.querySelector('span');
+        this.submitPriceSpan = this.submitButton.querySelector('.product-form__submit-price');
 
         if (document.querySelector('cart-drawer')) this.submitButton.setAttribute('aria-haspopup', 'dialog');
 
         this.hideErrors = this.dataset.hideErrors === 'true';
+        this.refreshSubmitLabelTemplate();
+      }
+
+      refreshSubmitLabelTemplate() {
+        if (!this.submitButton) return;
+        this.submitButtonText =
+          this.submitButton.querySelector('.product-form__submit-text') || this.submitButton.querySelector('span');
+        this.submitPriceSpan = this.submitButton.querySelector('.product-form__submit-price');
+        if (this.submitButtonText && this.submitPriceSpan) {
+          this.atcLabelHtmlTemplate = this.submitButtonText.innerHTML;
+        } else {
+          this.atcLabelHtmlTemplate = undefined;
+        }
       }
 
       onSubmitHandler(evt) {
@@ -130,7 +145,13 @@ if (!customElements.get('product-form')) {
           if (text) this.submitButtonText.textContent = text;
         } else {
           this.submitButton.removeAttribute('disabled');
-          this.submitButtonText.textContent = window.variantStrings.addToCart;
+          if (this.atcLabelHtmlTemplate) {
+            this.submitButtonText.innerHTML = this.atcLabelHtmlTemplate;
+            this.submitPriceSpan = this.submitButton.querySelector('.product-form__submit-price');
+            this.closest('product-info')?.updateSubmitButtonPrice?.();
+          } else {
+            this.submitButtonText.textContent = window.variantStrings.addToCart;
+          }
         }
       }
 

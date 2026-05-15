@@ -2,11 +2,11 @@
   Renders a product media modal. Also see 'product-media-gallery'
 
   Accepts:
-  - product: {Object} Product liquid object
+  - product: {Object} Product liquid object (pass explicitly when the section is used outside the product template)
   - variant_images: {Array} Product images associated with a variant
 
   Usage:
-  {% render 'product-media-modal' %}
+  {% render 'product-media-modal', product: product, variant_images: variant_images %}
 {% endcomment %}
 
 <product-modal id="ProductModal-{{ section.id }}" class="product-media-modal media-modal">

@@ -2,6 +2,11 @@
  * Multi-pack scents: optional STICK 2/3 after "+ Mix scents"; otherwise duplicate primary scent per stick.
  */
 (function () {
+  // Each section that needs this file adds its own <script> tag. Multiple tags execute the bundle again,
+  // which registers duplicate document listeners so every click toggles twice and the UI appears stuck.
+  if (window.__nomonicMultiScentPackInit) return;
+  window.__nomonicMultiScentPackInit = true;
+
   /** @param {Element} productInfo */
   function getBundle(productInfo) {
     return productInfo.querySelector('.pack-scent-bundle[data-enable-pack-scents="true"]');

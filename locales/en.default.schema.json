@@ -850,7 +850,7 @@
           "name": "Text",
           "settings": {
             "text": {
-              "default": "Text block",
+              "default": "<p>Text block</p>",
               "label": "Text"
             },
             "text_style": {

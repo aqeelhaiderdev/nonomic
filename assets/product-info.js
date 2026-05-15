@@ -26,6 +26,7 @@ if (!customElements.get('product-info')) {
         );
 
         this.initQuantityHandlers();
+        this.initSubmitPriceSubscriptionSync();
         this.dispatchEvent(new CustomEvent('product-info:loaded', { bubbles: true }));
       }
 
@@ -48,6 +49,7 @@ if (!customElements.get('product-info')) {
       disconnectedCallback() {
         this.onVariantChangeUnsubscriber();
         this.cartUpdateUnsubscriber?.();
+        this.destroySubmitPriceSubscriptionSync();
       }
 
       initializeProductSwapUtility() {
@@ -83,6 +85,380 @@ if (!customElements.get('product-info')) {
         const productForm = this.productForm;
         productForm?.toggleSubmitButton(true);
         productForm?.handleErrorMessage();
+      }
+
+      initSubmitPriceSubscriptionSync() {
+        this.boundScheduleSubmitPriceUpdate = () => {
+          clearTimeout(this.submitPriceUpdateTimer);
+          this.submitPriceUpdateTimer = setTimeout(() => this.updateSubmitButtonPrice(), 60);
+        };
+
+        this.addEventListener('change', this.boundScheduleSubmitPriceUpdate);
+        this.addEventListener('input', this.boundScheduleSubmitPriceUpdate);
+        this.addEventListener('click', this.boundScheduleSubmitPriceUpdate, true);
+
+        requestAnimationFrame(() => {
+          this.attachSubscriptionDomObservers();
+          [200, 600, 2000, 4000].forEach((ms) => setTimeout(() => this.attachSubscriptionDomObservers(), ms));
+        });
+      }
+
+      getProductAtcForm() {
+        return this.querySelector('form[data-type="add-to-cart-form"]');
+      }
+
+      /**
+       * Appstle / other apps may inject late, use sibling section, or only touch the form subtree.
+       * Observers are skipped once attached (except product-info / form observers stay on this).
+       */
+      attachSubscriptionDomObservers() {
+        if (typeof MutationObserver === 'undefined') return;
+
+        const widget = this.findSubscriptionWidgetRoot();
+        if (widget && !this.subscriptionWidgetObserver) {
+          this.subscriptionWidgetObserver = new MutationObserver(this.boundScheduleSubmitPriceUpdate);
+          this.subscriptionWidgetObserver.observe(widget, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class', 'style', 'aria-checked', 'aria-selected', 'data-selected', 'value', 'checked'],
+          });
+        }
+
+        const addForm = this.getProductAtcForm();
+        const hiddenPlan = addForm?.querySelector(
+          'input[name="selling_plan"][type="hidden"], input[name="selling_plan"][type="text"]'
+        );
+        if (hiddenPlan && !this.sellingPlanHiddenObserver) {
+          this.sellingPlanHiddenObserver = new MutationObserver(this.boundScheduleSubmitPriceUpdate);
+          this.sellingPlanHiddenObserver.observe(hiddenPlan, { attributes: true, attributeFilter: ['value'] });
+        }
+
+        if (addForm && !this.formMutationObserver) {
+          this.formMutationObserver = new MutationObserver(this.boundScheduleSubmitPriceUpdate);
+          this.formMutationObserver.observe(addForm, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['value', 'class', 'aria-checked', 'checked'],
+          });
+        }
+
+        if (!this.productInfoMutationObserver) {
+          this.productInfoMutationObserver = new MutationObserver(this.boundScheduleSubmitPriceUpdate);
+          this.productInfoMutationObserver.observe(this, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class', 'aria-checked', 'aria-selected', 'value', 'data-selected'],
+          });
+        }
+      }
+
+      destroySubmitPriceSubscriptionSync() {
+        if (this.boundScheduleSubmitPriceUpdate) {
+          this.removeEventListener('change', this.boundScheduleSubmitPriceUpdate);
+          this.removeEventListener('input', this.boundScheduleSubmitPriceUpdate);
+          this.removeEventListener('click', this.boundScheduleSubmitPriceUpdate, true);
+        }
+        clearTimeout(this.submitPriceUpdateTimer);
+        this.subscriptionWidgetObserver?.disconnect();
+        this.subscriptionWidgetObserver = undefined;
+        this.sellingPlanHiddenObserver?.disconnect();
+        this.sellingPlanHiddenObserver = undefined;
+        this.formMutationObserver?.disconnect();
+        this.formMutationObserver = undefined;
+        this.productInfoMutationObserver?.disconnect();
+        this.productInfoMutationObserver = undefined;
+      }
+
+      findSubscriptionWidgetRoot() {
+        const sel =
+          '[id^="appstle_selling_plan" i],[id*="appstle" i],[class*="appstle" i],[class*="Appstle"],[data-appstle],[data-appstle-subscription],[class*="subscription-widget"],[data-subscription-widget],[class*="selling-plan"],[id*="selling_plan"],[class*="skio" i],[class*="seal" i],[data-recharge]';
+
+        const pickFrom = (root) => {
+          if (!root) return null;
+          const all = [...root.querySelectorAll(sel)];
+          if (!all.length) return null;
+          const byId = all.find((n) => /appstle|selling|subscription|skio|seal|recharge/i.test(n.id || ''));
+          if (byId) return byId;
+          return all.reduce((a, b) => {
+            const ra = a.getBoundingClientRect();
+            const rb = b.getBoundingClientRect();
+            return ra.width * ra.height >= rb.width * rb.height ? a : b;
+          });
+        };
+
+        let node = pickFrom(this);
+        if (node) return node;
+
+        const section = this.closest('.shopify-section') || this.closest('section[id^="shopify-section"]');
+        if (section && section !== this) {
+          node = pickFrom(section);
+          if (node && section.contains(this)) return node;
+        }
+        return null;
+      }
+
+      isOneTimePurchaseText(text) {
+        const t = (text || '').toLowerCase();
+        return (
+          t.includes('one-time') ||
+          t.includes('one time') ||
+          t.includes('onetime') ||
+          t.includes('purchase once') ||
+          t.includes('one-off') ||
+          t.includes('pay once') ||
+          t.includes('buy once') ||
+          t.includes('single purchase')
+        );
+      }
+
+      /**
+       * Lowest money-like amount in scope (excludes <s> strike-through), so subscription rows
+       * prefer the discounted price over compare-at when both appear in the same block.
+       */
+      extractLowestMoneyInScope(root, opts = {}) {
+        if (!root) return null;
+        const { excludeClosest } = opts;
+        const excludeList = excludeClosest
+          ? Array.isArray(excludeClosest)
+            ? excludeClosest
+            : String(excludeClosest)
+                .split(',')
+                .map((s) => s.trim())
+                .filter(Boolean)
+          : [];
+        const moneyRe = /[\$€£][\d,]+(?:\.\d{2})?/g;
+        const amounts = [];
+        const tags =
+          'span,div,p,strong,b,em,small,i,label,td,th,h1,h2,h3,h4,h5,h6,button,li,dd,dt,cite,font,aside,article';
+        root.querySelectorAll(tags).forEach((el) => {
+          if (el.closest('s')) return;
+          for (const ex of excludeList) {
+            if (ex && el.closest(ex)) return;
+          }
+          const txt = el.textContent.trim().replace(/\s+/g, ' ');
+          if (!txt || txt.length > 140) return;
+          for (const m of txt.matchAll(moneyRe)) {
+            const num = parseFloat(m[0].replace(/[$,€£]/g, ''));
+            if (!Number.isNaN(num)) amounts.push({ num, text: m[0] });
+          }
+        });
+        if (!amounts.length) return null;
+        amounts.sort((a, b) => a.num - b.num);
+        return amounts[0].text;
+      }
+
+      /**
+       * Finds the DOM node for the *purchase type* option the shopper selected (one-time vs subscribe).
+       * Appstle may use role="radio", native radios, or aria-pressed buttons — frequency rows are ignored.
+       */
+      getSelectedPurchaseOptionRow(widget, form) {
+        if (!widget) return null;
+
+        const isFrequencyRow = (el) => {
+          const t = (el.textContent || '').toLowerCase();
+          return (
+            (t.includes('every ') ||
+              t.includes('ship every') ||
+              t.includes('delivery frequency') ||
+              (t.includes('frequency') && t.includes('day'))) &&
+            !t.includes('subscribe') &&
+            !this.isOneTimePurchaseText(t)
+          );
+        };
+
+        const looksLikePurchaseOption = (el) => {
+          const t = (el.textContent || '').toLowerCase();
+          if (this.isOneTimePurchaseText(t)) return true;
+          if (t.includes('subscribe')) return true;
+          if (t.includes('recurring')) return true;
+          if (t.includes('save') && t.includes('%')) return true;
+          if (/\$\s*[\d,]+/.test(el.textContent || '')) return true;
+          return false;
+        };
+
+        const hidden = form?.querySelector(
+          'input[name="selling_plan"][type="hidden"], input[type="hidden"][name*="selling_plan" i], input[type="hidden"][name*="appstle" i]'
+        );
+        const hasPlan = !!(hidden?.value && String(hidden.value).trim());
+
+        const roleChecked = [
+          ...widget.querySelectorAll('[role="radio"][aria-checked="true"], [role="radio"][aria-selected="true"]'),
+        ]
+          .filter((el) => !isFrequencyRow(el))
+          .filter(looksLikePurchaseOption);
+
+        if (roleChecked.length === 1) return roleChecked[0];
+        if (roleChecked.length > 1) {
+          const sub = roleChecked.find((el) => el.textContent.toLowerCase().includes('subscribe'));
+          const once = roleChecked.find((el) => this.isOneTimePurchaseText(el.textContent));
+          if (sub && once) return hasPlan ? sub : once;
+          if (hasPlan) {
+            return sub || roleChecked.find((el) => el.textContent.toLowerCase().includes('save')) || roleChecked[0];
+          }
+          return (
+            once ||
+            roleChecked.find((el) => !el.textContent.toLowerCase().includes('subscribe')) ||
+            roleChecked[0]
+          );
+        }
+
+        const pressed = [
+          ...widget.querySelectorAll(
+            'button[aria-pressed="true"], [role="button"][aria-pressed="true"], [aria-pressed="true"]'
+          ),
+        ].filter((el) => !isFrequencyRow(el) && looksLikePurchaseOption(el));
+        if (pressed.length === 1) return pressed[0];
+        if (pressed.length > 1) {
+          const sub = pressed.find((el) => el.textContent.toLowerCase().includes('subscribe'));
+          const once = pressed.find((el) => this.isOneTimePurchaseText(el.textContent));
+          if (sub && once) return hasPlan ? sub : once;
+          if (hasPlan) {
+            return sub || pressed[0];
+          }
+          return once || pressed.find((el) => !el.textContent.toLowerCase().includes('subscribe')) || pressed[0];
+        }
+
+        const cr = widget.querySelector('input[type="radio"]:checked');
+        if (cr) {
+          return cr.closest('label') || cr.closest('[class*="option" i]') || cr.closest('div') || cr;
+        }
+
+        let labeled = null;
+        try {
+          labeled = widget.querySelector('label:has(input[type="radio"]:checked)');
+        } catch (e) {
+          labeled = null;
+        }
+        if (labeled) return labeled;
+
+        return (
+          widget.querySelector(
+            '[data-headlessui-state="active"], [data-state="checked"], [class*="selected"][class*="purchase" i]'
+          ) || null
+        );
+      }
+
+      /** Selected purchase row (one-time or subscription) — price shown on that row. */
+      extractPriceFromSelectedPurchaseRow() {
+        const widget = this.findSubscriptionWidgetRoot();
+        if (!widget) return null;
+        const row = this.getSelectedPurchaseOptionRow(widget, this.getProductAtcForm());
+        if (!row) return null;
+        return this.extractLowestMoneyInScope(row);
+      }
+
+      /** Price shown for the selected subscription / selling plan (matches cart line when plan is selected). */
+      getSellingPlanWidgetPriceText() {
+        const form = this.getProductAtcForm();
+        const hidden = form?.querySelector(
+          'input[name="selling_plan"][type="hidden"], input[name="selling_plan"][type="text"], input[type="hidden"][name*="selling_plan" i], input[type="hidden"][name*="appstle" i]'
+        );
+        const hiddenHasPlan = !!(hidden && String(hidden.value || '').trim().length > 0);
+
+        const fromRow = this.extractPriceFromSelectedPurchaseRow();
+        if (fromRow) return fromRow;
+
+        const sr =
+          form?.querySelector('input[type="radio"][name="selling_plan"]:checked') ||
+          this.querySelector('input[type="radio"][name="selling_plan"]:checked');
+        if (sr && sr.value) {
+          const scope =
+            sr.closest('[class*="appstle" i]') ||
+            sr.closest('fieldset') ||
+            sr.closest('[role="radiogroup"]') ||
+            sr.closest('label') ||
+            sr.closest('div');
+          const pr = this.extractLowestMoneyInScope(scope);
+          if (pr) return pr;
+        }
+
+        if (hiddenHasPlan) {
+          const widgetOnly = this.findSubscriptionWidgetRoot();
+          if (widgetOnly) {
+            const pr = this.extractLowestMoneyInScope(widgetOnly, {
+              excludeClosest: [`#price-${this.dataset.section}`, '.product-form__buttons'],
+            });
+            if (pr) return pr;
+          }
+        }
+
+        const widget = this.findSubscriptionWidgetRoot();
+        if (widget) {
+          const checked = widget.querySelector('input[type="radio"]:checked');
+          if (checked) {
+            const scope =
+              checked.closest('[class*="appstle" i]') ||
+              checked.closest('fieldset') ||
+              checked.closest('[role="radiogroup"]') ||
+              checked.closest('label') ||
+              checked.closest('[class*="option"]') ||
+              checked.closest('div') ||
+              widget;
+            const pr = this.extractLowestMoneyInScope(scope);
+            if (pr) return pr;
+          }
+        }
+
+        if (form) {
+          const radios = form.querySelectorAll('input[type="radio"]:checked');
+          for (const radio of radios) {
+            if (!(radio instanceof HTMLInputElement)) continue;
+            const nm = radio.name || '';
+            if (nm.startsWith('options[')) continue;
+            if (nm === 'id') continue;
+            if (nm.startsWith('properties[')) continue;
+            const scope =
+              radio.closest('[class*="appstle" i]') ||
+              radio.closest('[class*="subscription" i]') ||
+              radio.closest('label') ||
+              radio.closest('div');
+            const pr = this.extractLowestMoneyInScope(scope, {
+              excludeClosest: [`#price-${this.dataset.section}`, '.product-form__buttons'],
+            });
+            if (pr) return pr;
+          }
+        }
+
+        const sel = this.querySelector('select[name="selling_plan"]');
+        if (sel?.value) {
+          const opt = sel.selectedOptions[0];
+          const t = opt?.textContent?.trim() || '';
+          const m = t.match(/[\$€£][\d,]+(?:\.\d{2})?/);
+          if (m) return m[0];
+        }
+
+        return null;
+      }
+
+      getPriceBlockPriceText() {
+        const priceContainer = this.querySelector(`#price-${this.dataset.section}`);
+        if (!priceContainer) return null;
+        const onSale = priceContainer.classList.contains('price--on-sale');
+        let node = null;
+        if (onSale) {
+          node = priceContainer.querySelector('.price__sale .price-item--sale.price-item--last');
+        } else {
+          node = priceContainer.querySelector('.price__regular .price-item--regular');
+        }
+        return node?.textContent?.trim() || null;
+      }
+
+      /** Syncs `.product-form__submit-price`: subscription / selling plan first, then theme price block. */
+      updateSubmitButtonPrice() {
+        const submitPrice = this.querySelector('.product-form__submit-price');
+        if (!submitPrice) return;
+
+        const fromPlan = this.getSellingPlanWidgetPriceText();
+        if (fromPlan) {
+          submitPrice.textContent = fromPlan;
+          return;
+        }
+
+        const fromBlock = this.getPriceBlockPriceText();
+        if (fromBlock) submitPrice.textContent = fromBlock;
       }
 
       handleSwapProduct(productUrl, updateFullPage) {
@@ -186,6 +562,17 @@ if (!customElements.get('product-info')) {
             }
           };
 
+          const destSubmit = this.querySelector(`#ProductSubmitButton-${this.sectionId}`);
+          const srcSubmit = html.getElementById(`ProductSubmitButton-${this.sectionId}`);
+          if (destSubmit && srcSubmit) {
+            const destSpan = destSubmit.querySelector('.product-form__submit-text');
+            const srcSpan = srcSubmit.querySelector('.product-form__submit-text');
+            if (destSpan && srcSpan) {
+              destSpan.innerHTML = srcSpan.innerHTML;
+            }
+          }
+          this.productForm?.refreshSubmitLabelTemplate?.();
+
           updateSourceFromDestination('price');
           updateSourceFromDestination('Sku', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Inventory', ({ innerText }) => innerText === '');
@@ -200,6 +587,8 @@ if (!customElements.get('product-info')) {
             html.getElementById(`ProductSubmitButton-${this.sectionId}`)?.hasAttribute('disabled') ?? true,
             window.variantStrings.soldOut
           );
+
+          this.updateSubmitButtonPrice();
 
           publish(PUB_SUB_EVENTS.variantChange, {
             data: {

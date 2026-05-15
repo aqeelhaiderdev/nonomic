@@ -728,23 +728,54 @@ customElements.define('deferred-media', DeferredMedia);
 class SliderComponent extends HTMLElement {
   constructor() {
     super();
+    this.enableSliderLooping = false;
+  }
+
+  connectedCallback() {
+    this.ensureSliderDom();
+  }
+
+  disconnectedCallback() {
+    if (!this.sliderDomAttached) return;
+    this.sliderResizeObserver?.disconnect();
+    this.sliderResizeObserver = undefined;
+    if (this.slider && this.boundSliderUpdate) {
+      this.slider.removeEventListener('scroll', this.boundSliderUpdate);
+    }
+    if (this.prevButton && this.boundSliderButtonClick) {
+      this.prevButton.removeEventListener('click', this.boundSliderButtonClick);
+      this.nextButton.removeEventListener('click', this.boundSliderButtonClick);
+    }
+    this.sliderDomAttached = false;
+  }
+
+  ensureSliderDom() {
+    if (this.sliderDomAttached) return;
+
     this.slider = this.querySelector('[id^="Slider-"]');
     this.sliderItems = this.querySelectorAll('[id^="Slide-"]');
-    this.enableSliderLooping = false;
     this.currentPageElement = this.querySelector('.slider-counter--current');
     this.pageTotalElement = this.querySelector('.slider-counter--total');
     this.prevButton = this.querySelector('button[name="previous"]');
     this.nextButton = this.querySelector('button[name="next"]');
 
-    if (!this.slider || !this.nextButton) return;
+    if (!this.slider || !this.nextButton) {
+      if ((this.sliderAttachAttempts = (this.sliderAttachAttempts || 0) + 1) < 30) {
+        requestAnimationFrame(() => this.ensureSliderDom());
+      }
+      return;
+    }
 
+    this.sliderDomAttached = true;
     this.initPages();
-    const resizeObserver = new ResizeObserver((entries) => this.initPages());
-    resizeObserver.observe(this.slider);
+    this.sliderResizeObserver = new ResizeObserver(() => this.initPages());
+    this.sliderResizeObserver.observe(this.slider);
 
-    this.slider.addEventListener('scroll', this.update.bind(this));
-    this.prevButton.addEventListener('click', this.onButtonClick.bind(this));
-    this.nextButton.addEventListener('click', this.onButtonClick.bind(this));
+    this.boundSliderUpdate = this.update.bind(this);
+    this.slider.addEventListener('scroll', this.boundSliderUpdate);
+    this.boundSliderButtonClick = this.onButtonClick.bind(this);
+    this.prevButton.addEventListener('click', this.boundSliderButtonClick);
+    this.nextButton.addEventListener('click', this.boundSliderButtonClick);
   }
 
   initPages() {
@@ -829,30 +860,67 @@ customElements.define('slider-component', SliderComponent);
 class SlideshowComponent extends SliderComponent {
   constructor() {
     super();
-    this.sliderControlWrapper = this.querySelector('.slider-buttons');
     this.enableSliderLooping = true;
+  }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.ensureSlideshowDom();
+  }
+
+  disconnectedCallback() {
+    if (this.slideshowDomAttached) {
+      if (this.slider && this.boundSlideshowSlideVisibility) {
+        this.slider.removeEventListener('scroll', this.boundSlideshowSlideVisibility);
+      }
+      this.sliderControlLinksArray?.forEach((link) => {
+        link.removeEventListener('click', this.boundLinkToSlide);
+      });
+      this.reducedMotion?.removeEventListener('change', this.boundReducedMotionChange);
+      this.slideshowDomAttached = false;
+    }
+    super.disconnectedCallback();
+  }
+
+  ensureSlideshowDom() {
+    if (this.slideshowDomAttached) return;
+
+    this.sliderControlWrapper = this.querySelector('.slider-buttons');
     if (!this.sliderControlWrapper) return;
+    if (!this.slider) {
+      if ((this.slideshowAttachAttempts = (this.slideshowAttachAttempts || 0) + 1) < 30) {
+        requestAnimationFrame(() => this.ensureSlideshowDom());
+      }
+      return;
+    }
+
+    this.slideshowDomAttached = true;
 
     this.sliderFirstItemNode = this.slider.querySelector('.slideshow__slide');
-    if (this.sliderItemsToShow.length > 0) this.currentPage = 1;
+    if (this.sliderItemsToShow?.length > 0) this.currentPage = 1;
 
     this.announcementBarSlider = this.querySelector('.announcement-bar-slider');
     // Value below should match --duration-announcement-bar CSS value
     this.announcerBarAnimationDelay = this.announcementBarSlider ? 250 : 0;
 
     this.sliderControlLinksArray = Array.from(this.sliderControlWrapper.querySelectorAll('.slider-counter__link'));
-    this.sliderControlLinksArray.forEach((link) => link.addEventListener('click', this.linkToSlide.bind(this)));
-    this.slider.addEventListener('scroll', this.setSlideVisibility.bind(this));
+    this.boundLinkToSlide = this.linkToSlide.bind(this);
+    this.sliderControlLinksArray.forEach((link) => {
+      link.addEventListener('click', this.boundLinkToSlide);
+    });
+
+    this.boundSlideshowSlideVisibility = this.setSlideVisibility.bind(this);
+    this.slider.addEventListener('scroll', this.boundSlideshowSlideVisibility);
     this.setSlideVisibility();
 
     if (this.announcementBarSlider) {
       this.announcementBarArrowButtonWasClicked = false;
 
       this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-      this.reducedMotion.addEventListener('change', () => {
+      this.boundReducedMotionChange = () => {
         if (this.slider.getAttribute('data-autoplay') === 'true') this.setAutoPlay();
-      });
+      };
+      this.reducedMotion.addEventListener('change', this.boundReducedMotionChange);
 
       [this.prevButton, this.nextButton].forEach((button) => {
         button.addEventListener(

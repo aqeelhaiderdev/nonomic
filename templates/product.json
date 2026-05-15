@@ -16,6 +16,17 @@
           "type": "title",
           "settings": {}
         },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
+        "subtitle_text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Clinical-strength odor protection. Powered by MicroSilver.</p>",
+            "text_style": "body"
+          }
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -23,7 +34,11 @@
             "swatch_shape": "circle",
             "enable_pack_scents": true,
             "pack_option_name": "Quantity",
-            "scent_option_name": "Scent"
+            "scent_option_name": "Scent",
+            "pack_badge_match_2": "2 pack",
+            "pack_badge_text_2": "Most popular",
+            "pack_badge_match_3": "3 pack",
+            "pack_badge_text_3": "Best value"
           }
         },
         "buy_buttons": {
@@ -33,42 +48,435 @@
             "show_gift_card_recipient": false
           }
         },
-        "description": {
+        "description_rcyhTm": {
           "type": "description",
           "settings": {}
         },
-        "share": {
-          "type": "share",
+        "collapsible_tab_nHafmA": {
+          "type": "collapsible_tab",
           "settings": {
-            "share_label": "Share"
+            "heading": "How It Works",
+            "icon": "none",
+            "content": "<p>MicroSilver BG™ is a pharmaceutical-grade silver that disrupts bacterial cell function on contact.</p><p>Odor doesn't come from sweat — it comes from bacteria breaking it down.<br/>If bacteria can't function, odor can't form.</p><p>Unlike deodorants that mask with fragrance or irritate with baking soda, MicroSilver targets the source directly.</p><p>One application provides 24+ hour control — without blocking sweat.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_TeDJA6": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Full Ingredient List",
+            "icon": "none",
+            "content": "<p>Caprylic/Capric Triglyceride, Rice Bran Wax, Tapioca Starch, Cocoa Butter, Zinc Oxide, Magnesium Hydroxide, MicroSilver BG™, Zinc Ricinoleate, Triethyl Citrate, Carnauba Wax, Jojoba Esters 60, Rosemary Antioxidant, Essential Oil Blend (except Unscented).</p><p>No aluminum. No baking soda. No synthetic fragrance.</p><p>Essential oils vary by formula. Unscented contains none.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_Wg7Vqh": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How to Use",
+            "icon": "none",
+            "content": "<p>Apply to clean, dry underarms once daily.</p><p>For best results, apply after showering.<br/>A few swipes is all you need — no reapplication required.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_9myx3J": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping Information",
+            "icon": "none",
+            "content": "<p>Free standard shipping on 2-pack and 3-pack orders.<br/>Single stick ships for $5.</p><p>Orders ship within 1–2 business days.<br/>Delivery typically arrives in 3–5 business days.</p><p>Tracking is emailed as soon as your order ships.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_dKyFUn": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "45-Day Guarantee",
+            "icon": "none",
+            "content": "<p>Try it for 45 days.</p><p>If it doesn't outperform your current deodorant, email support@nonomic.com and we'll refund you in full.</p><p>No returns. No forms. No friction.</p><p>One refund per customer, up to $60.</p>",
+            "page": ""
           }
         }
       },
       "block_order": [
         "title",
+        "rating",
+        "subtitle_text",
         "variant_picker",
         "buy_buttons",
-        "description",
-        "share"
+        "description_rcyhTm",
+        "collapsible_tab_nHafmA",
+        "collapsible_tab_TeDJA6",
+        "collapsible_tab_Wg7Vqh",
+        "collapsible_tab_9myx3J",
+        "collapsible_tab_dKyFUn"
+      ],
+      "custom_css": [
+        ".media > img {object-fit: contain;}"
       ],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
+        "enable_nonomic_pdp": true,
+        "nonomic_title_typography": "h0",
+        "nonomic_hide_view_details": true,
+        "nonomic_inner_max": 1440,
+        "nonomic_horizontal_inset": 20,
+        "nonomic_color_page_bg": "#f6f7f9",
+        "nonomic_color_media_surface": "#ebeef2",
+        "nonomic_color_accent": "#1d9e75",
+        "nonomic_color_navy": "#1a2b3c",
+        "nonomic_color_text": "#111827",
+        "nonomic_color_muted": "#7a8899",
+        "nonomic_color_border": "#dde1e8",
+        "nonomic_color_body": "#4b5a6b",
+        "nonomic_show_gallery_trust": true,
+        "nonomic_trust_1_icon": "shield",
+        "nonomic_trust_1_heading": "No Aluminum",
+        "nonomic_trust_1_body": "Never blocks sweat",
+        "nonomic_trust_2_icon": "leaf",
+        "nonomic_trust_2_heading": "No Baking Soda",
+        "nonomic_trust_2_body": "Gentle on skin",
+        "nonomic_trust_3_icon": "silver",
+        "nonomic_trust_3_heading": "MicroSilver",
+        "nonomic_trust_3_body": "Stops odor at source",
+        "nonomic_trust_4_icon": "calendar",
+        "nonomic_trust_4_heading": "45-Day Guarantee",
+        "nonomic_trust_4_body": "Full refund, no forms",
+        "nonomic_pack_free_shipping_label": "Free shipping",
+        "nonomic_show_atc_trust": true,
+        "nonomic_atc_trust_1": "45-day money-back",
+        "nonomic_atc_trust_2": "Keep your product",
+        "nonomic_atc_trust_3": "No subscription required",
+        "nonomic_guarantee": "<p>If it doesn't outperform your current deodorant in 45 days, we'll refund you. No forms. No friction.</p>",
         "media_size": "large",
         "constrain_to_viewport": true,
         "media_fit": "contain",
-        "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
+        "gallery_layout": "thumbnail",
+        "mobile_thumbnails": "show",
         "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": true,
+        "image_zoom": "none",
+        "hide_variants": false,
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
       }
     },
+    "nonomic_how_it_works_4UirdD": {
+      "type": "nonomic-how-it-works",
+      "blocks": {
+        "layer_UUE6M4": {
+          "type": "layer",
+          "settings": {
+            "highlight": false,
+            "eyebrow": "LAYER 1 — ANCHOR",
+            "title": "Zinc Oxide",
+            "body": "<p>Anchors the formula so every ingredient stays in contact with skin. Nothing else works if the formula doesn't hold.</p>",
+            "accent_label": "The Mechanism",
+            "watermark_text": "Ag",
+            "body_mobile": ""
+          }
+        },
+        "layer_47fKqY": {
+          "type": "layer",
+          "settings": {
+            "highlight": false,
+            "eyebrow": "LAYER 2 — PREVENT",
+            "title": "Magnesium",
+            "body": "<p>Manages pH to create an environment where bacteria can't thrive. Sets the conditions before bacteria can establish.</p>",
+            "accent_label": "The Mechanism",
+            "watermark_text": "Ag",
+            "body_mobile": ""
+          }
+        },
+        "layer_gULz96": {
+          "type": "layer",
+          "settings": {
+            "highlight": true,
+            "eyebrow": "LAYER 3 — NEUTRALIZE",
+            "title": "MicroSilver",
+            "body": "<p>Disrupts bacterial cell walls at contact. This is the mechanism. Bacteria can't produce odor if they can't function.</p>",
+            "accent_label": "The Mechanism",
+            "watermark_text": "Ag",
+            "body_mobile": "<p>A pharmaceutical-grade silver ingredient that disrupts bacterial cell walls at contact.</p><ul><li>Releases silver ions continuously</li><li>Binds to bacterial cell wall proteins</li><li>Bacteria can't produce odor compounds</li><li>Mechanism persists for 24+ hours</li></ul>"
+          }
+        },
+        "layer_QfRjrz": {
+          "type": "layer",
+          "settings": {
+            "highlight": false,
+            "eyebrow": "LAYER 4 — BLOCK",
+            "title": "Triethyl Citrate",
+            "body": "<p>Blocks enzymatic breakdown as backup. Catches anything that gets through — secondary prevention that holds the line.</p>",
+            "accent_label": "The Mechanism",
+            "watermark_text": "Ag",
+            "body_mobile": ""
+          }
+        },
+        "ingredient_GaEKcm": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "shield",
+            "title": "MicroSilver",
+            "subtitle": "Bacteria Disruption"
+          }
+        },
+        "ingredient_LcMCp4": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "droplet",
+            "title": "Magnesium Hydroxide",
+            "subtitle": "pH Balance"
+          }
+        },
+        "ingredient_zjT7QF": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "anchor",
+            "title": "Zinc Oxide",
+            "subtitle": "Anchor and Cling"
+          }
+        },
+        "ingredient_wtkwdE": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "leaf",
+            "title": "Triethyl Citrate",
+            "subtitle": "Enzymatic Management"
+          }
+        }
+      },
+      "block_order": [
+        "layer_UUE6M4",
+        "layer_47fKqY",
+        "layer_gULz96",
+        "layer_QfRjrz",
+        "ingredient_GaEKcm",
+        "ingredient_LcMCp4",
+        "ingredient_zjT7QF",
+        "ingredient_wtkwdE"
+      ],
+      "name": "Nonomic how it works",
+      "settings": {
+        "heading": "One Mechanism. Four Layers of Protection.",
+        "heading_mobile": "One Mechanism. One Key Ingredient.",
+        "heading_size": "h1",
+        "heading_line_height": 120,
+        "heading_alignment": "left",
+        "heading_spacing_bottom": 96,
+        "max_width": 1280,
+        "horizontal_padding": 32,
+        "grid_gap": 32,
+        "mobile_show_only_highlight": true,
+        "divider_width": 2,
+        "card_padding_y": 32,
+        "card_padding_x": 24,
+        "card_corner_radius": 10,
+        "highlight_card_scale": 108,
+        "watermark_font_size": 120,
+        "watermark_opacity": 5,
+        "caption": "<p>This isn't about blocking sweat. It's about controlling what creates odor.</p>",
+        "caption_alignment": "center",
+        "caption_spacing_top": 48,
+        "cta_label": "View Full Ingredient List →",
+        "cta_link": "#",
+        "cta_open_new_tab": false,
+        "cta_alignment": "center",
+        "cta_spacing_top": 24,
+        "cta_hide_on_mobile": true,
+        "color_background": "#ebeef2",
+        "color_heading": "#111827",
+        "color_eyebrow": "#7a8899",
+        "color_title": "#111827",
+        "color_body": "#4b5a6b",
+        "color_divider": "#7a8899",
+        "color_highlight_background": "#1a2b3c",
+        "color_highlight_eyebrow": "#ffffff99",
+        "color_highlight_title": "#ffffff",
+        "color_highlight_body": "#ffffffd9",
+        "color_highlight_label": "#1d9e75",
+        "color_watermark": "#ffffff",
+        "color_caption": "#4b5a6b",
+        "color_cta": "#1d9e75",
+        "mobile_ingredients_show": true,
+        "mobile_ingredients_eyebrow": "Four active ingredients",
+        "mobile_ingredients_heading": "What's Inside",
+        "mobile_ingredients_heading_size": 24,
+        "mobile_ingredients_show_cta": true,
+        "mobile_ingredients_padding_y": 64,
+        "mobile_ingredients_padding_x": 32,
+        "mobile_ingredients_icon_size": 36,
+        "mobile_ingredients_icon_svg_size": 18,
+        "mobile_ingredients_background": "#f6f7f9",
+        "mobile_ingredients_color_eyebrow": "#7a8899",
+        "mobile_ingredients_color_heading": "#111827",
+        "mobile_ingredients_color_title": "#1a2b3c",
+        "mobile_ingredients_color_subtitle": "#7a8899",
+        "mobile_ingredients_color_divider": "#dde1e8",
+        "mobile_ingredients_icon_background": "#1a2b3c",
+        "mobile_ingredients_icon_foreground": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "placeholder_text": "Add layer blocks to display the mechanism."
+      }
+    },
+    "nonomic_comparison_chart_gKVadH": {
+      "type": "nonomic-comparison-chart",
+      "blocks": {
+        "row_9YCc34": {
+          "type": "row",
+          "settings": {
+            "feature": "Neutralizes odor at source",
+            "feature_mobile": "Neutralizes odor",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": false,
+            "hide_on_mobile": true
+          }
+        },
+        "row_MtKb99": {
+          "type": "row",
+          "settings": {
+            "feature": "Free from aluminum",
+            "feature_mobile": "No aluminum",
+            "nonomic": true,
+            "natural": true,
+            "antiperspirant": false,
+            "hide_on_mobile": false
+          }
+        },
+        "row_nNXBQq": {
+          "type": "row",
+          "settings": {
+            "feature": "Free from baking soda",
+            "feature_mobile": "No baking soda",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": true,
+            "hide_on_mobile": false
+          }
+        },
+        "row_ah7Uc3": {
+          "type": "row",
+          "settings": {
+            "feature": "Suitable for sensitive skin",
+            "feature_mobile": "Sensitive skin",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": false,
+            "hide_on_mobile": false
+          }
+        },
+        "row_4TBYHN": {
+          "type": "row",
+          "settings": {
+            "feature": "Doesn't block sweat",
+            "feature_mobile": "No sweat blocking",
+            "nonomic": true,
+            "natural": true,
+            "antiperspirant": false,
+            "hide_on_mobile": true
+          }
+        },
+        "row_kRCUec": {
+          "type": "row",
+          "settings": {
+            "feature": "Long-lasting without reapplication",
+            "feature_mobile": "Long-lasting",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": true,
+            "hide_on_mobile": true
+          }
+        },
+        "row_gWj8pq": {
+          "type": "row",
+          "settings": {
+            "feature": "Powered by studied active ingredient",
+            "feature_mobile": "Studied actives",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": true,
+            "hide_on_mobile": true
+          }
+        },
+        "row_UXETgr": {
+          "type": "row",
+          "settings": {
+            "feature": "MicroSilver technology",
+            "feature_mobile": "MicroSilver",
+            "nonomic": true,
+            "natural": false,
+            "antiperspirant": false,
+            "hide_on_mobile": false
+          }
+        }
+      },
+      "block_order": [
+        "row_9YCc34",
+        "row_MtKb99",
+        "row_nNXBQq",
+        "row_ah7Uc3",
+        "row_4TBYHN",
+        "row_kRCUec",
+        "row_gWj8pq",
+        "row_UXETgr"
+      ],
+      "name": "Nonomic comparison chart",
+      "settings": {
+        "heading": "How Nonomic Compares",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_spacing_bottom": 48,
+        "corner_column_label": "Feature",
+        "logo": "shopify://shop_images/8b791755-1d30-4cb4-9dcf-9fb4086d19d3.png",
+        "logo_alt": "Nonomic",
+        "logo_max_height": 20,
+        "mobile_brand_text": "nonomic",
+        "column_natural_heading": "Natural",
+        "column_antiperspirant_heading": "Antiperspirant",
+        "column_antiperspirant_heading_mobile_line1": "Anti-",
+        "column_antiperspirant_heading_mobile_line2": "perspirant",
+        "accessibility_nonomic_label": "Nonomic",
+        "accessibility_natural_label": "Natural deodorant",
+        "accessibility_antiperspirant_label": "Antiperspirant",
+        "table_font_size": 14,
+        "table_font_size_mobile": 14,
+        "table_head_font_size_mobile": 13,
+        "max_width": 1280,
+        "horizontal_padding": 32,
+        "highlight_corner_radius": 20,
+        "table_header_padding_y": 16,
+        "table_header_padding_x": 16,
+        "table_cell_padding": 16,
+        "row_border_width_desktop": "0.5",
+        "icon_size": 20,
+        "color_background": "#1a2b3c",
+        "color_heading": "#f6f7f9",
+        "color_column_header_muted": "#7a8899",
+        "color_highlight_header_background": "#f6f7f9",
+        "color_highlight_header_text": "#1a2b3c",
+        "color_feature_text": "#ffffff",
+        "color_highlight_column_background": "#f6f7f9",
+        "color_row_border_desktop": "#2a3a4a",
+        "color_row_border_mobile": "#ffffff14",
+        "color_row_border_mobile_strong": "#ffffff14",
+        "color_check_nonomic": "#1d9e75",
+        "color_x_nonomic_column": "#1a2b3c",
+        "color_icon_muted": "#7a8899",
+        "color_mobile_brand_text": "#1d9e75",
+        "button_label": "",
+        "button_link": "",
+        "button_open_new_tab": false,
+        "button_style": "primary",
+        "button_alignment": "center",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "related-products": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
@@ -88,6 +496,8 @@
   },
   "order": [
     "main",
+    "nonomic_how_it_works_4UirdD",
+    "nonomic_comparison_chart_gKVadH",
     "related-products"
   ]
 }

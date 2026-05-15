@@ -77,6 +77,19 @@
               assign quantity_rule_soldout = true
             endif
           -%}
+          <div class="product-in-stock-status">
+            <span class="product-in-stock-dot"></span>
+            <span class="product-in-stock-text">In stock — ships in 1–2 days</span>
+          </div>
+          {%- liquid
+            assign submit_price_formatted = ''
+            if product.selected_or_first_available_variant
+              assign submit_price_formatted = product.selected_or_first_available_variant.price | money_without_trailing_zeros
+              if settings.currency_code_enabled
+                assign submit_price_formatted = product.selected_or_first_available_variant.price | money_with_currency
+              endif
+            endif
+          -%}
           <button
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
@@ -89,13 +102,13 @@
               disabled
             {% endif %}
           >
-            <span>
+            <span class="product-form__submit-text">
               {%- if product.selected_or_first_available_variant == null -%}
                 {{ 'products.product.unavailable' | t }}
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {{ 'products.product.sold_out' | t }}
               {%- else -%}
-                {{ 'products.product.add_to_cart' | t }}
+                Try It Risk-Free — <span class="product-form__submit-price">{{ submit_price_formatted }}</span> →
               {%- endif -%}
             </span>
             {%- render 'loading-spinner' -%}

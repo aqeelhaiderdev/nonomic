@@ -3,12 +3,14 @@
   Also see 'product-media-modal'
 
   Accepts:
-  - product: {Object} Product liquid object
+  - product: {Object} Product liquid object (pass explicitly from sections on non-product pages; product template provides global product)
   - variant_images: {Array} Product images associated with a variant
   - limit: {Number} (optional) When passed, limits the number of media items to render
 
+  When the parent section has Nonomic PDP + gallery trust enabled, renders nonomic-product-gallery-trust after the closing media-gallery tag.
+
   Usage:
-  {% render 'product-media-gallery' %}
+  {% render 'product-media-gallery', product: product, variant_images: variant_images %}
 {% endcomment %}
 
 {%- liquid
@@ -40,6 +42,13 @@
   elsif section.settings.media_size == 'small'
     assign media_width = 0.45
   endif
+
+  assign show_gallery_dots = false
+  if media_count > 1
+    if limit == blank or limit > 1
+      assign show_gallery_dots = true
+    endif
+  endif
 -%}
 
 <media-gallery
@@ -69,20 +78,40 @@
           data-media-id="{{ section.id }}-{{ featured_media.id }}"
         >
           {%- assign media_position = 1 -%}
-          {% render 'product-thumbnail',
-            media: featured_media,
-            media_count: media_count,
-            position: media_position,
-            desktop_layout: section.settings.gallery_layout,
-            mobile_layout: section.settings.mobile_thumbnails,
-            loop: section.settings.enable_video_looping,
-            modal_id: section.id,
-            xr_button: true,
-            media_width: media_width,
-            media_fit: section.settings.media_fit,
-            constrain_to_viewport: section.settings.constrain_to_viewport,
-            lazy_load: false
-          %}
+          {%- if section.settings.enable_nonomic_pdp -%}
+            <div class="nonomic-gallery-media-slide">
+              {% render 'product-thumbnail',
+                media: featured_media,
+                media_count: media_count,
+                position: media_position,
+                desktop_layout: section.settings.gallery_layout,
+                mobile_layout: section.settings.mobile_thumbnails,
+                loop: section.settings.enable_video_looping,
+                modal_id: section.id,
+                xr_button: true,
+                media_width: media_width,
+                media_fit: section.settings.media_fit,
+                constrain_to_viewport: section.settings.constrain_to_viewport,
+                lazy_load: false
+              %}
+              {% render 'nonomic-gallery-media-caption', media: featured_media, product: product, section: section %}
+            </div>
+          {%- else -%}
+            {% render 'product-thumbnail',
+              media: featured_media,
+              media_count: media_count,
+              position: media_position,
+              desktop_layout: section.settings.gallery_layout,
+              mobile_layout: section.settings.mobile_thumbnails,
+              loop: section.settings.enable_video_looping,
+              modal_id: section.id,
+              xr_button: true,
+              media_width: media_width,
+              media_fit: section.settings.media_fit,
+              constrain_to_viewport: section.settings.constrain_to_viewport,
+              lazy_load: false
+            %}
+          {%- endif -%}
         </li>
       {%- endif -%}
       {%- for media in product.media -%}
@@ -107,20 +136,40 @@
                 assign lazy_load = true
               endif
             -%}
-            {% render 'product-thumbnail',
-              media: media,
-              media_count: media_count,
-              position: media_position,
-              desktop_layout: section.settings.gallery_layout,
-              mobile_layout: section.settings.mobile_thumbnails,
-              loop: section.settings.enable_video_looping,
-              modal_id: section.id,
-              xr_button: true,
-              media_width: media_width,
-              media_fit: section.settings.media_fit,
-              constrain_to_viewport: section.settings.constrain_to_viewport,
-              lazy_load: lazy_load
-            %}
+            {%- if section.settings.enable_nonomic_pdp -%}
+              <div class="nonomic-gallery-media-slide">
+                {% render 'product-thumbnail',
+                  media: media,
+                  media_count: media_count,
+                  position: media_position,
+                  desktop_layout: section.settings.gallery_layout,
+                  mobile_layout: section.settings.mobile_thumbnails,
+                  loop: section.settings.enable_video_looping,
+                  modal_id: section.id,
+                  xr_button: true,
+                  media_width: media_width,
+                  media_fit: section.settings.media_fit,
+                  constrain_to_viewport: section.settings.constrain_to_viewport,
+                  lazy_load: lazy_load
+                %}
+                {% render 'nonomic-gallery-media-caption', media: media, product: product, section: section %}
+              </div>
+            {%- else -%}
+              {% render 'product-thumbnail',
+                media: media,
+                media_count: media_count,
+                position: media_position,
+                desktop_layout: section.settings.gallery_layout,
+                mobile_layout: section.settings.mobile_thumbnails,
+                loop: section.settings.enable_video_looping,
+                modal_id: section.id,
+                xr_button: true,
+                media_width: media_width,
+                media_fit: section.settings.media_fit,
+                constrain_to_viewport: section.settings.constrain_to_viewport,
+                lazy_load: lazy_load
+              %}
+            {%- endif -%}
           </li>
         {%- endunless -%}
       {%- endfor -%}
@@ -153,6 +202,25 @@
         </span>
       </button>
     </div>
+    {%- if show_gallery_dots -%}
+      <div
+        class="product__media-gallery-dots"
+        data-gallery-dots
+        role="tablist"
+        aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
+      >
+        {%- for i in (1..media_count) -%}
+          <button
+            type="button"
+            class="product__media-gallery-dot{% if forloop.first %} is-active{% endif %}"
+            data-slide-index="{{ forloop.index0 }}"
+            aria-label="{{ 'products.product.gallery_slide_dot' | t: index: forloop.index }}"
+            role="tab"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          ></button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </slider-component>
   {%- if first_3d_model -%}
     <button
@@ -330,3 +398,4 @@
     </slider-component>
   {%- endif -%}
 </media-gallery>
+

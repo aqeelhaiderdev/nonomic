@@ -28,6 +28,7 @@
 -%}
 
 {%- for value in option.values -%}
+  {%- assign value_str = value | append: '' -%}
   {%- liquid
     assign swatch_focal_point = null
     if value.swatch.image
@@ -48,7 +49,7 @@
     assign pack_slots = ''
     if option_role == 'pack'
       assign pack_slots = 1
-      assign vl = value | strip | downcase
+      assign vl = value_str | strip | downcase
       if vl contains '3 pack' or vl == '3-pack'
         assign pack_slots = 3
       elsif vl contains '2 pack' or vl == '2-pack'
@@ -150,8 +151,102 @@
       {% endif %}
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}">
-      {{ value -}}
+    <label
+      for="{{ input_id }}"
+      {%- if section.settings.enable_nonomic_pdp and option_role == 'pack' and picker_type == 'button' -%}
+        class="nonomic-pack-card__label"
+      {%- elsif section.settings.enable_nonomic_pdp and nonomic_scent_row and picker_type == 'button' -%}
+        {%- liquid
+          assign scent_variant_for_dot = false
+          for variant in product.variants
+            if scent_variant_for_dot == false
+              assign vopt_scent = ''
+              case option.position
+                when 1
+                  assign vopt_scent = variant.option1
+                when 2
+                  assign vopt_scent = variant.option2
+                when 3
+                  assign vopt_scent = variant.option3
+              endcase
+              if vopt_scent == value_str
+                assign scent_variant_for_dot = variant
+              endif
+            endif
+          endfor
+          assign scent_dot_rgb = ''
+          assign scent_dot_hex = ''
+          if scent_variant_for_dot and scent_variant_for_dot.metafields.custom.color_code != blank
+            assign scent_color_mf = scent_variant_for_dot.metafields.custom.color_code
+            if scent_color_mf.value != blank
+              if scent_color_mf.value.rgb != blank
+                assign scent_dot_rgb = scent_color_mf.value.rgb
+              elsif scent_color_mf.value.hex != blank
+                assign scent_dot_hex = scent_color_mf.value.hex
+              endif
+            endif
+          endif
+          if scent_dot_rgb == blank and scent_dot_hex == blank and value.swatch and value.swatch.color
+            assign scent_dot_rgb = value.swatch.color.rgb
+          endif
+        -%}
+        class="nonomic-scent-chip__label"
+        {%- if scent_dot_rgb != blank -%}
+          style="--nonomic-scent-dot: rgb({{ scent_dot_rgb }});"
+        {%- elsif scent_dot_hex != blank -%}
+          style="--nonomic-scent-dot: {{ scent_dot_hex }};"
+        {%- endif -%}
+      {%- endif -%}
+    >
+      {%- liquid
+        assign nonomic_pack_card = false
+        if section.settings.enable_nonomic_pdp and option_role == 'pack' and picker_type == 'button'
+          assign nonomic_pack_card = true
+        endif
+      -%}
+      {%- if nonomic_pack_card -%}
+        {%- liquid
+          assign badge_label = ''
+          if block != blank and block.settings.pack_badge_match_2 != blank and value_str == block.settings.pack_badge_match_2
+            assign badge_label = block.settings.pack_badge_text_2
+          elsif block != blank and block.settings.pack_badge_match_3 != blank and value_str == block.settings.pack_badge_match_3
+            assign badge_label = block.settings.pack_badge_text_3
+          endif
+          assign pack_price_variant = false
+          for variant in product.variants
+            if pack_price_variant == false
+              assign vopt = ''
+              case option.position
+                when 1
+                  assign vopt = variant.option1
+                when 2
+                  assign vopt = variant.option2
+                when 3
+                  assign vopt = variant.option3
+              endcase
+              if vopt == value_str
+                assign pack_price_variant = variant
+              endif
+            endif
+          endfor
+        -%}
+        {%- if badge_label != blank -%}
+          <span class="nonomic-pack-card__badge">{{ badge_label }}</span>
+        {%- endif -%}
+        <span class="nonomic-pack-card__name">{{ value }}</span>
+        {%- if pack_price_variant -%}
+          <span class="nonomic-pack-card__price">{{ pack_price_variant.price | money_without_trailing_zeros }}</span>
+          {%- if pack_slots > 1 -%}
+            {%- assign each_cents = pack_price_variant.price | divided_by: pack_slots -%}
+            <span class="nonomic-pack-card__each">{{ each_cents | money_without_trailing_zeros }} each</span>
+          {%- endif -%}
+          {%- if pack_slots > 1 and section.settings.nonomic_pack_free_shipping_label != blank -%}
+            <span class="nonomic-pack-card__ship">{{ section.settings.nonomic_pack_free_shipping_label }}</span>
+          {%- endif -%}
+        {%- endif -%}
+      {%- else -%}
+        {{ value -}}
+      {%- endif -%}
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}

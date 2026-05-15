@@ -1101,6 +1101,164 @@
         "placeholder_text": "Add a heading or body text to display this section."
       }
     },
+    "featured_product_main_product_gAkCr6": {
+      "type": "featured-product-main-product",
+      "blocks": {
+        "title_dWYcfz": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating_tHh6pK": {
+          "type": "rating",
+          "settings": {}
+        },
+        "text_qz34RU": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Clinical-strength odor protection. Powered by MicroSilver.</p>",
+            "text_style": "body"
+          }
+        },
+        "variant_picker_heXxCb": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle",
+            "enable_pack_scents": true,
+            "pack_option_name": "Quantity",
+            "scent_option_name": "Scent",
+            "pack_badge_match_2": "2 pack",
+            "pack_badge_text_2": "Most popular",
+            "pack_badge_match_3": "3 pack",
+            "pack_badge_text_3": "Best value"
+          }
+        },
+        "buy_buttons_aqqhiR": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "description_EzU4CH": {
+          "type": "description",
+          "settings": {}
+        },
+        "collapsible_tab_DqXfR8": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How It Works",
+            "icon": "none",
+            "content": "<p>MicroSilver BG™ is a pharmaceutical-grade silver that disrupts bacterial cell function on contact.</p><p>Odor doesn't come from sweat — it comes from bacteria breaking it down.<br/>If bacteria can't function, odor can't form.</p><p>Unlike deodorants that mask with fragrance or irritate with baking soda, MicroSilver targets the source directly.</p><p>One application provides 24+ hour control — without blocking sweat.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_XyVxJT": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Full Ingredient List",
+            "icon": "none",
+            "content": "<p>Caprylic/Capric Triglyceride, Rice Bran Wax, Tapioca Starch, Cocoa Butter, Zinc Oxide, Magnesium Hydroxide, MicroSilver BG™, Zinc Ricinoleate, Triethyl Citrate, Carnauba Wax, Jojoba Esters 60, Rosemary Antioxidant, Essential Oil Blend (except Unscented).</p><p>No aluminum. No baking soda. No synthetic fragrance.</p><p>Essential oils vary by formula. Unscented contains none.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_3QmXnb": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How to Use",
+            "icon": "none",
+            "content": "<p>Apply to clean, dry underarms once daily.</p><p>For best results, apply after showering.<br/>A few swipes is all you need — no reapplication required.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_gBcfkF": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping Information",
+            "icon": "none",
+            "content": "<p>Free standard shipping on 2-pack and 3-pack orders.<br/>Single stick ships for $5.</p><p>Orders ship within 1–2 business days.<br/>Delivery typically arrives in 3–5 business days.</p><p>Tracking is emailed as soon as your order ships.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_qTKjBH": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "45-Day Guarantee",
+            "icon": "none",
+            "content": "<p>Try it for 45 days.</p><p>If it doesn't outperform your current deodorant, email support@nonomic.com and we'll refund you in full.</p><p>No returns. No forms. No friction.</p><p>One refund per customer, up to $60.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "title_dWYcfz",
+        "rating_tHh6pK",
+        "text_qz34RU",
+        "variant_picker_heXxCb",
+        "buy_buttons_aqqhiR",
+        "description_EzU4CH",
+        "collapsible_tab_DqXfR8",
+        "collapsible_tab_XyVxJT",
+        "collapsible_tab_3QmXnb",
+        "collapsible_tab_gBcfkF",
+        "collapsible_tab_qTKjBH"
+      ],
+      "custom_css": [
+        ".media > img {object-fit: contain;}",
+        ".product-form__buttons {max-width: 100%;}"
+      ],
+      "name": "Featured product (main)",
+      "settings": {
+        "featured_product": "nonomic-deodorant-stick",
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "enable_nonomic_pdp": true,
+        "nonomic_title_typography": "h0",
+        "nonomic_hide_view_details": true,
+        "nonomic_write_review_url": "",
+        "nonomic_write_review_label": "Write a review",
+        "nonomic_inner_max": 1440,
+        "nonomic_horizontal_inset": 20,
+        "nonomic_color_page_bg": "#f6f7f9",
+        "nonomic_color_media_surface": "#ebeef2",
+        "nonomic_color_accent": "#1d9e75",
+        "nonomic_color_navy": "#1a2b3c",
+        "nonomic_color_text": "#111827",
+        "nonomic_color_muted": "#7a8899",
+        "nonomic_color_border": "#dde1e8",
+        "nonomic_color_body": "#4b5a6b",
+        "nonomic_show_gallery_trust": true,
+        "nonomic_trust_1_icon": "shield",
+        "nonomic_trust_1_heading": "No Aluminum",
+        "nonomic_trust_1_body": "Never blocks sweat",
+        "nonomic_trust_2_icon": "leaf",
+        "nonomic_trust_2_heading": "No Baking Soda",
+        "nonomic_trust_2_body": "Gentle on skin",
+        "nonomic_trust_3_icon": "silver",
+        "nonomic_trust_3_heading": "MicroSilver",
+        "nonomic_trust_3_body": "Stops odor at source",
+        "nonomic_trust_4_icon": "calendar",
+        "nonomic_trust_4_heading": "45-Day Guarantee",
+        "nonomic_trust_4_body": "Full refund, no forms",
+        "nonomic_pack_free_shipping_label": "Free shipping",
+        "nonomic_show_atc_trust": true,
+        "nonomic_atc_trust_1": "45-day money-back",
+        "nonomic_atc_trust_2": "Keep your product",
+        "nonomic_atc_trust_3": "No subscription required",
+        "nonomic_guarantee": "<p>If it doesn't outperform your current deodorant in 45 days, we'll refund you. No forms. No friction.</p>",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "none",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
     "trial_commitment_QcXyHJ": {
       "type": "trial-commitment",
       "name": "Trial commitment",
@@ -1151,6 +1309,7 @@
     "nonomic_testimonials_BNf9j7",
     "situation_grid_GFXUzE",
     "trial_commitment_6fK2mL",
+    "featured_product_main_product_gAkCr6",
     "trial_commitment_QcXyHJ"
   ]
 }
