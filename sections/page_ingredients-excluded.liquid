@@ -1,0 +1,607 @@
+{%- style -%}
+  #IngredientsExcluded-{{ section.id }} {
+    --ie-bg: {{ section.settings.background_color }};
+    --ie-content-max-width: {{ section.settings.content_max_width }}px;
+    
+    --ie-c-heading: {{ section.settings.color_heading }};
+    --ie-c-card-bg: {{ section.settings.color_card_bg }};
+    --ie-c-card-border: {{ section.settings.color_card_border }};
+    --ie-c-card-name: {{ section.settings.color_card_name }};
+    --ie-c-card-text: {{ section.settings.color_card_text }};
+
+    /* Typography Variables (Mobile) */
+    --ie-heading-size-mo: {{ section.settings.heading_size_mobile }}px;
+    --ie-card-name-size-mo: {{ section.settings.card_name_size_mobile }}px;
+    --ie-card-text-size-mo: {{ section.settings.card_text_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --ie-heading-size-dk: {{ section.settings.heading_size_desktop }}px;
+    --ie-card-name-size-dk: {{ section.settings.card_name_size_desktop }}px;
+    --ie-card-text-size-dk: {{ section.settings.card_text_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --ie-heading-pt-mo: {{ section.settings.heading_padding_top_mobile }}px;
+    --ie-heading-pb-mo: {{ section.settings.heading_padding_bottom_mobile }}px;
+    --ie-grid-pt-mo: {{ section.settings.grid_padding_top_mobile }}px;
+    --ie-grid-pb-mo: {{ section.settings.grid_padding_bottom_mobile }}px;
+    --ie-grid-gap-mo: {{ section.settings.grid_gap_mobile }}px;
+    --ie-card-pt-mo: {{ section.settings.card_padding_top_mobile }}px;
+    --ie-card-pb-mo: {{ section.settings.card_padding_bottom_mobile }}px;
+    --ie-card-px-mo: {{ section.settings.card_padding_horizontal_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --ie-heading-pt-dk: {{ section.settings.heading_padding_top_desktop }}px;
+    --ie-heading-pb-dk: {{ section.settings.heading_padding_bottom_desktop }}px;
+    --ie-grid-pt-dk: {{ section.settings.grid_padding_top_desktop }}px;
+    --ie-grid-pb-dk: {{ section.settings.grid_padding_bottom_desktop }}px;
+    --ie-grid-gap-dk: {{ section.settings.grid_gap_desktop }}px;
+    --ie-card-pt-dk: {{ section.settings.card_padding_top_desktop }}px;
+    --ie-card-pb-dk: {{ section.settings.card_padding_bottom_desktop }}px;
+    --ie-card-px-dk: {{ section.settings.card_padding_horizontal_desktop }}px;
+
+    background-color: var(--ie-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .ingredients-excluded__inner {
+    max-width: var(--ie-content-max-width);
+    margin: 0 auto;
+  }
+
+  .ingredients-excluded__heading {
+    margin: 0;
+    text-align: center;
+    padding-top: var(--ie-heading-pt-mo);
+    padding-bottom: var(--ie-heading-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--ie-heading-size-mo);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ie-c-heading);
+    word-break: break-word;
+  }
+
+  .ingredients-excluded__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--ie-grid-gap-mo);
+    padding-top: var(--ie-grid-pt-mo);
+    padding-bottom: var(--ie-grid-pb-mo);
+  }
+
+  @media screen and (min-width: 750px) {
+    .ingredients-excluded__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--ie-grid-gap-dk);
+      padding-top: var(--ie-grid-pt-dk);
+      padding-bottom: var(--ie-grid-pb-dk);
+    }
+  }
+
+  .ingredients-excluded__card {
+    background-color: var(--ie-c-card-bg);
+    border: 0.5px solid var(--ie-c-card-border);
+    border-radius: 8px;
+    padding: var(--ie-card-pt-mo) var(--ie-card-px-mo) var(--ie-card-pb-mo);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ingredients-excluded__card-name {
+    margin: 0 0 8px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--ie-card-name-size-mo);
+    font-weight: 500;
+    color: var(--ie-c-card-name);
+  }
+
+  .ingredients-excluded__card-text {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--ie-card-text-size-mo);
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--ie-c-card-text);
+  }
+
+  .ingredients-excluded__card-text p {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ingredients-excluded__heading {
+      font-size: var(--ie-heading-size-dk);
+      padding-top: var(--ie-heading-pt-dk);
+      padding-bottom: var(--ie-heading-pb-dk);
+    }
+
+    .ingredients-excluded__card {
+      padding: var(--ie-card-pt-dk) var(--ie-card-px-dk) var(--ie-card-pb-dk);
+    }
+
+    .ingredients-excluded__card-name {
+      font-size: var(--ie-card-name-size-dk);
+    }
+
+    .ingredients-excluded__card-text {
+      font-size: var(--ie-card-text-size-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="IngredientsExcluded-{{ section.id }}" class="ingredients-excluded section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="ingredients-excluded__inner">
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="ingredients-excluded__heading">
+          {{ section.settings.heading | newline_to_br }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="ingredients-excluded__grid">
+          {%- for block in section.blocks -%}
+            <div class="ingredients-excluded__card" {{ block.shopify_attributes }}>
+              {%- if block.settings.ingredient != blank -%}
+                <h3 class="ingredients-excluded__card-name">{{ block.settings.ingredient | escape }}</h3>
+              {%- endif -%}
+              
+              {%- if block.settings.reason != blank -%}
+                <div class="ingredients-excluded__card-text rte">{{ block.settings.reason }}</div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Ingredients Excluded",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Use Enter to add line breaks.",
+      "default": "What We Don't Use"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 800,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 1280
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_name_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Ingredient size",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "card_text_size_desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Reason size",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "card_name_size_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Ingredient size",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "card_text_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Reason size",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid bottom padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card bottom padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card side padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Cards Grid bottom padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card bottom padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Inner Card side padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_card_bg",
+      "label": "Card Background",
+      "default": "#F6F7F9"
+    },
+    {
+      "type": "color",
+      "id": "color_card_border",
+      "label": "Card Border",
+      "default": "#DDE1E8"
+    },
+    {
+      "type": "color",
+      "id": "color_card_name",
+      "label": "Card Ingredient Name",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_card_text",
+      "label": "Card Reason Text",
+      "default": "#4B5A6B"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Excluded Ingredient",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "id": "ingredient",
+          "label": "Ingredient Name",
+          "default": "Baking Soda"
+        },
+        {
+          "type": "richtext",
+          "id": "reason",
+          "label": "Reason",
+          "default": "<p>Causes irritation and pH imbalance in most users.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients Excluded",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Baking Soda",
+            "reason": "<p>Causes irritation and pH imbalance in most users.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Aluminum Compounds",
+            "reason": "<p>Blocks sweat ducts. Many prefer not to use it daily.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Parabens",
+            "reason": "<p>Unnecessary preservatives with questionable safety data.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Synthetic Fragrances",
+            "reason": "<p>Often irritating. We use essential oils only when needed.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Talc",
+            "reason": "<p>No functional benefit. Potential contamination concerns.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Propylene Glycol",
+            "reason": "<p>Sensitizing in some individuals. We use alternatives.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,577 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "page_the_science_header_UAY6gc": {
+      "type": "page_the-science_header",
+      "name": "Science Header",
+      "settings": {
+        "eyebrow": "THE SCIENCE",
+        "heading": "One Mechanism.\nZero Compromise.",
+        "description": "<p>Most deodorants mask or block. Nonomic disrupts odor-causing bacteria at the source using MicroSilver, a clinical-grade antimicrobial technology.</p>",
+        "show_rating": true,
+        "rating_value": 5,
+        "rating_text": "4.8 from 1,200+ customers",
+        "button_label": "Choose Your Formula →",
+        "button_link": "shopify://products/nonomic-deodorant-stick",
+        "content_max_width": 700,
+        "eyebrow_size_desktop": 11,
+        "heading_size_desktop": 72,
+        "description_size_desktop": 18,
+        "review_size_desktop": 12,
+        "eyebrow_size_mobile": 11,
+        "heading_size_mobile": 42,
+        "description_size_mobile": 16,
+        "review_size_mobile": 12,
+        "eyebrow_padding_top_desktop": 0,
+        "eyebrow_padding_bottom_desktop": 16,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 16,
+        "description_padding_top_desktop": 0,
+        "description_padding_bottom_desktop": 10,
+        "meta_padding_top_desktop": 0,
+        "meta_padding_bottom_desktop": 10,
+        "button_padding_top_desktop": 0,
+        "button_padding_bottom_desktop": 0,
+        "eyebrow_padding_top_mobile": 0,
+        "eyebrow_padding_bottom_mobile": 24,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 20,
+        "description_padding_top_mobile": 0,
+        "description_padding_bottom_mobile": 24,
+        "meta_padding_top_mobile": 0,
+        "meta_padding_bottom_mobile": 32,
+        "button_padding_top_mobile": 0,
+        "button_padding_bottom_mobile": 0,
+        "background_color": "#1a2b3c",
+        "color_eyebrow": "#7a8899",
+        "color_heading": "#ffffff",
+        "color_description": "#a8bfd0",
+        "color_meta": "#7a8899",
+        "color_accent": "#1d9e75",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_the_science_problem_UyaPwA": {
+      "type": "page_the-science-problem",
+      "blocks": {
+        "feature_FABNpP": {
+          "type": "feature",
+          "settings": {
+            "number": "1",
+            "heading": "Bacterial Activity",
+            "text": "<p>Corynebacterium and Staphylococcus species metabolize sweat compounds into odor molecules.</p>"
+          }
+        },
+        "feature_9BXdKw": {
+          "type": "feature",
+          "settings": {
+            "number": "2",
+            "heading": "Enzymatic Breakdown",
+            "text": "<p>Bacterial enzymes convert proteins and fatty acids into thiols, acids, and aldehydes — the source of odor.</p>"
+          }
+        },
+        "feature_pkUaa8": {
+          "type": "feature",
+          "settings": {
+            "number": "3",
+            "heading": "Compounding Effect",
+            "text": "<p>The longer bacteria remain active, the stronger the odor becomes. Masking doesn't stop the process.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_FABNpP",
+        "feature_9BXdKw",
+        "feature_pkUaa8"
+      ],
+      "name": "Science Problem",
+      "settings": {
+        "heading": "The Problem Is Bacterial",
+        "text": "<p>Sweat is odorless. Odor occurs when bacteria on your skin break down proteins and lipids in sweat into volatile organic compounds. That's what you smell. Fragrance masks it. Baking soda shocks the pH environment. Aluminum blocks sweat entirely. None of these address the mechanism.</p>",
+        "background_color": "#ffffff",
+        "color_heading": "#0b1b2a",
+        "color_text": "#607080",
+        "color_number": "#f0f2f4",
+        "color_item_heading": "#0b1b2a",
+        "color_item_text": "#607080",
+        "heading_size_desktop": 44,
+        "text_size_desktop": 16,
+        "number_size_desktop": 64,
+        "item_heading_size_desktop": 16,
+        "item_text_size_desktop": 14,
+        "heading_size_mobile": 32,
+        "text_size_mobile": 16,
+        "number_size_mobile": 64,
+        "item_heading_size_mobile": 16,
+        "item_text_size_mobile": 14,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_the_science_mechanism_edCbEB": {
+      "type": "page_the-science-mechanism",
+      "blocks": {
+        "bullet_point_BgB7yC": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Silver ions released from the porous structure"
+          }
+        },
+        "bullet_point_KKtAi7": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Ions bind to bacterial cell wall proteins"
+          }
+        },
+        "bullet_point_Hiwx9z": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Disruption of cellular respiration and reproduction"
+          }
+        },
+        "bullet_point_xfQDHi": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Bacteria cannot produce odor compounds"
+          }
+        },
+        "bullet_point_yJYDrH": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Mechanism persists for 24+ hours"
+          }
+        }
+      },
+      "block_order": [
+        "bullet_point_BgB7yC",
+        "bullet_point_KKtAi7",
+        "bullet_point_Hiwx9z",
+        "bullet_point_xfQDHi",
+        "bullet_point_yJYDrH"
+      ],
+      "name": "Science Mechanism",
+      "settings": {
+        "eyebrow": "THE ACTIVE MECHANISM",
+        "heading": "MicroSilver",
+        "description": "<p>MicroSilver is a pharmaceutical-grade antimicrobial technology made of ultra-fine silver particles with a highly porous structure. That porosity dramatically increases surface area, enabling a sustained release of silver ions that disrupt bacterial cell walls on contact.</p><p>Unlike ionic silver or nanosilver, MicroSilver doesn't dissolve or absorb into the body. It stays on the skin surface, anchors, and maintains continuous antimicrobial activity throughout the day.</p>",
+        "card_heading": "How It Works",
+        "show_price_chip": true,
+        "price_text": "$26",
+        "pack_text": "one-time",
+        "highlight_text": "Subscribe & save 20%",
+        "button_label": "Choose Your Formula →",
+        "button_link": "",
+        "content_max_width": 1300,
+        "eyebrow_size_desktop": 11,
+        "heading_size_desktop": 48,
+        "description_size_desktop": 16,
+        "card_heading_size_desktop": 14,
+        "card_text_size_desktop": 14,
+        "eyebrow_size_mobile": 11,
+        "heading_size_mobile": 48,
+        "description_size_mobile": 16,
+        "card_heading_size_mobile": 14,
+        "card_text_size_mobile": 14,
+        "eyebrow_padding_top_desktop": 0,
+        "eyebrow_padding_bottom_desktop": 16,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 32,
+        "description_padding_top_desktop": 0,
+        "description_padding_bottom_desktop": 0,
+        "card_padding_top_desktop": 0,
+        "card_padding_bottom_desktop": 0,
+        "card_heading_padding_top_desktop": 0,
+        "card_heading_padding_bottom_desktop": 24,
+        "card_text_padding_top_desktop": 0,
+        "card_text_padding_bottom_desktop": 0,
+        "chip_padding_top_desktop": 0,
+        "chip_padding_bottom_desktop": 16,
+        "button_padding_top_desktop": 0,
+        "button_padding_bottom_desktop": 0,
+        "eyebrow_padding_top_mobile": 0,
+        "eyebrow_padding_bottom_mobile": 16,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 24,
+        "description_padding_top_mobile": 0,
+        "description_padding_bottom_mobile": 0,
+        "card_padding_top_mobile": 32,
+        "card_padding_bottom_mobile": 40,
+        "card_heading_padding_top_mobile": 0,
+        "card_heading_padding_bottom_mobile": 20,
+        "card_text_padding_top_mobile": 0,
+        "card_text_padding_bottom_mobile": 0,
+        "chip_padding_top_mobile": 0,
+        "chip_padding_bottom_mobile": 16,
+        "button_padding_top_mobile": 0,
+        "button_padding_bottom_mobile": 0,
+        "background_color": "#ebeef2",
+        "color_eyebrow": "#7a8899",
+        "color_heading": "#0b1b2a",
+        "color_description": "#607080",
+        "color_card_bg": "#ffffff",
+        "color_card_heading": "#0b1b2a",
+        "color_card_text": "#607080",
+        "color_card_bullet": "#1b2b3c",
+        "color_chip_bg": "#ffffff",
+        "color_chip_text": "#0b1b2a",
+        "color_chip_highlight": "#1d9e75",
+        "color_chip_divider": "#e5e7eb",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_the_science_ingredients_XJW7pg": {
+      "type": "page_the-science-ingredients",
+      "blocks": {
+        "ingredient_iTDhXT": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Magnesium Hydroxide",
+            "role": "PH BALANCE & MOISTURE MANAGEMENT",
+            "description": "<p>Creates a mildly alkaline environment that inhibits bacterial growth while absorbing excess moisture. Unlike baking soda, it's gentle on skin and doesn't cause irritation.</p>"
+          }
+        },
+        "ingredient_jMJnYa": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zinc Oxide",
+            "role": "ADHESION & SECONDARY PROTECTION",
+            "description": "<p>Helps the formula bond to skin and provides additional antimicrobial support. Commonly used in medical-grade skin applications for its safety profile.</p>"
+          }
+        },
+        "ingredient_KRhcCj": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Triethyl Citrate",
+            "role": "ENZYMATIC CONTROL",
+            "description": "<p>Manages the enzymatic breakdown of proteins and lipids. Acts as a secondary defense layer, reducing the formation of odor compounds even if bacteria are present.</p>"
+          }
+        },
+        "ingredient_tgxade": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Natural Waxes & Emollients",
+            "role": "DELIVERY SYSTEM",
+            "description": "<p>Candelilla and sunflower wax provide structure and smooth application. Coconut oil and shea butter ensure the formula glides without dragging or clumping.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_iTDhXT",
+        "ingredient_jMJnYa",
+        "ingredient_KRhcCj",
+        "ingredient_tgxade"
+      ],
+      "name": "Science Ingredients",
+      "settings": {
+        "heading": "Supporting Ingredients",
+        "link_label": "View Full Ingredient List →",
+        "link_url": "",
+        "content_max_width": 1280,
+        "heading_size_desktop": 40,
+        "card_name_size_desktop": 16,
+        "card_role_size_desktop": 12,
+        "card_desc_size_desktop": 14,
+        "link_size_desktop": 12,
+        "heading_size_mobile": 36,
+        "card_name_size_mobile": 16,
+        "card_role_size_mobile": 12,
+        "card_desc_size_mobile": 14,
+        "link_size_mobile": 12,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 48,
+        "grid_padding_top_desktop": 0,
+        "grid_padding_bottom_desktop": 0,
+        "grid_gap_desktop": 32,
+        "card_padding_top_desktop": 24,
+        "card_padding_bottom_desktop": 24,
+        "card_padding_horizontal_desktop": 24,
+        "link_padding_top_desktop": 32,
+        "link_padding_bottom_desktop": 0,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 24,
+        "grid_padding_top_mobile": 0,
+        "grid_padding_bottom_mobile": 0,
+        "grid_gap_mobile": 16,
+        "card_padding_top_mobile": 20,
+        "card_padding_bottom_mobile": 20,
+        "card_padding_horizontal_mobile": 20,
+        "link_padding_top_mobile": 24,
+        "link_padding_bottom_mobile": 0,
+        "background_color": "#ffffff",
+        "color_heading": "#111827",
+        "color_card_bg": "#f6f7f9",
+        "color_card_border": "#dde1e8",
+        "color_card_name": "#111827",
+        "color_card_role": "#7a8899",
+        "color_card_desc": "#4b5a6b",
+        "color_link": "#1d9e75",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_the_science_clinical_KcDHin": {
+      "type": "page_the-science-clinical",
+      "blocks": {
+        "stat_jyGdiF": {
+          "type": "stat",
+          "settings": {
+            "value": "99.9%",
+            "label": "BACTERIAL REDUCTION IN CLINICAL TESTS"
+          }
+        },
+        "stat_cWHEQT": {
+          "type": "stat",
+          "settings": {
+            "value": "24+",
+            "label": "HOURS OF CONTINUOUS PROTECTION"
+          }
+        },
+        "stat_nGxwXD": {
+          "type": "stat",
+          "settings": {
+            "value": "0",
+            "label": "SYSTEMIC ABSORPTION"
+          }
+        }
+      },
+      "block_order": [
+        "stat_jyGdiF",
+        "stat_cWHEQT",
+        "stat_nGxwXD"
+      ],
+      "name": "Science Clinical",
+      "settings": {
+        "heading": "Clinical Backing",
+        "description": "<p>MicroSilver BG™ has been independently tested across institutions including Charité University Research Hospital (Berlin) and the IGSF Institute for Health System Research (Kiel, Germany). On the market since 2005 — 200+ brand customers, 35+ countries, zero reported skin complications.</p>",
+        "footnote": "<p>99.9% bacterial reduction based on in-vitro testing of MicroSilver BG™ by Bio-Gate AG. 24+ hour mechanism confirmed via in-vivo confocal microscopy, Charité University Research Hospital, Berlin. Zero systemic absorption confirmed via Franz Diffusion Cell testing (CIBA) and in-vivo tape stripping, Institute Dr. Schrader, Germany.</p>",
+        "button_label": "Try It Risk-Free for 45 Days →",
+        "button_link": "shopify://products/nonomic-deodorant-stick",
+        "trust_1": "45-day guarantee",
+        "trust_2": "Free returns",
+        "trust_3": "No subscription required",
+        "content_max_width": 1280,
+        "cta_max_width": 720,
+        "heading_size_desktop": 40,
+        "desc_size_desktop": 16,
+        "stat_val_size_desktop": 56,
+        "stat_lbl_size_desktop": 12,
+        "foot_size_desktop": 11,
+        "btn_size_desktop": 15,
+        "trust_size_desktop": 12,
+        "heading_size_mobile": 36,
+        "desc_size_mobile": 15,
+        "stat_val_size_mobile": 48,
+        "stat_lbl_size_mobile": 11,
+        "foot_size_mobile": 10,
+        "btn_size_mobile": 14,
+        "trust_size_mobile": 11,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 24,
+        "desc_padding_top_desktop": 0,
+        "desc_padding_bottom_desktop": 48,
+        "grid_padding_top_desktop": 0,
+        "grid_padding_bottom_desktop": 0,
+        "grid_gap_desktop": 32,
+        "foot_padding_top_desktop": 24,
+        "foot_padding_bottom_desktop": 0,
+        "btn_padding_top_desktop": 32,
+        "btn_padding_bottom_desktop": 16,
+        "trust_padding_top_desktop": 10,
+        "trust_padding_bottom_desktop": 0,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 24,
+        "desc_padding_top_mobile": 0,
+        "desc_padding_bottom_mobile": 40,
+        "grid_padding_top_mobile": 0,
+        "grid_padding_bottom_mobile": 0,
+        "grid_gap_mobile": 24,
+        "foot_padding_top_mobile": 24,
+        "foot_padding_bottom_mobile": 0,
+        "btn_padding_top_mobile": 32,
+        "btn_padding_bottom_mobile": 16,
+        "trust_padding_top_mobile": 16,
+        "trust_padding_bottom_mobile": 0,
+        "background_color": "#111827",
+        "color_heading": "#f6f7f9",
+        "color_desc": "#a8bfd0",
+        "color_stat_val": "#ffffff",
+        "color_stat_lbl": "#7a8899",
+        "color_foot": "#6b7280",
+        "color_btn_bg": "#1d9e75",
+        "color_btn_text": "#ffffff",
+        "color_trust": "#7a8899",
+        "color_trust_icon": "#1d9e75",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 64,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_the_science_excluded_hdPnqC": {
+      "type": "page_the-science-excluded",
+      "blocks": {
+        "ingredient_xcNwnN": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Baking Soda",
+            "reason": "<p>Causes irritation and pH imbalance in most users.</p>"
+          }
+        },
+        "ingredient_Uc8T68": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Aluminum Compounds",
+            "reason": "<p>Blocks sweat ducts. Many prefer not to use it daily.</p>"
+          }
+        },
+        "ingredient_8HtkCw": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Parabens",
+            "reason": "<p>Unnecessary preservatives with questionable safety data.</p>"
+          }
+        },
+        "ingredient_gw4DLW": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Synthetic Fragrances",
+            "reason": "<p>Often irritating. We use essential oils only when needed.</p>"
+          }
+        },
+        "ingredient_mTiY7j": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Talc",
+            "reason": "<p>No functional benefit. Potential contamination concerns.</p>"
+          }
+        },
+        "ingredient_X6zpiX": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Propylene Glycol",
+            "reason": "<p>Sensitizing in some individuals. We use alternatives.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_xcNwnN",
+        "ingredient_Uc8T68",
+        "ingredient_8HtkCw",
+        "ingredient_gw4DLW",
+        "ingredient_mTiY7j",
+        "ingredient_X6zpiX"
+      ],
+      "name": "Science Excluded",
+      "settings": {
+        "heading": "What We Don't Use",
+        "content_max_width": 1280,
+        "heading_size_desktop": 40,
+        "card_name_size_desktop": 15,
+        "card_text_size_desktop": 13,
+        "heading_size_mobile": 36,
+        "card_name_size_mobile": 15,
+        "card_text_size_mobile": 13,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 48,
+        "grid_padding_top_desktop": 0,
+        "grid_padding_bottom_desktop": 0,
+        "grid_gap_desktop": 24,
+        "card_padding_top_desktop": 20,
+        "card_padding_bottom_desktop": 20,
+        "card_padding_horizontal_desktop": 20,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 32,
+        "grid_padding_top_mobile": 0,
+        "grid_padding_bottom_mobile": 0,
+        "grid_gap_mobile": 16,
+        "card_padding_top_mobile": 20,
+        "card_padding_bottom_mobile": 20,
+        "card_padding_horizontal_mobile": 20,
+        "background_color": "#ebeef2",
+        "color_heading": "#111827",
+        "color_card_bg": "#ffffff",
+        "color_card_border": "#dde1e8",
+        "color_card_name": "#111827",
+        "color_card_text": "#4b5a6b",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_the_science_cta_C4hdfH": {
+      "type": "page_the-science-cta",
+      "name": "Science CTA",
+      "settings": {
+        "heading": "Most deodorants ask you to trust the brand. We built ours around a mechanism.",
+        "text": "<p>No wellness theater. No vague claims. Just mechanism-first formulation designed to eliminate odor without compromise.</p>",
+        "button_label": "Choose Your Formula →",
+        "button_link": "shopify://products/nonomic-deodorant-stick",
+        "content_max_width": 720,
+        "heading_size_desktop": 36,
+        "text_size_desktop": 16,
+        "btn_size_desktop": 15,
+        "heading_size_mobile": 28,
+        "text_size_mobile": 15,
+        "btn_size_mobile": 15,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 24,
+        "text_padding_top_desktop": 0,
+        "text_padding_bottom_desktop": 32,
+        "btn_padding_top_desktop": 0,
+        "btn_padding_bottom_desktop": 0,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 20,
+        "text_padding_top_mobile": 0,
+        "text_padding_bottom_mobile": 24,
+        "btn_padding_top_mobile": 0,
+        "btn_padding_bottom_mobile": 0,
+        "background_color": "#FFFFFF",
+        "color_heading": "#111827",
+        "color_text": "#4B5A6B",
+        "color_btn_bg": "#1D9E75",
+        "color_btn_text": "#FFFFFF",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    }
+  },
+  "order": [
+    "main",
+    "page_the_science_header_UAY6gc",
+    "page_the_science_problem_UyaPwA",
+    "page_the_science_mechanism_edCbEB",
+    "page_the_science_ingredients_XJW7pg",
+    "page_the_science_clinical_KcDHin",
+    "page_the_science_excluded_hdPnqC",
+    "page_the_science_cta_C4hdfH"
+  ]
+}

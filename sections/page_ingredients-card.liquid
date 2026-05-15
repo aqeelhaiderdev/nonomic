@@ -1,0 +1,506 @@
+{%- style -%}
+  #IngredientsCard-{{ section.id }} {
+    --ic-bg: {{ section.settings.background_color }};
+    --ic-content-max-width: {{ section.settings.content_max_width }}px;
+    
+    --ic-c-card-bg: {{ section.settings.color_card_bg }};
+    --ic-c-number: {{ section.settings.color_number }};
+    --ic-c-symbol: {{ section.settings.color_symbol }};
+    --ic-c-name: {{ section.settings.color_name }};
+    --ic-c-mass: {{ section.settings.color_mass }};
+
+    /* Typography Variables (Mobile) */
+    --ic-number-size-mo: {{ section.settings.number_size_mobile }}px;
+    --ic-symbol-size-mo: {{ section.settings.symbol_size_mobile }}px;
+    --ic-name-size-mo: {{ section.settings.name_size_mobile }}px;
+    --ic-mass-size-mo: {{ section.settings.mass_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --ic-number-size-dk: {{ section.settings.number_size_desktop }}px;
+    --ic-symbol-size-dk: {{ section.settings.symbol_size_desktop }}px;
+    --ic-name-size-dk: {{ section.settings.name_size_desktop }}px;
+    --ic-mass-size-dk: {{ section.settings.mass_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --ic-card-py-mo: {{ section.settings.card_padding_y_mobile }}px;
+    --ic-card-px-mo: {{ section.settings.card_padding_x_mobile }}px;
+    --ic-number-pb-mo: {{ section.settings.number_margin_bottom_mobile }}px;
+    --ic-symbol-pb-mo: {{ section.settings.symbol_margin_bottom_mobile }}px;
+    --ic-name-pb-mo: {{ section.settings.name_margin_bottom_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --ic-card-py-dk: {{ section.settings.card_padding_y_desktop }}px;
+    --ic-card-px-dk: {{ section.settings.card_padding_x_desktop }}px;
+    --ic-number-pb-dk: {{ section.settings.number_margin_bottom_desktop }}px;
+    --ic-symbol-pb-dk: {{ section.settings.symbol_margin_bottom_desktop }}px;
+    --ic-name-pb-dk: {{ section.settings.name_margin_bottom_desktop }}px;
+
+    background-color: var(--ic-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .ingredients-card__inner {
+    max-width: var(--ic-content-max-width);
+    margin: 0 auto;
+  }
+
+  .ingredients-card__box {
+    background-color: var(--ic-c-card-bg);
+    border-radius: 12px;
+    padding: var(--ic-card-py-mo) var(--ic-card-px-mo);
+    text-align: center;
+  }
+
+  .ingredients-card__number {
+    margin: 0 0 var(--ic-number-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--ic-number-size-mo);
+    font-weight: 400;
+    color: var(--ic-c-number);
+    line-height: 1.2;
+  }
+
+  .ingredients-card__symbol {
+    margin: 0 0 var(--ic-symbol-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--ic-symbol-size-mo);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--ic-c-symbol);
+  }
+
+  .ingredients-card__name {
+    margin: 0 0 var(--ic-name-pb-mo);
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--ic-name-size-mo);
+    font-weight: 400;
+    color: var(--ic-c-name);
+    line-height: 1.4;
+  }
+
+  .ingredients-card__mass {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--ic-mass-size-mo);
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--ic-c-mass);
+  }
+
+  @media screen and (min-width: 750px) {
+    .ingredients-card__box {
+      padding: var(--ic-card-py-dk) var(--ic-card-px-dk);
+    }
+
+    .ingredients-card__number {
+      margin-bottom: var(--ic-number-pb-dk);
+      font-size: var(--ic-number-size-dk);
+    }
+
+    .ingredients-card__symbol {
+      margin-bottom: var(--ic-symbol-pb-dk);
+      font-size: var(--ic-symbol-size-dk);
+    }
+
+    .ingredients-card__name {
+      margin-bottom: var(--ic-name-pb-dk);
+      font-size: var(--ic-name-size-dk);
+    }
+
+    .ingredients-card__mass {
+      font-size: var(--ic-mass-size-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="IngredientsCard-{{ section.id }}" class="ingredients-card section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="ingredients-card__inner">
+      
+      <div class="ingredients-card__box">
+        {%- if section.settings.number != blank -%}
+          <div class="ingredients-card__number">
+            {{ section.settings.number | escape }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.symbol != blank -%}
+          <div class="ingredients-card__symbol">
+            {{ section.settings.symbol | escape }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.name != blank -%}
+          <div class="ingredients-card__name">
+            {{ section.settings.name | escape }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.mass != blank -%}
+          <div class="ingredients-card__mass">
+            {{ section.settings.mass | escape }}
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Ingredients Card",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "number",
+      "label": "Atomic Number",
+      "default": "47"
+    },
+    {
+      "type": "text",
+      "id": "symbol",
+      "label": "Element Symbol",
+      "default": "Ag"
+    },
+    {
+      "type": "text",
+      "id": "name",
+      "label": "Element Name",
+      "default": "Silver"
+    },
+    {
+      "type": "text",
+      "id": "mass",
+      "label": "Atomic Mass",
+      "default": "107.8682"
+    },
+    {
+      "type": "header",
+      "content": "Layout constraints"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Card wrapper max width",
+      "default": 720
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "number_size_desktop",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Number size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "symbol_size_desktop",
+      "min": 60,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Symbol size",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "name_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Name size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "mass_size_desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Mass size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "number_size_mobile",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Number size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "symbol_size_mobile",
+      "min": 40,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "label": "Symbol size",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "name_size_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Name size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "mass_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Mass size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_y_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Card top/bottom padding",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Card left/right padding",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "number_margin_bottom_desktop",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Number bottom margin",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "symbol_margin_bottom_desktop",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Symbol bottom margin",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "name_margin_bottom_desktop",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Name bottom margin",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_y_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Card top/bottom padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Card left/right padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "number_margin_bottom_mobile",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Number bottom margin",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "symbol_margin_bottom_mobile",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Symbol bottom margin",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "name_margin_bottom_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Name bottom margin",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_card_bg",
+      "label": "Card background",
+      "default": "#1A2B3C"
+    },
+    {
+      "type": "color",
+      "id": "color_number",
+      "label": "Number color",
+      "default": "#7A8899"
+    },
+    {
+      "type": "color",
+      "id": "color_symbol",
+      "label": "Symbol color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_name",
+      "label": "Name color",
+      "default": "#A8BFD0"
+    },
+    {
+      "type": "color",
+      "id": "color_mass",
+      "label": "Mass color",
+      "default": "#7A8899"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients Card"
+    }
+  ]
+}
+{% endschema %}

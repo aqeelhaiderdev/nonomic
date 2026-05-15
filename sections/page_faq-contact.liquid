@@ -1,0 +1,599 @@
+{%- style -%}
+  #FaqContact-{{ section.id }} {
+    --fc-bg: {{ section.settings.background_color }};
+    --fc-content-max-width: {{ section.settings.content_max_width }}px;
+    
+    --fc-c-heading: {{ section.settings.color_heading }};
+    --fc-c-desc: {{ section.settings.color_desc }};
+    --fc-c-link: {{ section.settings.color_link }};
+    --fc-c-card-bg: {{ section.settings.color_card_bg }};
+    --fc-c-card-border: {{ section.settings.color_card_border }};
+    --fc-c-card-heading: {{ section.settings.color_card_heading }};
+    --fc-c-card-text: {{ section.settings.color_card_text }};
+
+    /* Typography Variables (Mobile) */
+    --fc-heading-size-mo: {{ section.settings.heading_size_mobile }}px;
+    --fc-desc-size-mo: {{ section.settings.desc_size_mobile }}px;
+    --fc-card-heading-size-mo: {{ section.settings.card_heading_size_mobile }}px;
+    --fc-card-text-size-mo: {{ section.settings.card_text_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --fc-heading-size-dk: {{ section.settings.heading_size_desktop }}px;
+    --fc-desc-size-dk: {{ section.settings.desc_size_desktop }}px;
+    --fc-card-heading-size-dk: {{ section.settings.card_heading_size_desktop }}px;
+    --fc-card-text-size-dk: {{ section.settings.card_text_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --fc-heading-pt-mo: {{ section.settings.heading_padding_top_mobile }}px;
+    --fc-heading-pb-mo: {{ section.settings.heading_padding_bottom_mobile }}px;
+    --fc-desc-pt-mo: {{ section.settings.desc_padding_top_mobile }}px;
+    --fc-desc-pb-mo: {{ section.settings.desc_padding_bottom_mobile }}px;
+    --fc-card-pt-mo: {{ section.settings.card_padding_top_mobile }}px;
+    --fc-card-pb-mo: {{ section.settings.card_padding_bottom_mobile }}px;
+    --fc-card-px-mo: {{ section.settings.card_padding_horizontal_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --fc-heading-pt-dk: {{ section.settings.heading_padding_top_desktop }}px;
+    --fc-heading-pb-dk: {{ section.settings.heading_padding_bottom_desktop }}px;
+    --fc-desc-pt-dk: {{ section.settings.desc_padding_top_desktop }}px;
+    --fc-desc-pb-dk: {{ section.settings.desc_padding_bottom_desktop }}px;
+    --fc-card-pt-dk: {{ section.settings.card_padding_top_desktop }}px;
+    --fc-card-pb-dk: {{ section.settings.card_padding_bottom_desktop }}px;
+    --fc-card-px-dk: {{ section.settings.card_padding_horizontal_desktop }}px;
+
+    background-color: var(--fc-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .faq-contact__inner {
+    max-width: var(--fc-content-max-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .faq-contact__heading {
+    margin: 0;
+    padding-top: var(--fc-heading-pt-mo);
+    padding-bottom: var(--fc-heading-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--fc-heading-size-mo);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--fc-c-heading);
+    word-break: break-word;
+  }
+
+  .faq-contact__desc {
+    margin: 0;
+    padding-top: var(--fc-desc-pt-mo);
+    padding-bottom: var(--fc-desc-pb-mo);
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--fc-desc-size-mo);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--fc-c-desc);
+  }
+
+  .faq-contact__desc p {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  .faq-contact__desc a {
+    color: var(--fc-c-link);
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+  }
+
+  .faq-contact__desc a:hover {
+    opacity: 0.7;
+  }
+
+  .faq-contact__card {
+    background-color: var(--fc-c-card-bg);
+    border: 0.5px solid var(--fc-c-card-border);
+    border-radius: 8px;
+    padding: var(--fc-card-pt-mo) var(--fc-card-px-mo) var(--fc-card-pb-mo);
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .faq-contact__card-heading {
+    margin: 0 0 8px;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--fc-card-heading-size-mo);
+    font-weight: 500;
+    color: var(--fc-c-card-heading);
+  }
+
+  .faq-contact__card-text {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--fc-card-text-size-mo);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--fc-c-card-text);
+  }
+
+  .faq-contact__card-text p {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  @media screen and (min-width: 750px) {
+    .faq-contact__heading {
+      font-size: var(--fc-heading-size-dk);
+      padding-top: var(--fc-heading-pt-dk);
+      padding-bottom: var(--fc-heading-pb-dk);
+    }
+
+    .faq-contact__desc {
+      font-size: var(--fc-desc-size-dk);
+      padding-top: var(--fc-desc-pt-dk);
+      padding-bottom: var(--fc-desc-pb-dk);
+    }
+
+    .faq-contact__card {
+      padding: var(--fc-card-pt-dk) var(--fc-card-px-dk) var(--fc-card-pb-dk);
+    }
+
+    .faq-contact__card-heading {
+      font-size: var(--fc-card-heading-size-dk);
+    }
+
+    .faq-contact__card-text {
+      font-size: var(--fc-card-text-size-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="FaqContact-{{ section.id }}" class="faq-contact section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="faq-contact__inner">
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="faq-contact__heading">
+          {{ section.settings.heading | newline_to_br }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="faq-contact__desc rte">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.card_heading != blank or section.settings.card_text != blank -%}
+        <div class="faq-contact__card">
+          {%- if section.settings.card_heading != blank -%}
+            <h3 class="faq-contact__card-heading">{{ section.settings.card_heading | escape }}</h3>
+          {%- endif -%}
+          
+          {%- if section.settings.card_text != blank -%}
+            <div class="faq-contact__card-text rte">
+              {{ section.settings.card_text }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ Contact",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Use Enter to add line breaks.",
+      "default": "Still Have Questions?"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>We're here to help. Email us at <a href=\"mailto:support@nonomic.com\">support@nonomic.com</a> and we'll get back to you within 24 hours.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Guarantee Card"
+    },
+    {
+      "type": "text",
+      "id": "card_heading",
+      "label": "Card Heading",
+      "default": "45-Day Risk-Free Guarantee"
+    },
+    {
+      "type": "richtext",
+      "id": "card_text",
+      "label": "Card Text",
+      "default": "<p>Not sure if it'll work for you? Try it for 45 days. If you're not completely satisfied, we'll refund you in full. No questions, no hassle.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout constraints"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 720
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "desc_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_heading_size_desktop",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Heading size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_text_size_desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "desc_size_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_heading_size_mobile",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Heading size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_text_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description bottom padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Card inside padding (Top)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Card inside padding (Bottom)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Card inside padding (Left/Right)",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description bottom padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Card inside padding (Top)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Card inside padding (Bottom)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Card inside padding (Left/Right)",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#EBEEF2"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_desc",
+      "label": "Description text",
+      "default": "#4B5A6B"
+    },
+    {
+      "type": "color",
+      "id": "color_link",
+      "label": "Link text",
+      "default": "#1A2B3C"
+    },
+    {
+      "type": "color",
+      "id": "color_card_bg",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_card_border",
+      "label": "Card border",
+      "default": "#DDE1E8"
+    },
+    {
+      "type": "color",
+      "id": "color_card_heading",
+      "label": "Card heading text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_card_text",
+      "label": "Card text",
+      "default": "#4B5A6B"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Contact"
+    }
+  ]
+}
+{% endschema %}

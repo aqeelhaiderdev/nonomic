@@ -1,0 +1,217 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "page_guarantee_hero_UYftEy": {
+      "type": "page_guarantee-hero",
+      "name": "Guarantee Hero",
+      "settings": {
+        "eyebrow": "45-DAY GUARANTEE",
+        "heading": "Use It for 45 Days.\nDecide for Yourself.",
+        "description": "<p>We're confident the mechanism works. If it doesn't work for you, we'll refund you. No questions. No hoops.</p>",
+        "content_max_width": 1440,
+        "heading_max_width": 900,
+        "text_max_width": 640,
+        "eyebrow_size_desktop": 11,
+        "heading_size_desktop": 72,
+        "desc_size_desktop": 18,
+        "eyebrow_size_mobile": 11,
+        "heading_size_mobile": 42,
+        "desc_size_mobile": 16,
+        "eyebrow_padding_top_desktop": 0,
+        "eyebrow_padding_bottom_desktop": 24,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 32,
+        "desc_padding_top_desktop": 0,
+        "desc_padding_bottom_desktop": 0,
+        "eyebrow_padding_top_mobile": 0,
+        "eyebrow_padding_bottom_mobile": 24,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 32,
+        "desc_padding_top_mobile": 0,
+        "desc_padding_bottom_mobile": 0,
+        "background_color": "#1a2b3c",
+        "color_eyebrow": "#7a8899",
+        "color_heading": "#ffffff",
+        "color_desc": "#a8bfd0",
+        "padding_top": 96,
+        "padding_top_mobile": 48,
+        "padding_bottom": 96,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_guarantee_steps_9PNCTm": {
+      "type": "page_guarantee-steps",
+      "blocks": {
+        "step_3ydNhq": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "heading": "Try It for 45 Days",
+            "text": "<p>Use Nonomic daily. Test it through workouts, long days, stressful meetings. We want you to actually experience how it works.</p>"
+          }
+        },
+        "step_LqV6De": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "heading": "Not Satisfied? Let Us Know",
+            "text": "<p>Email us at returns@nonomic.com within 45 days of your first order. No forms. No shipping required. We'll take your word for it.</p>"
+          }
+        },
+        "step_wXTt9N": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "heading": "Get Your Full Refund",
+            "text": "<p>Refund processed within 3–5 business days of your email. Full purchase price returned to your original payment method.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_3ydNhq",
+        "step_LqV6De",
+        "step_wXTt9N"
+      ],
+      "name": "Guarantee Steps",
+      "settings": {
+        "heading": "How the Guarantee Works",
+        "content_max_width": 1280,
+        "heading_size_desktop": 40,
+        "num_size_desktop": 64,
+        "step_head_size_desktop": 18,
+        "step_text_size_desktop": 14,
+        "heading_size_mobile": 32,
+        "num_size_mobile": 48,
+        "step_head_size_mobile": 16,
+        "step_text_size_mobile": 14,
+        "heading_padding_bottom_desktop": 48,
+        "grid_gap_desktop": 48,
+        "num_padding_bottom_desktop": 16,
+        "step_head_padding_bottom_desktop": 12,
+        "heading_padding_bottom_mobile": 32,
+        "grid_gap_mobile": 40,
+        "num_padding_bottom_mobile": 12,
+        "step_head_padding_bottom_mobile": 8,
+        "background_color": "#ffffff",
+        "color_heading": "#111827",
+        "color_step_num": "#ebeef2",
+        "color_step_head": "#111827",
+        "color_step_text": "#4b5a6b",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_guarantee_details_jP7iiP": {
+      "type": "page_guarantee-details",
+      "blocks": {
+        "info_block_HEKdTk": {
+          "type": "info_block",
+          "settings": {
+            "heading": "What's Covered",
+            "text": "<p>First orders up to $60. One per customer. No exceptions.</p>"
+          }
+        },
+        "info_block_KrWhHa": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Condition",
+            "text": "<p>We accept returns on first orders only.</p>"
+          }
+        },
+        "info_block_zVVqQF": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Refund Timeline",
+            "text": "<p>Refunds are processed within 3-5 business days of receiving your return. Funds appear in your account within 5-10 business days depending on your bank.</p>"
+          }
+        },
+        "info_block_eNqL9y": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Subscriptions",
+            "text": "<p>If you're on a subscription, you can return your first order under the 45-day guarantee and cancel at any time. No penalties. No lock-in periods.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "info_block_HEKdTk",
+        "info_block_KrWhHa",
+        "info_block_zVVqQF",
+        "info_block_eNqL9y"
+      ],
+      "name": "Guarantee Details",
+      "settings": {
+        "heading": "The Details",
+        "heading_alignment": "left",
+        "content_max_width": 840,
+        "heading_size_desktop": 40,
+        "block_heading_size_desktop": 16,
+        "block_text_size_desktop": 14,
+        "heading_size_mobile": 32,
+        "block_heading_size_mobile": 16,
+        "block_text_size_mobile": 14,
+        "heading_padding_bottom_desktop": 32,
+        "block_gap_desktop": 24,
+        "block_heading_padding_bottom_desktop": 8,
+        "heading_padding_bottom_mobile": 24,
+        "block_gap_mobile": 24,
+        "block_heading_padding_bottom_mobile": 8,
+        "background_color": "#ebeef2",
+        "color_heading": "#111827",
+        "color_block_heading": "#111827",
+        "color_block_text": "#4b5a6b",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_guarantee_why_UL7gea": {
+      "type": "page_guarantee-why",
+      "name": "Guarantee Why",
+      "settings": {
+        "heading": "Why We Offer This Guarantee",
+        "text": "<p>We built Nonomic around a proven antimicrobial mechanism. MicroSilver has been studied extensively. We know it works. But everyone's body chemistry is different, and we want you to be absolutely certain before committing.</p><p>This isn't a gimmick. It's confidence in the product. Try it. Test it. If it doesn't work for you, we'll make it right — on your first order, up to $60.</p>",
+        "content_max_width": 720,
+        "heading_size_desktop": 36,
+        "text_size_desktop": 16,
+        "heading_size_mobile": 28,
+        "text_size_mobile": 16,
+        "heading_padding_bottom_desktop": 24,
+        "heading_padding_bottom_mobile": 20,
+        "background_color": "#FFFFFF",
+        "color_heading": "#111827",
+        "color_text": "#4B5A6B",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    }
+  },
+  "order": [
+    "main",
+    "page_guarantee_hero_UYftEy",
+    "page_guarantee_steps_9PNCTm",
+    "page_guarantee_details_jP7iiP",
+    "page_guarantee_why_UL7gea"
+  ]
+}

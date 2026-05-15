@@ -1,0 +1,217 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "page_shipping_hero_WzDVHU": {
+      "type": "page_shipping-hero",
+      "name": "Shipping Hero",
+      "settings": {
+        "eyebrow": "SHIPPING & RETURNS",
+        "heading": "Simple Shipping.\nEasy Returns.",
+        "description": "<p>Fast shipping. Honest returns. No hassle.</p>",
+        "content_max_width": 1440,
+        "heading_max_width": 900,
+        "text_max_width": 640,
+        "eyebrow_size_desktop": 11,
+        "heading_size_desktop": 72,
+        "desc_size_desktop": 18,
+        "eyebrow_size_mobile": 11,
+        "heading_size_mobile": 40,
+        "desc_size_mobile": 15,
+        "eyebrow_padding_top_desktop": 0,
+        "eyebrow_padding_bottom_desktop": 24,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 32,
+        "desc_padding_top_desktop": 0,
+        "desc_padding_bottom_desktop": 0,
+        "eyebrow_padding_top_mobile": 0,
+        "eyebrow_padding_bottom_mobile": 24,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 32,
+        "desc_padding_top_mobile": 0,
+        "desc_padding_bottom_mobile": 0,
+        "background_color": "#1a2b3c",
+        "color_eyebrow": "#7a8899",
+        "color_heading": "#ffffff",
+        "color_desc": "#a8bfd0",
+        "padding_top": 96,
+        "padding_top_mobile": 48,
+        "padding_bottom": 96,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_shipping_info_7bTkNH": {
+      "type": "page_shipping-info",
+      "blocks": {
+        "info_block_XTJcAN": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Processing Time",
+            "text": "<p>All orders ship within 1-2 business days. Orders placed before 2 PM PST ship same day.</p>"
+          }
+        },
+        "info_block_yJzLam": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Delivery Time",
+            "text": "<p>Domestic shipping (US):</p><ul><li>Standard (USPS): 3-5 business days</li><li>Priority (USPS): 2-3 business days</li></ul>"
+          }
+        },
+        "info_block_CiNh99": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Shipping Cost",
+            "text": "<p>Free standard shipping on all orders over $35. Flat rate $5 for orders under $35.</p>"
+          }
+        },
+        "info_block_crDEtd": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Tracking",
+            "text": "<p>You'll receive a tracking number via email as soon as your order ships. Track your package directly through USPS.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "info_block_XTJcAN",
+        "info_block_yJzLam",
+        "info_block_CiNh99",
+        "info_block_crDEtd"
+      ],
+      "name": "Shipping Info",
+      "settings": {
+        "heading": "Shipping",
+        "content_max_width": 840,
+        "heading_size_desktop": 40,
+        "block_heading_size_desktop": 16,
+        "block_text_size_desktop": 14,
+        "heading_size_mobile": 32,
+        "block_heading_size_mobile": 16,
+        "block_text_size_mobile": 14,
+        "heading_padding_bottom_desktop": 32,
+        "block_gap_desktop": 24,
+        "block_heading_padding_bottom_desktop": 8,
+        "heading_padding_bottom_mobile": 24,
+        "block_gap_mobile": 24,
+        "block_heading_padding_bottom_mobile": 8,
+        "background_color": "#ffffff",
+        "color_heading": "#111827",
+        "color_block_heading": "#111827",
+        "color_block_text": "#4b5a6b",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_shipping_returns_info_ABCj3c": {
+      "type": "page_shipping-returns-info",
+      "blocks": {
+        "info_block_aw63GB": {
+          "type": "info_block",
+          "settings": {
+            "heading": "45-Day Return Window",
+            "text": "<p>Try Nonomic for up to 45 days. If your first order doesn't work for you, email us for a full refund. Keep the product. No questions asked.</p>"
+          }
+        },
+        "info_block_TBVkpQ": {
+          "type": "info_block",
+          "settings": {
+            "heading": "How to Return",
+            "text": "<p>Email us at returns@nonomic.com within 45 days of your first order. No shipping required — keep the product.</p>"
+          }
+        },
+        "info_block_UatiAG": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Condition",
+            "text": "<p>Applies to first orders only, up to $60. One refund per customer.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "info_block_aw63GB",
+        "info_block_TBVkpQ",
+        "info_block_UatiAG"
+      ],
+      "name": "Shipping Returns Info",
+      "settings": {
+        "heading": "Returns",
+        "content_max_width": 840,
+        "heading_size_desktop": 40,
+        "block_heading_size_desktop": 16,
+        "block_text_size_desktop": 14,
+        "heading_size_mobile": 32,
+        "block_heading_size_mobile": 16,
+        "block_text_size_mobile": 14,
+        "heading_padding_bottom_desktop": 32,
+        "block_gap_desktop": 24,
+        "block_heading_padding_bottom_desktop": 8,
+        "heading_padding_bottom_mobile": 24,
+        "block_gap_mobile": 24,
+        "block_heading_padding_bottom_mobile": 8,
+        "background_color": "#EBEEF2",
+        "color_heading": "#111827",
+        "color_block_heading": "#111827",
+        "color_block_text": "#4B5A6B",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "rich_text_XzXnwm": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_JBhhXg": {
+          "type": "heading",
+          "settings": {
+            "heading": "Questions About Shipping or Returns?",
+            "heading_size": "h1"
+          }
+        },
+        "text_WTm6U7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Email us at support@nonomic.com. We respond within 24 hours.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_JBhhXg",
+        "text_WTm6U7"
+      ],
+      "name": "Contact Info",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "main",
+    "page_shipping_hero_WzDVHU",
+    "page_shipping_info_7bTkNH",
+    "page_shipping_returns_info_ABCj3c",
+    "rich_text_XzXnwm"
+  ]
+}

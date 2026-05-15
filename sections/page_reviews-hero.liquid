@@ -1,0 +1,500 @@
+{%- style -%}
+  #ReviewsHero-{{ section.id }} {
+    --rh-bg: {{ section.settings.background_color }};
+    --rh-content-max-width: {{ section.settings.content_max_width }}px;
+    --rh-heading-max-width: {{ section.settings.heading_max_width }}px;
+    --rh-text-max-width: {{ section.settings.text_max_width }}px;
+    
+    --rh-c-eyebrow: {{ section.settings.color_eyebrow }};
+    --rh-c-heading: {{ section.settings.color_heading }};
+    --rh-c-desc: {{ section.settings.color_desc }};
+
+    /* Typography Variables (Mobile) */
+    --rh-eyebrow-size-mo: {{ section.settings.eyebrow_size_mobile }}px;
+    --rh-heading-size-mo: {{ section.settings.heading_size_mobile }}px;
+    --rh-desc-size-mo: {{ section.settings.desc_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --rh-eyebrow-size-dk: {{ section.settings.eyebrow_size_desktop }}px;
+    --rh-heading-size-dk: {{ section.settings.heading_size_desktop }}px;
+    --rh-desc-size-dk: {{ section.settings.desc_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --rh-eyebrow-pt-mo: {{ section.settings.eyebrow_padding_top_mobile }}px;
+    --rh-eyebrow-pb-mo: {{ section.settings.eyebrow_padding_bottom_mobile }}px;
+    --rh-heading-pt-mo: {{ section.settings.heading_padding_top_mobile }}px;
+    --rh-heading-pb-mo: {{ section.settings.heading_padding_bottom_mobile }}px;
+    --rh-desc-pt-mo: {{ section.settings.desc_padding_top_mobile }}px;
+    --rh-desc-pb-mo: {{ section.settings.desc_padding_bottom_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --rh-eyebrow-pt-dk: {{ section.settings.eyebrow_padding_top_desktop }}px;
+    --rh-eyebrow-pb-dk: {{ section.settings.eyebrow_padding_bottom_desktop }}px;
+    --rh-heading-pt-dk: {{ section.settings.heading_padding_top_desktop }}px;
+    --rh-heading-pb-dk: {{ section.settings.heading_padding_bottom_desktop }}px;
+    --rh-desc-pt-dk: {{ section.settings.desc_padding_top_desktop }}px;
+    --rh-desc-pb-dk: {{ section.settings.desc_padding_bottom_desktop }}px;
+
+    background-color: var(--rh-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .reviews-hero__inner {
+    max-width: var(--rh-content-max-width);
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .reviews-hero__eyebrow {
+    margin: 0;
+    padding-top: var(--rh-eyebrow-pt-mo);
+    padding-bottom: var(--rh-eyebrow-pb-mo);
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--rh-eyebrow-size-mo);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rh-c-eyebrow);
+  }
+
+  .reviews-hero__heading {
+    margin: 0 auto;
+    max-width: var(--rh-heading-max-width);
+    padding-top: var(--rh-heading-pt-mo);
+    padding-bottom: var(--rh-heading-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--rh-heading-size-mo);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--rh-c-heading);
+    word-break: break-word;
+  }
+
+  .reviews-hero__desc {
+    margin: 0 auto;
+    max-width: var(--rh-text-max-width);
+    padding-top: var(--rh-desc-pt-mo);
+    padding-bottom: var(--rh-desc-pb-mo);
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--rh-desc-size-mo);
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--rh-c-desc);
+  }
+
+  .reviews-hero__desc p {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  @media screen and (min-width: 750px) {
+    .reviews-hero__eyebrow {
+      font-size: var(--rh-eyebrow-size-dk);
+      padding-top: var(--rh-eyebrow-pt-dk);
+      padding-bottom: var(--rh-eyebrow-pb-dk);
+    }
+    
+    .reviews-hero__heading {
+      font-size: var(--rh-heading-size-dk);
+      padding-top: var(--rh-heading-pt-dk);
+      padding-bottom: var(--rh-heading-pb-dk);
+    }
+
+    .reviews-hero__desc {
+      font-size: var(--rh-desc-size-dk);
+      padding-top: var(--rh-desc-pt-dk);
+      padding-bottom: var(--rh-desc-pb-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="ReviewsHero-{{ section.id }}" class="reviews-hero section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="reviews-hero__inner">
+      
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="reviews-hero__eyebrow">
+          {{- section.settings.eyebrow | escape -}}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="reviews-hero__heading">
+          {{ section.settings.heading | newline_to_br }}
+        </h1>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="reviews-hero__desc rte">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Reviews Hero",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "REVIEWS"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Use Enter to add line breaks.",
+      "default": "People Who Stopped Thinking About It."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Real users. Real results. No incentivized reviews.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout constraints"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Section max width",
+      "default": 1440
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "min": 400,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "label": "Heading max width",
+      "default": 900
+    },
+    {
+      "type": "range",
+      "id": "text_max_width",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "label": "Text max width",
+      "default": 640
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size_desktop",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Eyebrow size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 24,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "desc_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size_mobile",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Eyebrow size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "desc_size_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description bottom padding",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "desc_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Description bottom padding",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#1A2B3C"
+    },
+    {
+      "type": "color",
+      "id": "color_eyebrow",
+      "label": "Eyebrow text",
+      "default": "#7A8899"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_desc",
+      "label": "Description text",
+      "default": "#A8BFD0"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews Hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,157 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "page_contact_hero_iyW9iA": {
+      "type": "page_contact-hero",
+      "name": "Contact Hero",
+      "settings": {
+        "eyebrow": "CONTACT",
+        "heading": "We're Here\nto Help.",
+        "description": "<p>Questions about the product, your order, or anything else? We respond within 24 hours.</p>",
+        "content_max_width": 1440,
+        "heading_max_width": 900,
+        "text_max_width": 640,
+        "eyebrow_size_desktop": 11,
+        "heading_size_desktop": 72,
+        "desc_size_desktop": 18,
+        "eyebrow_size_mobile": 11,
+        "heading_size_mobile": 42,
+        "desc_size_mobile": 16,
+        "eyebrow_padding_top_desktop": 0,
+        "eyebrow_padding_bottom_desktop": 24,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 32,
+        "desc_padding_top_desktop": 0,
+        "desc_padding_bottom_desktop": 0,
+        "eyebrow_padding_top_mobile": 0,
+        "eyebrow_padding_bottom_mobile": 24,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 32,
+        "desc_padding_top_mobile": 0,
+        "desc_padding_bottom_mobile": 0,
+        "background_color": "#1a2b3c",
+        "color_eyebrow": "#7a8899",
+        "color_heading": "#ffffff",
+        "color_desc": "#a8bfd0",
+        "padding_top": 96,
+        "padding_top_mobile": 48,
+        "padding_bottom": 96,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_contact_methods_PXC4yt": {
+      "type": "page_contact-methods",
+      "blocks": {
+        "contact_method_atiwBM": {
+          "type": "contact_method",
+          "settings": {
+            "heading": "Email",
+            "link_text": "support@nonomic.com",
+            "link_url": "mailto:support@nonomic.com",
+            "text": "<p>Orders, returns, and general questions —<br>we respond within 24 hours.</p>"
+          }
+        },
+        "contact_method_eXMMVK": {
+          "type": "contact_method",
+          "settings": {
+            "heading": "Wholesale",
+            "link_text": "wholesale@nonomic.com",
+            "link_url": "mailto:wholesale@nonomic.com",
+            "text": "<p>For retail inquiries</p>"
+          }
+        }
+      },
+      "block_order": [
+        "contact_method_atiwBM",
+        "contact_method_eXMMVK"
+      ],
+      "name": "Contact Methods",
+      "settings": {
+        "content_max_width": 1280,
+        "heading_size_desktop": 14,
+        "link_size_desktop": 14,
+        "text_size_desktop": 12,
+        "heading_size_mobile": 14,
+        "link_size_mobile": 14,
+        "text_size_mobile": 12,
+        "grid_gap_desktop": 32,
+        "heading_margin_bottom_desktop": 8,
+        "text_margin_top_desktop": 8,
+        "grid_gap_mobile": 32,
+        "heading_margin_bottom_mobile": 8,
+        "text_margin_top_mobile": 8,
+        "background_color": "#ffffff",
+        "color_heading": "#111827",
+        "color_link": "#1a2b3c",
+        "color_text": "#7a8899",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_contact_form_8ejCh8": {
+      "type": "page_contact-form",
+      "name": "Contact Form",
+      "settings": {
+        "heading": "Send Us a Message",
+        "success_message": "Thanks for contacting us. We'll get back to you as soon as possible.",
+        "label_name": "Name",
+        "label_email": "Email",
+        "label_subject": "Subject",
+        "label_message": "Message",
+        "button_label": "Send Message →",
+        "content_max_width": 720,
+        "heading_size_desktop": 36,
+        "label_size_desktop": 12,
+        "input_size_desktop": 14,
+        "btn_size_desktop": 15,
+        "heading_size_mobile": 30,
+        "label_size_mobile": 12,
+        "input_size_mobile": 14,
+        "btn_size_mobile": 15,
+        "heading_padding_bottom_desktop": 32,
+        "form_gap_desktop": 16,
+        "btn_margin_top_desktop": 16,
+        "heading_padding_bottom_mobile": 32,
+        "form_gap_mobile": 16,
+        "btn_margin_top_mobile": 16,
+        "background_color": "#EBEEF2",
+        "color_heading": "#111827",
+        "color_label": "#7A8899",
+        "color_input_bg": "#FFFFFF",
+        "color_input_border": "#DDE1E8",
+        "color_input_text": "#111827",
+        "color_btn_text": "#FFFFFF",
+        "color_btn_bg_1": "#1BA97A",
+        "color_btn_bg_2": "#178A64",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    }
+  },
+  "order": [
+    "main",
+    "page_contact_hero_iyW9iA",
+    "page_contact_methods_PXC4yt",
+    "page_contact_form_8ejCh8"
+  ]
+}

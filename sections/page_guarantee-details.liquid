@@ -1,0 +1,481 @@
+{%- style -%}
+  #GuaranteeDetails-{{ section.id }} {
+    --gd-bg: {{ section.settings.background_color }};
+    --gd-content-max-width: {{ section.settings.content_max_width }}px;
+    
+    --gd-c-heading: {{ section.settings.color_heading }};
+    --gd-c-block-heading: {{ section.settings.color_block_heading }};
+    --gd-c-block-text: {{ section.settings.color_block_text }};
+
+    /* Typography Variables (Mobile) */
+    --gd-heading-size-mo: {{ section.settings.heading_size_mobile }}px;
+    --gd-block-heading-size-mo: {{ section.settings.block_heading_size_mobile }}px;
+    --gd-block-text-size-mo: {{ section.settings.block_text_size_mobile }}px;
+
+    /* Typography Variables (Desktop) */
+    --gd-heading-size-dk: {{ section.settings.heading_size_desktop }}px;
+    --gd-block-heading-size-dk: {{ section.settings.block_heading_size_desktop }}px;
+    --gd-block-text-size-dk: {{ section.settings.block_text_size_desktop }}px;
+
+    /* Element Spacing Variables (Mobile) */
+    --gd-heading-pb-mo: {{ section.settings.heading_padding_bottom_mobile }}px;
+    --gd-gap-mo: {{ section.settings.block_gap_mobile }}px;
+    --gd-block-heading-pb-mo: {{ section.settings.block_heading_padding_bottom_mobile }}px;
+
+    /* Element Spacing Variables (Desktop) */
+    --gd-heading-pb-dk: {{ section.settings.heading_padding_bottom_desktop }}px;
+    --gd-gap-dk: {{ section.settings.block_gap_desktop }}px;
+    --gd-block-heading-pb-dk: {{ section.settings.block_heading_padding_bottom_desktop }}px;
+
+    background-color: var(--gd-bg);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .guarantee-details__inner {
+    max-width: var(--gd-content-max-width);
+    margin: 0 auto;
+  }
+
+  .guarantee-details__heading {
+    margin: 0 0 var(--gd-heading-pb-mo);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-size: var(--gd-heading-size-mo);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--gd-c-heading);
+    text-align: {{ section.settings.heading_alignment }};
+  }
+
+  .guarantee-details__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gd-gap-mo);
+  }
+
+  .guarantee-details__block-heading {
+    margin: 0 0 var(--gd-block-heading-pb-mo);
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--gd-block-heading-size-mo);
+    font-weight: 500;
+    color: var(--gd-c-block-heading);
+  }
+
+  .guarantee-details__block-text {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: var(--gd-block-text-size-mo);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--gd-c-block-text);
+  }
+
+  .guarantee-details__block-text p {
+    margin: 0 0 12px;
+    font: inherit;
+    color: inherit;
+  }
+
+  .guarantee-details__block-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .guarantee-details__block-text ul {
+    padding-left: 24px;
+    margin: 0 0 12px;
+    list-style-type: disc;
+  }
+
+  .guarantee-details__block-text ul:last-child {
+    margin-bottom: 0;
+  }
+
+  .guarantee-details__block-text li {
+    margin-bottom: 8px;
+    font: inherit;
+    color: inherit;
+  }
+
+  .guarantee-details__block-text li:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .guarantee-details__heading {
+      font-size: var(--gd-heading-size-dk);
+      margin-bottom: var(--gd-heading-pb-dk);
+    }
+
+    .guarantee-details__list {
+      gap: var(--gd-gap-dk);
+    }
+
+    .guarantee-details__block-heading {
+      font-size: var(--gd-block-heading-size-dk);
+      margin-bottom: var(--gd-block-heading-pb-dk);
+    }
+
+    .guarantee-details__block-text {
+      font-size: var(--gd-block-text-size-dk);
+    }
+  }
+{%- endstyle -%}
+
+<div id="GuaranteeDetails-{{ section.id }}" class="guarantee-details section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="guarantee-details__inner">
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="guarantee-details__heading">
+          {{ section.settings.heading | escape }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="guarantee-details__list">
+          {%- for block in section.blocks -%}
+            <div class="guarantee-details__block" {{ block.shopify_attributes }}>
+              {%- if block.settings.heading != blank -%}
+                <h3 class="guarantee-details__block-heading">{{ block.settings.heading | escape }}</h3>
+              {%- endif -%}
+              
+              {%- if block.settings.text != blank -%}
+                <div class="guarantee-details__block-text rte">
+                  {{ block.settings.text }}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Guarantee Details",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Details"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Layout constraints"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 840
+    },
+    {
+      "type": "header",
+      "content": "Typography (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "block_heading_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Block Heading size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "block_text_size_desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Block Text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Typography (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "block_heading_size_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Block Heading size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "block_text_size_mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Block Text size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "block_gap_desktop",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between blocks",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "block_heading_padding_bottom_desktop",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Block heading bottom margin",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Element Spacing (Mobile)"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading bottom padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "block_gap_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between blocks",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "block_heading_padding_bottom_mobile",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Block heading bottom margin",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#EBEEF2"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_block_heading",
+      "label": "Block heading text",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "color_block_text",
+      "label": "Block text",
+      "default": "#4B5A6B"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (mobile)",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info_block",
+      "name": "Info Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "What's Covered"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>First orders up to $60. One per customer. No exceptions.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Guarantee Details",
+      "blocks": [
+        {
+          "type": "info_block",
+          "settings": {
+            "heading": "What's Covered",
+            "text": "<p>First orders up to $60. One per customer. No exceptions.</p>"
+          }
+        },
+        {
+          "type": "info_block",
+          "settings": {
+            "heading": "Condition",
+            "text": "<p>We accept returns on first orders only.</p>"
+          }
+        },
+        {
+          "type": "info_block",
+          "settings": {
+            "heading": "Refund Timeline",
+            "text": "<p>Refunds are processed within 3-5 business days of receiving your return. Funds appear in your account within 5-10 business days depending on your bank.</p>"
+          }
+        },
+        {
+          "type": "info_block",
+          "settings": {
+            "heading": "Subscriptions",
+            "text": "<p>If you're on a subscription, you can return your first order under the 45-day guarantee and cancel at any time. No penalties. No lock-in periods.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

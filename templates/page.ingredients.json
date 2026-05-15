@@ -1,0 +1,371 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "page_ingredients_hero_dBDLg4": {
+      "type": "page_ingredients-hero",
+      "name": "Ingredients Hero",
+      "settings": {
+        "eyebrow": "INGREDIENTS",
+        "heading": "Every Ingredient\nEarns Its Place.",
+        "description": "<p>No fillers. No marketing theater. Just functional ingredients chosen for their specific role in the antimicrobial mechanism.</p>",
+        "content_max_width": 1440,
+        "heading_max_width": 900,
+        "text_max_width": 640,
+        "eyebrow_size_desktop": 11,
+        "heading_size_desktop": 72,
+        "desc_size_desktop": 18,
+        "eyebrow_size_mobile": 11,
+        "heading_size_mobile": 42,
+        "desc_size_mobile": 16,
+        "eyebrow_padding_top_desktop": 0,
+        "eyebrow_padding_bottom_desktop": 24,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 32,
+        "desc_padding_top_desktop": 0,
+        "desc_padding_bottom_desktop": 0,
+        "eyebrow_padding_top_mobile": 0,
+        "eyebrow_padding_bottom_mobile": 24,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 32,
+        "desc_padding_top_mobile": 0,
+        "desc_padding_bottom_mobile": 0,
+        "background_color": "#1a2b3c",
+        "color_eyebrow": "#7a8899",
+        "color_heading": "#ffffff",
+        "color_desc": "#a8bfd0",
+        "padding_top": 96,
+        "padding_top_mobile": 48,
+        "padding_bottom": 96,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_ingredients_card_hc7eWE": {
+      "type": "page_ingredients-card",
+      "name": "Ingredients Card",
+      "settings": {
+        "number": "47",
+        "symbol": "Ag",
+        "name": "Silver",
+        "mass": "107.8682",
+        "content_max_width": 720,
+        "number_size_desktop": 14,
+        "symbol_size_desktop": 140,
+        "name_size_desktop": 18,
+        "mass_size_desktop": 12,
+        "number_size_mobile": 14,
+        "symbol_size_mobile": 100,
+        "name_size_mobile": 18,
+        "mass_size_mobile": 12,
+        "card_padding_y_desktop": 64,
+        "card_padding_x_desktop": 64,
+        "number_margin_bottom_desktop": 8,
+        "symbol_margin_bottom_desktop": 8,
+        "name_margin_bottom_desktop": 32,
+        "card_padding_y_mobile": 40,
+        "card_padding_x_mobile": 24,
+        "number_margin_bottom_mobile": 8,
+        "symbol_margin_bottom_mobile": 8,
+        "name_margin_bottom_mobile": 24,
+        "background_color": "#ffffff",
+        "color_card_bg": "#1a2b3c",
+        "color_number": "#7a8899",
+        "color_symbol": "#ffffff",
+        "color_name": "#a8bfd0",
+        "color_mass": "#7a8899",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_ingredients_list_d7xbGU": {
+      "type": "page_ingredients-list",
+      "blocks": {
+        "ingredient_yKQhdG": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Caprylic/Capric Triglyceride",
+            "role": "BASE & DELIVERY SYSTEM",
+            "description": "<p>Lightweight, skin-conditioning base derived from coconut oil. Delivers active ingredients to skin while providing moisturization without heaviness.</p>"
+          }
+        },
+        "ingredient_m7zDxA": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Tapioca Starch",
+            "role": "MOISTURE ABSORPTION",
+            "description": "<p>Natural starch that absorbs moisture and creates a smooth, dry feel on application. Keeps underarms comfortable throughout the day.</p>"
+          }
+        },
+        "ingredient_tLV33L": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Rice Bran Wax",
+            "role": "STRUCTURE & GLIDE",
+            "description": "<p>Provides formula structure and ensures smooth, effortless glide across skin. Natural wax with excellent skin-feel properties.</p>"
+          }
+        },
+        "ingredient_rVgr7a": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Cocoa Butter",
+            "role": "SKIN SOFTENING",
+            "description": "<p>Rich emollient that softens and protects skin. Prevents dryness and maintains skin barrier integrity with repeated use.</p>"
+          }
+        },
+        "ingredient_tmJ3TD": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Magnesium Hydroxide",
+            "role": "PH MANAGEMENT",
+            "description": "<p>Creates a mildly alkaline environment that inhibits bacterial growth. Unlike baking soda, it is non-irritating and pH-balanced.</p>"
+          }
+        },
+        "ingredient_TddzpK": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Carnauba Wax",
+            "role": "HOLD & STABILITY",
+            "description": "<p>Plant-derived wax from Brazilian palm trees. Provides structural stability and ensures the formula maintains its integrity in varying temperatures.</p>"
+          }
+        },
+        "ingredient_AQP6KA": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Jojoba Esters 60",
+            "role": "Skin Conditioning",
+            "description": "<p>Derived from jojoba oil. Enhances skin conditioning and creates a protective, breathable layer that feels natural and comfortable.</p>"
+          }
+        },
+        "ingredient_4JE4P8": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zinc Ricinoleate",
+            "role": "Odor Trapping",
+            "description": "<p>Traps and neutralizes odor molecules at the molecular level. Works in tandem with MicroSilver for comprehensive odor control.</p>"
+          }
+        },
+        "ingredient_FdLXYr": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Triethyl Citrate",
+            "role": "Enzymatic Odor Prevention",
+            "description": "<p>Blocks enzymatic breakdown of sweat proteins. Secondary defense mechanism that prevents odor compound formation before it starts.</p>"
+          }
+        },
+        "ingredient_7GVxCT": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zinc Oxide (NN)",
+            "role": "Adhesion & Anchoring",
+            "description": "<p>Medical-grade ingredient that anchors formula to skin and provides all-day adhesion. Also offers secondary antimicrobial properties.</p>"
+          }
+        },
+        "ingredient_LDztgf": {
+          "type": "ingredient",
+          "settings": {
+            "name": "MicroSilver",
+            "role": "Primary Antimicrobial Mechanism",
+            "description": "<p>Pharmaceutical-grade antimicrobial technology. Ultra-fine metallic silver particles that disrupt bacterial cell walls at contact. The core active ingredient.</p>"
+          }
+        },
+        "ingredient_dGgMcE": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Rosemary Antioxidant",
+            "role": "Natural Preservative",
+            "description": "<p>Plant-based antioxidant that protects formula integrity and extends shelf life. Prevents oxidation without synthetic preservatives.</p>"
+          }
+        },
+        "ingredient_rjLJrW": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Essential Oils Blend*",
+            "role": "Scent Profile",
+            "description": "<p>Natural essential oil blends specific to each scent profile. Carefully selected for their aromatic properties. Not present in Unscented formula.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_yKQhdG",
+        "ingredient_m7zDxA",
+        "ingredient_tLV33L",
+        "ingredient_rVgr7a",
+        "ingredient_tmJ3TD",
+        "ingredient_TddzpK",
+        "ingredient_AQP6KA",
+        "ingredient_4JE4P8",
+        "ingredient_FdLXYr",
+        "ingredient_7GVxCT",
+        "ingredient_LDztgf",
+        "ingredient_dGgMcE",
+        "ingredient_rjLJrW"
+      ],
+      "name": "Ingredients List",
+      "settings": {
+        "heading": "Complete Ingredient List",
+        "footer_text": "*Essential oil composition varies by formula. Unscented contains zero fragrance compounds.",
+        "content_max_width": 1280,
+        "card_radius": 0,
+        "heading_size_desktop": 40,
+        "card_name_size_desktop": 16,
+        "card_role_size_desktop": 11,
+        "card_desc_size_desktop": 14,
+        "footer_size_desktop": 13,
+        "heading_size_mobile": 32,
+        "card_name_size_mobile": 16,
+        "card_role_size_mobile": 11,
+        "card_desc_size_mobile": 14,
+        "footer_size_mobile": 13,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 48,
+        "grid_padding_top_desktop": 0,
+        "grid_padding_bottom_desktop": 0,
+        "grid_gap_desktop": 24,
+        "card_padding_top_desktop": 24,
+        "card_padding_bottom_desktop": 24,
+        "card_padding_horizontal_desktop": 24,
+        "footer_padding_top_desktop": 32,
+        "footer_padding_bottom_desktop": 0,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 32,
+        "grid_padding_top_mobile": 0,
+        "grid_padding_bottom_mobile": 0,
+        "grid_gap_mobile": 16,
+        "card_padding_top_mobile": 24,
+        "card_padding_bottom_mobile": 24,
+        "card_padding_horizontal_mobile": 24,
+        "footer_padding_top_mobile": 32,
+        "footer_padding_bottom_mobile": 0,
+        "background_color": "#ebeef2",
+        "color_heading": "#111827",
+        "color_card_bg": "#ffffff",
+        "color_card_border": "#dde1e8",
+        "color_card_border_left": "#1a2b3c",
+        "color_card_name": "#111827",
+        "color_card_role": "#7a8899",
+        "color_card_desc": "#4b5a6b",
+        "color_footer": "#7a8899",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_ingredients_excluded_FEGFHY": {
+      "type": "page_ingredients-excluded",
+      "blocks": {
+        "ingredient_tKPttz": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Baking Soda",
+            "reason": "<p>Causes irritation and pH imbalance in most users.</p>"
+          }
+        },
+        "ingredient_iaGi6k": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Aluminum Compounds",
+            "reason": "<p>Blocks sweat ducts. Many prefer not to use it daily.</p>"
+          }
+        },
+        "ingredient_6EVkCn": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Parabens",
+            "reason": "<p>Unnecessary preservatives with questionable safety data.</p>"
+          }
+        },
+        "ingredient_6h9gxF": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Synthetic Fragrances",
+            "reason": "<p>Often irritating. We use essential oils only when needed.</p>"
+          }
+        },
+        "ingredient_hfHECR": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Talc",
+            "reason": "<p>No functional benefit. Potential contamination concerns.</p>"
+          }
+        },
+        "ingredient_8kaCae": {
+          "type": "ingredient",
+          "settings": {
+            "ingredient": "Propylene Glycol",
+            "reason": "<p>Sensitizing in some individuals. We use alternatives.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_tKPttz",
+        "ingredient_iaGi6k",
+        "ingredient_6EVkCn",
+        "ingredient_6h9gxF",
+        "ingredient_hfHECR",
+        "ingredient_8kaCae"
+      ],
+      "name": "Ingredients Excluded",
+      "settings": {
+        "heading": "What We Don't Use",
+        "content_max_width": 1280,
+        "heading_size_desktop": 40,
+        "card_name_size_desktop": 15,
+        "card_text_size_desktop": 13,
+        "heading_size_mobile": 36,
+        "card_name_size_mobile": 15,
+        "card_text_size_mobile": 13,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 48,
+        "grid_padding_top_desktop": 0,
+        "grid_padding_bottom_desktop": 0,
+        "grid_gap_desktop": 24,
+        "card_padding_top_desktop": 20,
+        "card_padding_bottom_desktop": 20,
+        "card_padding_horizontal_desktop": 20,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 32,
+        "grid_padding_top_mobile": 0,
+        "grid_padding_bottom_mobile": 0,
+        "grid_gap_mobile": 16,
+        "card_padding_top_mobile": 20,
+        "card_padding_bottom_mobile": 20,
+        "card_padding_horizontal_mobile": 20,
+        "background_color": "#FFFFFF",
+        "color_heading": "#111827",
+        "color_card_bg": "#F6F7F9",
+        "color_card_border": "#DDE1E8",
+        "color_card_name": "#111827",
+        "color_card_text": "#4B5A6B",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
+        "padding_bottom_mobile": 48
+      }
+    }
+  },
+  "order": [
+    "main",
+    "page_ingredients_hero_dBDLg4",
+    "page_ingredients_card_hc7eWE",
+    "page_ingredients_list_d7xbGU",
+    "page_ingredients_excluded_FEGFHY"
+  ]
+}
