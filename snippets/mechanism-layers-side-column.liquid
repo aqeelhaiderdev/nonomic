@@ -1,0 +1,22 @@
+{% comment %}
+  Side column for mechanism-layers (Figma layout). Visible ≥768px only.
+
+  @param {object} block - Block with type side_layer
+{% endcomment %}
+
+<div class="mechanism-layers__cell mechanism-layers__cell--side" {{ block.shopify_attributes }}>
+  <div class="mechanism-layers__kicker-slot" aria-hidden="true"></div>
+  <div class="mechanism-layers__layer-content">
+    {%- if block.settings.eyebrow != blank -%}
+      <p class="mechanism-layers__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+
+    {%- if block.settings.title != blank -%}
+      <p class="mechanism-layers__layer-name">{{ block.settings.title | escape }}</p>
+    {%- endif -%}
+
+    {%- if block.settings.body != blank -%}
+      <div class="mechanism-layers__layer-body rte">{{ block.settings.body }}</div>
+    {%- endif -%}
+  </div>
+</div>

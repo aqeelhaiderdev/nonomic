@@ -1,0 +1,668 @@
+{{ 'section-mechanism-layers.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign layer_1 = nil
+  assign layer_2 = nil
+  assign layer_4 = nil
+
+  for block in section.blocks
+    if block.type == 'side_layer'
+      case block.settings.column
+        when '1'
+          assign layer_1 = block
+        when '2'
+          assign layer_2 = block
+        when '4'
+          assign layer_4 = block
+      endcase
+    endif
+  endfor
+
+  assign show_placeholder = false
+  if section.settings.heading_desktop == blank and section.settings.heading_mobile == blank and section.settings.featured_title == blank and section.blocks.size == 0
+    assign show_placeholder = true
+  endif
+-%}
+
+{%- style -%}
+  #MechanismLayers-{{ section.id }} {
+    --ml-section-bg: {{ section.settings.section_background }};
+    --ml-card-bg: {{ section.settings.card_background }};
+    --ml-text-heading: {{ section.settings.color_heading }};
+    --ml-text-muted: {{ section.settings.color_muted }};
+    --ml-text-body: {{ section.settings.color_body }};
+    --ml-accent: {{ section.settings.color_accent }};
+    --ml-grid-gap: {{ section.settings.grid_gap }}px;
+    --ml-heading-margin: {{ section.settings.heading_margin_bottom }}px;
+    --ml-heading-font-size: {{ section.settings.heading_font_size }}px;
+    --ml-layer-border-width: {{ section.settings.layer_border_width }}px;
+    --ml-card-radius: {{ section.settings.card_corner_radius }}px;
+    --ml-card-padding-y: {{ section.settings.card_padding_vertical }}px;
+    --ml-card-padding-x: {{ section.settings.card_padding_horizontal }}px;
+    --ml-featured-scale: {{ section.settings.featured_scale | times: 0.01 }};
+    --ml-watermark-size-mobile: {{ section.settings.watermark_size_mobile }}px;
+    --ml-watermark-size-desktop: {{ section.settings.watermark_size_desktop }}px;
+    --ml-shell-pad-x: {{ section.settings.horizontal_padding }}px;
+    --ml-shell-max: {{ section.settings.content_max_width }}px;
+    --ml-kicker-row-height: {{ section.settings.kicker_row_height }}px;
+    --ml-kicker-row-gap: {{ section.settings.kicker_row_gap }}px;
+    --ml-layer-content-pt: {{ section.settings.layer_content_padding_top }}px;
+    --ml-footnote-mt: {{ section.settings.footnote_margin_top }}px;
+    --ml-actions-mt: {{ section.settings.button_margin_top }}px;
+    --ml-list-gap: {{ section.settings.mobile_list_gap }}px;
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+{%- if show_placeholder -%}
+  <div
+    id="MechanismLayers-{{ section.id }}"
+    class="mechanism-layers mechanism-layers--empty"
+    {{ section.shopify_attributes }}
+  >
+    <div class="mechanism-layers__shell section-{{ section.id }}-padding isolate">
+      <p class="mechanism-layers__placeholder caption">
+        {{ section.settings.placeholder_text | default: 'Add headings, featured card content, or side layer blocks.' }}
+      </p>
+    </div>
+  </div>
+{%- else -%}
+  <div
+    id="MechanismLayers-{{ section.id }}"
+    class="mechanism-layers"
+    {{ section.shopify_attributes }}
+  >
+    <div
+      class="mechanism-layers__shell section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+      {% if settings.animations_reveal_on_scroll %}
+        data-cascade
+      {% endif %}
+    >
+      {%- if section.settings.heading_desktop != blank or section.settings.heading_mobile != blank -%}
+        <header class="mechanism-layers__header mechanism-layers__header--{{ section.settings.heading_alignment }}">
+          {%- if section.settings.heading_desktop != blank -%}
+            <h2 class="mechanism-layers__title mechanism-layers__title--desktop inline-richtext">
+              {{ section.settings.heading_desktop }}
+            </h2>
+          {%- endif -%}
+          {%- if section.settings.heading_mobile != blank -%}
+            <h2 class="mechanism-layers__title mechanism-layers__title--mobile inline-richtext">
+              {{ section.settings.heading_mobile }}
+            </h2>
+          {%- elsif section.settings.heading_desktop != blank -%}
+            <h2 class="mechanism-layers__title mechanism-layers__title--mobile inline-richtext">
+              {{ section.settings.heading_desktop }}
+            </h2>
+          {%- endif -%}
+        </header>
+      {%- endif -%}
+
+      <div class="mechanism-layers__grid">
+        {%- if layer_1 -%}
+          {% render 'mechanism-layers-side-column', block: layer_1 %}
+        {%- endif -%}
+
+        {%- if layer_2 -%}
+          {% render 'mechanism-layers-side-column', block: layer_2 %}
+        {%- endif -%}
+
+        <div class="mechanism-layers__cell mechanism-layers__cell--featured">
+          {%- if section.settings.mechanism_kicker != blank -%}
+            <div class="mechanism-layers__mechanism-kicker">
+              {{ section.settings.mechanism_kicker | escape }}
+            </div>
+          {%- else -%}
+            <div class="mechanism-layers__kicker-slot" aria-hidden="true"></div>
+          {%- endif -%}
+
+          <div class="mechanism-layers__card">
+            {%- if section.settings.watermark_text != blank -%}
+              <p class="mechanism-layers__watermark" aria-hidden="true">{{ section.settings.watermark_text | escape }}</p>
+            {%- endif -%}
+
+            <div class="mechanism-layers__card-inner">
+              {%- if section.settings.featured_eyebrow != blank -%}
+                <p class="mechanism-layers__eyebrow mechanism-layers__eyebrow--desktop-only">
+                  {{ section.settings.featured_eyebrow | escape }}
+                </p>
+              {%- endif -%}
+
+              {%- if section.settings.featured_title != blank -%}
+                <p class="mechanism-layers__layer-name">{{ section.settings.featured_title | escape }}</p>
+              {%- endif -%}
+
+              {%- if section.settings.featured_body_desktop != blank -%}
+                <div class="mechanism-layers__card-body mechanism-layers__card-body--desktop rte">
+                  {{ section.settings.featured_body_desktop }}
+                </div>
+              {%- endif -%}
+
+              {%- if section.settings.featured_intro_mobile != blank or section.settings.featured_list_mobile != blank -%}
+                <div class="mechanism-layers__mobile-stack">
+                  {%- if section.settings.featured_intro_mobile != blank -%}
+                    <div class="mechanism-layers__mobile-intro rte">{{ section.settings.featured_intro_mobile }}</div>
+                  {%- endif -%}
+                  {%- if section.settings.featured_list_mobile != blank -%}
+                    <div class="mechanism-layers__mobile-list rte">{{ section.settings.featured_list_mobile }}</div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+
+        {%- if layer_4 -%}
+          {% render 'mechanism-layers-side-column', block: layer_4 %}
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.footnote != blank -%}
+        <div class="mechanism-layers__footnote rte">{{ section.settings.footnote }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        {%- if section.settings.button_link != blank -%}
+          <div class="mechanism-layers__actions mechanism-layers__actions--desktop-only">
+            <a
+              href="{{ section.settings.button_link }}"
+              class="mechanism-layers__link"
+              {% if section.settings.button_open_new_tab %}
+                target="_blank" rel="noopener noreferrer"
+              {% endif %}
+            >
+              {{ section.settings.button_label | escape }}
+            </a>
+          </div>
+          {%- if section.settings.show_button_on_mobile -%}
+            <div class="mechanism-layers__actions mechanism-layers__actions--mobile">
+              <a
+                href="{{ section.settings.button_link }}"
+                class="mechanism-layers__link"
+                {% if section.settings.button_open_new_tab %}
+                  target="_blank" rel="noopener noreferrer"
+                {% endif %}
+              >
+                {{ section.settings.button_label | escape }}
+              </a>
+            </div>
+          {%- endif -%}
+        {%- else -%}
+          <div class="mechanism-layers__actions mechanism-layers__actions--desktop-only">
+            <span class="mechanism-layers__link mechanism-layers__link--disabled" role="text">
+              {{ section.settings.button_label | escape }}
+            </span>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Mechanism layers",
+  "tag": "section",
+  "class": "section-mechanism-layers",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading_desktop",
+      "label": "Heading (desktop)",
+      "default": "One Mechanism. Four Layers of Protection."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading_mobile",
+      "label": "Heading (mobile)",
+      "info": "Shown below 768px. Leave blank to reuse the desktop heading.",
+      "default": "One Mechanism. One Key Ingredient."
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 32,
+      "max": 56,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading font size",
+      "default": 44,
+      "info": "Matches Figma primary heading (44px)."
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Space below heading",
+      "default": 64
+    },
+    {
+      "type": "header",
+      "content": "Featured column"
+    },
+    {
+      "type": "text",
+      "id": "mechanism_kicker",
+      "label": "Label above card",
+      "default": "The Mechanism",
+      "info": "Shown at ≥768px, aligned with side column spacer row (Figma)."
+    },
+    {
+      "type": "text",
+      "id": "watermark_text",
+      "label": "Watermark symbol",
+      "default": "Ag"
+    },
+    {
+      "type": "range",
+      "id": "watermark_size_mobile",
+      "min": 48,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Watermark size (mobile)",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "watermark_size_desktop",
+      "min": 72,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Watermark size (desktop)",
+      "default": 120
+    },
+    {
+      "type": "text",
+      "id": "featured_eyebrow",
+      "label": "Card eyebrow",
+      "default": "LAYER 3 — NEUTRALIZE",
+      "info": "Shown at ≥768px above the card title."
+    },
+    {
+      "type": "text",
+      "id": "featured_title",
+      "label": "Card title",
+      "default": "MicroSilver"
+    },
+    {
+      "type": "richtext",
+      "id": "featured_body_desktop",
+      "label": "Card body (desktop)",
+      "default": "<p>Disrupts bacterial cell walls at contact. This is the mechanism. Bacteria can't produce odor if they can't function.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "featured_intro_mobile",
+      "label": "Card intro (mobile)",
+      "default": "<p>A pharmaceutical-grade silver ingredient that disrupts bacterial cell walls at contact.</p>",
+      "info": "Shown on small screens before the bullet list."
+    },
+    {
+      "type": "richtext",
+      "id": "featured_list_mobile",
+      "label": "Card list (mobile)",
+      "default": "<ul><li>Releases silver ions continuously</li><li>Binds to bacterial cell wall proteins</li><li>Bacteria can't produce odor compounds</li><li>Mechanism persists for 24+ hours</li></ul>"
+    },
+    {
+      "type": "range",
+      "id": "featured_scale",
+      "min": 100,
+      "max": 115,
+      "step": 1,
+      "unit": "%",
+      "label": "Featured column scale (desktop)",
+      "default": 108,
+      "info": "Slightly enlarges the center column on large screens."
+    },
+    {
+      "type": "range",
+      "id": "card_corner_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card corner radius",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_padding_vertical",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "label": "Card vertical padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Card horizontal padding",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Footnote & button"
+    },
+    {
+      "type": "richtext",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "<p>This isn't about blocking sweat. It's about controlling what creates odor.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View Full Ingredient List →"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_open_new_tab",
+      "label": "Open button link in new tab",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button_on_mobile",
+      "label": "Show button on mobile",
+      "default": false,
+      "info": "Matches the original layout: link hidden on small screens unless enabled."
+    },
+    {
+      "type": "header",
+      "content": "Layout (Figma)"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 960,
+      "max": 1600,
+      "step": 8,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 1280,
+      "info": "Matches max-w-[1280px]."
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 32,
+      "info": "Matches px-8 (32px)."
+    },
+    {
+      "type": "range",
+      "id": "kicker_row_height",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Mechanism / spacer row height",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "kicker_row_gap",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap below spacer / mechanism row",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "layer_content_padding_top",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Side layer content top padding",
+      "default": 24,
+      "info": "Matches pt-6."
+    },
+    {
+      "type": "range",
+      "id": "footnote_margin_top",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Spacing above footnote",
+      "default": 48,
+      "info": "Matches mt-12."
+    },
+    {
+      "type": "range",
+      "id": "button_margin_top",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Spacing above button",
+      "default": 24,
+      "info": "Matches mt-6."
+    },
+    {
+      "type": "range",
+      "id": "mobile_list_gap",
+      "min": 4,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile bullet list spacing",
+      "default": 8,
+      "info": "Matches space-y-2."
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Column gap",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "layer_border_width",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Side layer top border thickness",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Colors (Figma hex)"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#ebeef2",
+      "info": "rgb(235, 238, 242)."
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Featured card background",
+      "default": "#1a2b3c",
+      "info": "rgb(26, 43, 60)."
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Headings & layer titles",
+      "default": "#111827",
+      "info": "rgb(17, 24, 39)."
+    },
+    {
+      "type": "color",
+      "id": "color_muted",
+      "label": "Eyebrows & dividers",
+      "default": "#7a8899",
+      "info": "rgb(122, 136, 153)."
+    },
+    {
+      "type": "color",
+      "id": "color_body",
+      "label": "Body & footnote",
+      "default": "#4b5a6b",
+      "info": "rgb(75, 90, 107)."
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Accent (mechanism label & link)",
+      "default": "#1d9e75",
+      "info": "rgb(29, 158, 117)."
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Placeholder"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Empty state message",
+      "default": "Add headings, featured card content, or side layer blocks."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "side_layer",
+      "name": "Side layer",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Column",
+          "options": [
+            { "value": "1", "label": "Layer 1 (first)" },
+            { "value": "2", "label": "Layer 2 (second)" },
+            { "value": "4", "label": "Layer 4 (last)" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "LAYER 1 — ANCHOR"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Zinc Oxide"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Text",
+          "default": "<p>Anchors the formula so every ingredient stays in contact with skin. Nothing else works if the formula doesn't hold.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mechanism layers",
+      "blocks": [
+        {
+          "type": "side_layer",
+          "settings": {
+            "column": "1",
+            "eyebrow": "LAYER 1 — ANCHOR",
+            "title": "Zinc Oxide",
+            "body": "<p>Anchors the formula so every ingredient stays in contact with skin. Nothing else works if the formula doesn't hold.</p>"
+          }
+        },
+        {
+          "type": "side_layer",
+          "settings": {
+            "column": "2",
+            "eyebrow": "LAYER 2 — PREVENT",
+            "title": "Magnesium",
+            "body": "<p>Manages pH to create an environment where bacteria can't thrive. Sets the conditions before bacteria can establish.</p>"
+          }
+        },
+        {
+          "type": "side_layer",
+          "settings": {
+            "column": "4",
+            "eyebrow": "LAYER 4 — BLOCK",
+            "title": "Triethyl Citrate",
+            "body": "<p>Blocks enzymatic breakdown as backup. Catches anything that gets through — secondary prevention that holds the line.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
