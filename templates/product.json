@@ -495,10 +495,10 @@
         "padding_bottom": 28
       }
     },
-    "177896256609527be8": {
-      "type": "apps",
+    "nonomic_judgeme_reviews_HpGgDC": {
+      "type": "nonomic-judgeme-reviews",
       "blocks": {
-        "judge_me_reviews_review_widget_9MYKMG": {
+        "judge_me_reviews_review_widget_iLPV4Y": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
             "review_data": "sample_data",
@@ -506,13 +506,86 @@
             "show_shop_reviews": false,
             "empty_state": "empty_widget"
           }
+        },
+        "scent_filter_QWqNTn": {
+          "type": "scent_filter",
+          "settings": {
+            "label": "Clean Forest",
+            "value": "clean-forest",
+            "keywords": "clean forest"
+          }
+        },
+        "scent_filter_Pcx84g": {
+          "type": "scent_filter",
+          "settings": {
+            "label": "Citrus Grove",
+            "value": "citrus-grove",
+            "keywords": "citrus grove,citrus"
+          }
+        },
+        "scent_filter_Tx3Jk6": {
+          "type": "scent_filter",
+          "settings": {
+            "label": "Coconut Vanilla",
+            "value": "coconut-vanilla",
+            "keywords": "coconut vanilla,coconut"
+          }
+        },
+        "scent_filter_Dn6ngh": {
+          "type": "scent_filter",
+          "settings": {
+            "label": "Unscented",
+            "value": "unscented",
+            "keywords": "unscented"
+          }
         }
       },
       "block_order": [
-        "judge_me_reviews_review_widget_9MYKMG"
+        "judge_me_reviews_review_widget_iLPV4Y",
+        "scent_filter_QWqNTn",
+        "scent_filter_Pcx84g",
+        "scent_filter_Tx3Jk6",
+        "scent_filter_Dn6ngh"
       ],
+      "name": "Nonomic Judge.me reviews",
       "settings": {
-        "include_margins": true
+        "heading": "Customer Reviews",
+        "reviews_count_label": "Based on [count] reviews",
+        "reviews_count_placeholder": "Based on reviews",
+        "search_placeholder": "Search reviews...",
+        "write_review_label": "Write Review",
+        "filter_sort_button_label": "Filter & Sort",
+        "sort_heading": "Sort by",
+        "sort_newest_label": "Newest - oldest",
+        "sort_oldest_label": "Oldest - newest",
+        "scent_heading": "Filter by scent",
+        "scent_all_label": "See All",
+        "drawer_title": "Filter & Sort",
+        "drawer_apply_label": "Apply",
+        "max_width": 1280,
+        "horizontal_padding": 32,
+        "header_padding_top": 80,
+        "header_padding_bottom": 56,
+        "body_padding_top": 48,
+        "body_padding_bottom": 80,
+        "layout_gap": 48,
+        "sidebar_width": 240,
+        "color_background": "#ffffff",
+        "color_navy": "#1a2b3c",
+        "color_body": "#4b5a6b",
+        "color_muted": "#7a8899",
+        "color_border": "#dde1e8",
+        "color_accent": "#1d9e75",
+        "color_accent_soft": "#e8f5f1",
+        "color_histogram_track": "#ebeef2",
+        "color_button_text": "#ffffff",
+        "average_rating_aria": "Average rating",
+        "histogram_aria": "Rating distribution",
+        "sidebar_aria": "Review filters",
+        "search_aria": "Search reviews",
+        "drawer_close_aria": "Close filters",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
@@ -521,6 +594,6 @@
     "nonomic_how_it_works_4UirdD",
     "nonomic_comparison_chart_gKVadH",
     "related-products",
-    "177896256609527be8"
+    "nonomic_judgeme_reviews_HpGgDC"
   ]
 }

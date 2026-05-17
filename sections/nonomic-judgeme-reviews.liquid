@@ -1,0 +1,625 @@
+{{ 'section-nonomic-judgeme-reviews.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'nonomic-judgeme-reviews.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign scent_blocks = section.blocks | where: 'type', 'scent_filter'
+  assign scent_map = ''
+  for block in scent_blocks
+    if block.settings.value != blank and block.settings.keywords != blank
+      assign pair = block.settings.value | append: ':' | append: block.settings.keywords
+      if scent_map == blank
+        assign scent_map = pair
+      else
+        assign scent_map = scent_map | append: '|' | append: pair
+      endif
+    endif
+  endfor
+
+  assign reviews_count_label = section.settings.reviews_count_label | default: 'Based on [count] reviews'
+  assign reviews_count_label = reviews_count_label | replace: '{{ count }}', '[count]' | replace: '{{count}}', '[count]'
+
+  assign njr_review_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count
+  assign njr_count_display = section.settings.reviews_count_placeholder
+  if njr_review_count != blank
+    assign njr_count_display = reviews_count_label | replace: '[count]', njr_review_count
+  endif
+
+  assign product_id = ''
+  if product != blank
+    assign product_id = product.id
+  endif
+-%}
+
+{%- style -%}
+  #NonomicJudgeMe-{{ section.id }} {
+    --njr-max-width: {{ section.settings.max_width }}px;
+    --njr-pad-x: {{ section.settings.horizontal_padding }}px;
+    --njr-header-pt: {{ section.settings.header_padding_top }}px;
+    --njr-header-pb: {{ section.settings.header_padding_bottom }}px;
+    --njr-body-pt: {{ section.settings.body_padding_top }}px;
+    --njr-body-pb: {{ section.settings.body_padding_bottom }}px;
+    --njr-layout-gap: {{ section.settings.layout_gap }}px;
+    --njr-sidebar-w: {{ section.settings.sidebar_width }}px;
+    --njr-bg: {{ section.settings.color_background }};
+    --njr-navy: {{ section.settings.color_navy }};
+    --njr-body: {{ section.settings.color_body }};
+    --njr-muted: {{ section.settings.color_muted }};
+    --njr-border: {{ section.settings.color_border }};
+    --njr-accent: {{ section.settings.color_accent }};
+    --njr-accent-soft: {{ section.settings.color_accent_soft }};
+    --njr-histogram-track: {{ section.settings.color_histogram_track }};
+    --njr-btn-text: {{ section.settings.color_button_text }};
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  id="NonomicJudgeMe-{{ section.id }}"
+  class="njr section-{{ section.id }}-padding"
+  data-njr-section
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ product_id }}"
+  data-shop-domain="{{ shop.permanent_domain }}"
+  data-reviews-count-label="{{ reviews_count_label | escape }}"
+  data-initial-review-count="{{ njr_review_count | default: '' }}"
+  data-scent-map="{{ scent_map | escape }}"
+  data-njr-show-verified="{% if section.settings.show_verified_badge %}true{% else %}false{% endif %}"
+  data-njr-verified-label="{{ section.settings.verified_badge_label | escape }}"
+  {{ section.shopify_attributes }}
+>
+  <div class="njr__inner">
+    <header class="njr__header">
+      <div class="njr__header-row">
+        <div class="njr__header-left">
+          <h2 class="njr__title">{{ section.settings.heading }}</h2>
+          <div class="njr__rating-row">
+            <div class="njr__header-stars" data-njr-header-stars aria-hidden="true">
+              {%- for i in (1..5) -%}
+                {% render 'nonomic-judgeme-star', size: 'lg' %}
+              {%- endfor -%}
+            </div>
+            <span class="njr__average" data-njr-average aria-label="{{ section.settings.average_rating_aria }}">—</span>
+          </div>
+          <p class="njr__count" data-njr-count>{{ njr_count_display }}</p>
+        </div>
+        <div class="njr__histogram" data-njr-histogram aria-label="{{ section.settings.histogram_aria }}"></div>
+      </div>
+    </header>
+
+    <div class="njr__layout">
+      <aside class="njr__sidebar" aria-label="{{ section.settings.sidebar_aria }}">
+        <div class="njr__sidebar-group">
+          <h3 class="njr__sidebar-heading">{{ section.settings.sort_heading }}</h3>
+          <fieldset class="njr__radio-list">
+            <legend class="visually-hidden">{{ section.settings.sort_heading }}</legend>
+            <label class="njr__radio">
+              <input type="radio" name="njr-sort-sidebar-{{ section.id }}" value="newest" data-njr-sort checked>
+              {{ section.settings.sort_newest_label }}
+            </label>
+            <label class="njr__radio">
+              <input type="radio" name="njr-sort-sidebar-{{ section.id }}" value="oldest" data-njr-sort>
+              {{ section.settings.sort_oldest_label }}
+            </label>
+          </fieldset>
+        </div>
+
+        <div class="njr__sidebar-group">
+          <h3 class="njr__sidebar-heading">{{ section.settings.scent_heading }}</h3>
+          <fieldset class="njr__radio-list">
+            <legend class="visually-hidden">{{ section.settings.scent_heading }}</legend>
+            <label class="njr__radio">
+              <input type="radio" name="njr-scent-sidebar-{{ section.id }}" value="all" data-njr-scent checked>
+              {{ section.settings.scent_all_label }}
+            </label>
+            {%- for block in scent_blocks -%}
+              <label class="njr__radio" {{ block.shopify_attributes }}>
+                <input
+                  type="radio"
+                  name="njr-scent-sidebar-{{ section.id }}"
+                  value="{{ block.settings.value | escape }}"
+                  data-njr-scent
+                >
+                {{ block.settings.label }}
+              </label>
+            {%- endfor -%}
+          </fieldset>
+        </div>
+      </aside>
+
+      <div class="njr__main">
+        <button type="button" class="njr__filter-btn" data-njr-filter-open>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="21" x2="14" y1="4" y2="4"></line>
+            <line x1="10" x2="3" y1="4" y2="4"></line>
+            <line x1="21" x2="12" y1="12" y2="12"></line>
+            <line x1="8" x2="3" y1="12" y2="12"></line>
+            <line x1="21" x2="16" y1="20" y2="20"></line>
+            <line x1="12" x2="3" y1="20" y2="20"></line>
+            <line x1="14" x2="14" y1="2" y2="6"></line>
+            <line x1="8" x2="8" y1="10" y2="14"></line>
+            <line x1="16" x2="16" y1="18" y2="22"></line>
+          </svg>
+          {{ section.settings.filter_sort_button_label }}
+        </button>
+
+        <div class="njr__search-row">
+          <div class="njr__search-wrap">
+            <svg class="njr__search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input
+              type="search"
+              class="njr__search-input"
+              data-njr-search
+              placeholder="{{ section.settings.search_placeholder }}"
+              aria-label="{{ section.settings.search_aria }}"
+              autocomplete="off"
+            >
+          </div>
+          <button type="button" class="njr__write-btn" data-njr-write-review>
+            {{ section.settings.write_review_label }}
+          </button>
+        </div>
+
+        <div class="njr__widget-slot" data-njr-widget-slot>
+          {%- assign app_block_rendered = false -%}
+          {%- for block in section.blocks -%}
+            {%- unless block.type == 'scent_filter' -%}
+              {%- assign app_block_rendered = true -%}
+              <div class="njr__app-block" {{ block.shopify_attributes }}>
+                {% render block %}
+              </div>
+            {%- endunless -%}
+          {%- endfor -%}
+          {%- unless app_block_rendered -%}
+            <p class="njr__widget-empty">
+              Add the Judge.me <strong>Review Widget</strong> block to this section in the theme editor.
+            </p>
+          {%- endunless -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="njr__drawer" data-njr-drawer>
+    <div class="njr__drawer-backdrop" data-njr-drawer-close aria-hidden="true"></div>
+    <div class="njr__drawer-panel" role="dialog" aria-modal="true" aria-labelledby="njr-drawer-title-{{ section.id }}">
+      <div class="njr__drawer-head">
+        <h3 class="njr__drawer-title" id="njr-drawer-title-{{ section.id }}">{{ section.settings.drawer_title }}</h3>
+        <button type="button" class="njr__drawer-close" data-njr-drawer-close aria-label="{{ section.settings.drawer_close_aria }}">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="njr__sidebar-group">
+        <h3 class="njr__sidebar-heading">{{ section.settings.sort_heading }}</h3>
+        <fieldset class="njr__radio-list">
+          <legend class="visually-hidden">{{ section.settings.sort_heading }}</legend>
+          <label class="njr__radio">
+            <input type="radio" name="njr-sort-drawer-{{ section.id }}" value="newest" data-njr-sort checked>
+            {{ section.settings.sort_newest_label }}
+          </label>
+          <label class="njr__radio">
+            <input type="radio" name="njr-sort-drawer-{{ section.id }}" value="oldest" data-njr-sort>
+            {{ section.settings.sort_oldest_label }}
+          </label>
+        </fieldset>
+      </div>
+
+      <div class="njr__sidebar-group">
+        <h3 class="njr__sidebar-heading">{{ section.settings.scent_heading }}</h3>
+        <fieldset class="njr__radio-list">
+          <legend class="visually-hidden">{{ section.settings.scent_heading }}</legend>
+          <label class="njr__radio">
+            <input type="radio" name="njr-scent-drawer-{{ section.id }}" value="all" data-njr-scent checked>
+            {{ section.settings.scent_all_label }}
+          </label>
+          {%- for block in scent_blocks -%}
+            <label class="njr__radio" {{ block.shopify_attributes }}>
+              <input
+                type="radio"
+                name="njr-scent-drawer-{{ section.id }}"
+                value="{{ block.settings.value | escape }}"
+                data-njr-scent
+              >
+              {{ block.settings.label }}
+            </label>
+          {%- endfor -%}
+        </fieldset>
+      </div>
+
+      <button type="button" class="njr__drawer-apply" data-njr-drawer-apply>
+        {{ section.settings.drawer_apply_label }}
+      </button>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Nonomic Judge.me reviews",
+  "tag": "section",
+  "class": "section nonomic-judgeme-reviews-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "text",
+      "id": "reviews_count_label",
+      "label": "Review count label",
+      "default": "Based on [count] reviews",
+      "info": "Use the word [count] (square brackets) where the number goes. Do not use {{ count }} — that breaks in the theme editor."
+    },
+    {
+      "type": "text",
+      "id": "reviews_count_placeholder",
+      "label": "Review count placeholder (before widget loads)",
+      "default": "Based on reviews"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search placeholder",
+      "default": "Search reviews..."
+    },
+    {
+      "type": "text",
+      "id": "write_review_label",
+      "label": "Write review button",
+      "default": "Write Review"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_verified_badge",
+      "label": "Show verified customer badge",
+      "default": true,
+      "info": "Matches the Figma review footer. Also shows when Judge.me marks the reviewer as verified."
+    },
+    {
+      "type": "text",
+      "id": "verified_badge_label",
+      "label": "Verified badge label",
+      "default": "✓ Verified Customer"
+    },
+    {
+      "type": "text",
+      "id": "filter_sort_button_label",
+      "label": "Mobile filter button",
+      "default": "Filter & Sort"
+    },
+    {
+      "type": "text",
+      "id": "sort_heading",
+      "label": "Sort heading",
+      "default": "Sort by"
+    },
+    {
+      "type": "text",
+      "id": "sort_newest_label",
+      "label": "Sort — newest",
+      "default": "Newest - oldest"
+    },
+    {
+      "type": "text",
+      "id": "sort_oldest_label",
+      "label": "Sort — oldest",
+      "default": "Oldest - newest"
+    },
+    {
+      "type": "text",
+      "id": "scent_heading",
+      "label": "Scent filter heading",
+      "default": "Filter by scent"
+    },
+    {
+      "type": "text",
+      "id": "scent_all_label",
+      "label": "Scent — see all",
+      "default": "See All"
+    },
+    {
+      "type": "text",
+      "id": "drawer_title",
+      "label": "Mobile drawer title",
+      "default": "Filter & Sort"
+    },
+    {
+      "type": "text",
+      "id": "drawer_apply_label",
+      "label": "Mobile drawer apply button",
+      "default": "Apply"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 960,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Max width",
+      "default": 1280
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "header_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Header padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "header_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Header padding bottom",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "body_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Body padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "body_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Body padding bottom",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "layout_gap",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Sidebar gap",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "sidebar_width",
+      "min": 180,
+      "max": 320,
+      "step": 10,
+      "unit": "px",
+      "label": "Sidebar width",
+      "default": 240
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_navy",
+      "label": "Heading / navy",
+      "default": "#1a2b3c"
+    },
+    {
+      "type": "color",
+      "id": "color_body",
+      "label": "Body text",
+      "default": "#4b5a6b"
+    },
+    {
+      "type": "color",
+      "id": "color_muted",
+      "label": "Muted text",
+      "default": "#7a8899"
+    },
+    {
+      "type": "color",
+      "id": "color_border",
+      "label": "Borders",
+      "default": "#dde1e8"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Accent / stars",
+      "default": "#1d9e75"
+    },
+    {
+      "type": "color",
+      "id": "color_accent_soft",
+      "label": "Verified badge background",
+      "default": "#e8f5f1"
+    },
+    {
+      "type": "color",
+      "id": "color_histogram_track",
+      "label": "Histogram track",
+      "default": "#ebeef2"
+    },
+    {
+      "type": "color",
+      "id": "color_button_text",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Accessibility"
+    },
+    {
+      "type": "text",
+      "id": "average_rating_aria",
+      "label": "Average rating aria label",
+      "default": "Average rating"
+    },
+    {
+      "type": "text",
+      "id": "histogram_aria",
+      "label": "Histogram aria label",
+      "default": "Rating distribution"
+    },
+    {
+      "type": "text",
+      "id": "sidebar_aria",
+      "label": "Sidebar aria label",
+      "default": "Review filters"
+    },
+    {
+      "type": "text",
+      "id": "search_aria",
+      "label": "Search aria label",
+      "default": "Search reviews"
+    },
+    {
+      "type": "text",
+      "id": "drawer_close_aria",
+      "label": "Drawer close aria label",
+      "default": "Close filters"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "scent_filter",
+      "name": "Scent filter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Clean Forest"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Filter value (slug)",
+          "default": "clean-forest"
+        },
+        {
+          "type": "text",
+          "id": "keywords",
+          "label": "Match keywords",
+          "info": "Comma-separated words matched in review text or variant title.",
+          "default": "clean forest"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nonomic Judge.me reviews",
+      "blocks": [
+        {
+          "type": "scent_filter",
+          "settings": {
+            "label": "Clean Forest",
+            "value": "clean-forest",
+            "keywords": "clean forest"
+          }
+        },
+        {
+          "type": "scent_filter",
+          "settings": {
+            "label": "Citrus Grove",
+            "value": "citrus-grove",
+            "keywords": "citrus grove,citrus"
+          }
+        },
+        {
+          "type": "scent_filter",
+          "settings": {
+            "label": "Coconut Vanilla",
+            "value": "coconut-vanilla",
+            "keywords": "coconut vanilla,coconut"
+          }
+        },
+        {
+          "type": "scent_filter",
+          "settings": {
+            "label": "Unscented",
+            "value": "unscented",
+            "keywords": "unscented"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
