@@ -1,5 +1,5 @@
 /**
- * Nonomic Judge.me reviews — Figma layout shell around the Judge.me review widget.
+ * Nonomic Judge.me reviews â€” Figma layout shell around the Judge.me review widget.
  */
 (function () {
   const SECTION_SELECTOR = '[data-njr-section]';
@@ -13,6 +13,9 @@
     constructor(root) {
       this.root = root;
       this.productId = root.dataset.productId || '';
+      this.isExternalProduct = root.dataset.njrExternalProduct === 'true';
+      this._externalInitAttempted = false;
+      this._externalReviewsLoaded = false;
       this.searchQuery = '';
       this.scentFilter = 'all';
       this.sortKey = 'newest';
@@ -32,6 +35,91 @@
       this.cacheEls();
       this.bindShellEvents();
       this.waitForWidget();
+      if (this.isExternalProduct && this.productId) {
+        this.loadExternalProductReviews();
+      }
+    }
+
+    isWidgetReady(widget) {
+      if (!widget) return false;
+      if (widget.querySelector('.jm-review-item')) return true;
+
+      if (this.isExternalProduct) {
+        const data = this.getWidgetData();
+        return Boolean(
+          (Array.isArray(data?.reviews) && data.reviews.length) ||
+            data?.average_rating != null ||
+            data?.number_of_reviews > 0
+        );
+      }
+
+      return widget.classList.contains('jdgm--done-setup-widget');
+    }
+
+    ensureWidgetListStructure() {
+      const widget =
+        this.widget ||
+        this.els.widgetSlot?.querySelector('#judgeme_product_reviews, .jdgm-review-widget');
+      if (!widget) return null;
+
+      this.widget = widget;
+
+      if (!widget.querySelector('.jdgm-review-list')) {
+        const host = document.createElement('div');
+        host.className = 'jm-review-widget';
+        const list = document.createElement('div');
+        list.className = 'jdgm-review-list';
+        host.appendChild(list);
+
+        const pagination = document.createElement('div');
+        pagination.className = 'jm-pagination-controls';
+        const cluster = document.createElement('div');
+        cluster.className = 'jm-cluster';
+        pagination.appendChild(cluster);
+        host.appendChild(pagination);
+
+        widget.appendChild(host);
+      }
+
+      return widget;
+    }
+
+    async loadExternalProductReviews() {
+      if (!this.isExternalProduct || !this.productId || this._externalReviewsLoaded) return;
+
+      await this.waitForJdgm();
+      this.initExternalProductWidget();
+
+      const widget = this.ensureWidgetListStructure();
+      if (!widget) return;
+
+      await new Promise((resolve) => window.setTimeout(resolve, 1200));
+
+      if (this.isWidgetReady(widget) && widget.querySelector('.jm-review-item')) {
+        this._externalReviewsLoaded = true;
+        if (!this.enhanced) this.enhance();
+        return;
+      }
+
+      const page1 = await this.requestWidgetPage(1, { includeSearch: false });
+      if (!page1?.reviews?.length) return;
+
+      this.mergeWidgetReviewPayload(page1);
+      this._allReviewsCache = null;
+      const all = await this.collectAllReviews({ force: true });
+      if (!all?.length) return;
+
+      this._externalReviewsLoaded = true;
+      this.ensureWidgetListStructure();
+      this.renderCustomResultsPage(1);
+
+      if (!this.enhanced) {
+        this.enhance({ skipBootstrap: true });
+      }
+
+      this.populateHeader();
+      this.restylePagination();
+      this.injectHiddenWriteReviewButton();
     }
 
     cacheEls() {
@@ -68,11 +156,12 @@
       this.els.search?.addEventListener('input', (e) => onSearchChange(e.target.value));
       this.els.search?.addEventListener('search', (e) => onSearchChange(e.target.value));
 
-      this.els.writeBtn?.addEventListener('click', () => {
-        const btn =
-          this.widget?.querySelector('[data-testid="write-review-button"]') ||
-          this.widget?.querySelector('.jm-action-buttons__button');
-        btn?.click();
+      this.els.writeBtn?.addEventListener('click', (event) => {
+        if (this.els.writeBtn?.hasAttribute('data-njr-write-review-external-link')) {
+          return;
+        }
+        event.preventDefault();
+        this.openWriteReview();
       });
 
       this.els.filterBtn?.addEventListener('click', () => this.openDrawer());
@@ -103,6 +192,129 @@
           this.applyScentFilter();
         });
       });
+    }
+
+    findNativeWriteReviewButton() {
+      const roots = [this.widget, this.els.widgetSlot].filter(Boolean);
+      const selectors = [
+        '[data-testid="write-review-button"]',
+        '.jm-action-buttons__button',
+        '.jdgm-write-review-link',
+        '.jdgm-write-rev-link',
+        '[data-jdgm-write-review]',
+      ];
+
+      for (const root of roots) {
+        for (const selector of selectors) {
+          const btn = root.querySelector(selector);
+          if (btn) return btn;
+        }
+      }
+
+      return null;
+    }
+
+    injectHiddenWriteReviewButton() {
+      if (!this.widget || !this.productId) return null;
+
+      const existing = this.findNativeWriteReviewButton();
+      if (existing) return existing;
+
+      let host = this.widget.querySelector('.jm-action-buttons');
+      if (!host) {
+        host = document.createElement('div');
+        host.className = 'jm-action-buttons';
+        host.setAttribute('aria-hidden', 'true');
+        host.hidden = true;
+        this.widget.appendChild(host);
+      }
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'jm-action-buttons__button';
+      btn.setAttribute('data-testid', 'write-review-button');
+      btn.textContent = 'Write a review';
+      host.appendChild(btn);
+      return btn;
+    }
+
+    isWriteReviewModalOpen() {
+      const modal = document.querySelector(
+        '.jdgm-write-review-modal, .jdgm-review-form-modal, [class*="write-review-modal"]'
+      );
+      if (!modal) return false;
+      const style = window.getComputedStyle(modal);
+      return style.display !== 'none' && style.visibility !== 'hidden' && modal.offsetParent !== null;
+    }
+
+    getProductWriteReviewUrl() {
+      let url = (this.root.dataset.productUrl || '').trim();
+      if (!url) return '';
+
+      if (/^https?:\/\//i.test(url)) {
+        return url.split('#')[0].split('?')[0];
+      }
+
+      if (url.startsWith('//')) {
+        return `${window.location.protocol}${url}`.split('#')[0].split('?')[0];
+      }
+
+      if (url.startsWith('/')) {
+        return `${window.location.origin}${url}`.split('#')[0].split('?')[0];
+      }
+
+      return `${window.location.origin}/${url}`.split('#')[0].split('?')[0];
+    }
+
+    tryJudgeMeWriteReviewApis() {
+      const jdgm = window.jdgm || window.judgeme;
+      const id = this.getProductId();
+      if (!jdgm || !id) return false;
+
+      const widget = this.widget || this.els.widgetSlot?.querySelector('.jdgm-review-widget');
+      const attempts = [
+        () => jdgm.widget?.openWriteReviewForm?.(id, widget),
+        () => jdgm.WIDGET?.openWriteReviewForm?.(id, widget),
+        () => jdgm.openWriteReviewForm?.(id),
+        () => jdgm.openWriteReview?.(id),
+        () => jdgm.reviews?.openWriteReviewForm?.(id),
+        () => jdgm.customize?.openWriteReviewForm?.(id),
+      ];
+
+      for (const attempt of attempts) {
+        try {
+          const result = attempt();
+          if (result) return true;
+        } catch (error) {
+          /* try next Judge.me API */
+        }
+      }
+
+      return false;
+    }
+
+    redirectToProductWriteReview() {
+      const base = this.getProductWriteReviewUrl();
+      if (!base) return false;
+
+      window.location.href = `${base}#${REVIEWS_ANCHOR_ID}-write`;
+      return true;
+    }
+
+    openWriteReview() {
+      if (this.isExternalProduct) {
+        this.redirectToProductWriteReview();
+        return;
+      }
+
+      const nativeBtn =
+        this.findNativeWriteReviewButton() || this.injectHiddenWriteReviewButton();
+      if (nativeBtn) {
+        nativeBtn.click();
+        return;
+      }
+
+      this.tryJudgeMeWriteReviewApis();
     }
 
     openDrawer() {
@@ -136,15 +348,71 @@
       }
     }
 
+    waitForJdgm(timeout = 10000) {
+      return new Promise((resolve) => {
+        if (window.jdgm) {
+          resolve(window.jdgm);
+          return;
+        }
+        const started = Date.now();
+        const timer = window.setInterval(() => {
+          if (window.jdgm) {
+            window.clearInterval(timer);
+            resolve(window.jdgm);
+          } else if (Date.now() - started > timeout) {
+            window.clearInterval(timer);
+            resolve(null);
+          }
+        }, 120);
+      });
+    }
+
+    initExternalProductWidget() {
+      if (!this.isExternalProduct || !this.productId || this._externalInitAttempted) return;
+      this._externalInitAttempted = true;
+
+      const slot = this.els.widgetSlot;
+      let widget =
+        slot?.querySelector('#judgeme_product_reviews') ||
+        slot?.querySelector('.jdgm-review-widget');
+
+      if (!widget) {
+        const host = slot?.querySelector('[data-njr-judgeme-fallback]') || slot;
+        if (!host) return;
+        widget = document.createElement('div');
+        widget.id = 'judgeme_product_reviews';
+        widget.className = 'jdgm-widget jdgm-review-widget';
+        host.appendChild(widget);
+      }
+
+      widget.dataset.id = this.productId;
+      widget.dataset.productId = this.productId;
+
+      const runSetup = (jdgm) => {
+        if (!jdgm) return;
+        if (jdgm.$) {
+          const $root = jdgm.$(widget);
+          $root.data('id', this.productId);
+          $root.data('productId', this.productId);
+        }
+        if (typeof jdgm.widget?.setup === 'function') jdgm.widget.setup(widget);
+        else if (typeof jdgm.WIDGET?.setup === 'function') jdgm.WIDGET.setup(widget);
+        else if (typeof jdgm.renderWidget === 'function') jdgm.renderWidget(widget);
+        else if (typeof jdgm.loadWidgets === 'function') jdgm.loadWidgets();
+        jdgm.triggerEvent?.('reviewWidget:setup');
+      };
+
+      if (window.jdgm) runSetup(window.jdgm);
+      else this.waitForJdgm().then(runSetup);
+    }
+
     waitForWidget() {
       const tryEnhance = () => {
         const widget =
           this.els.widgetSlot?.querySelector('#judgeme_product_reviews') ||
           this.els.widgetSlot?.querySelector('.jdgm-review-widget');
         if (!widget) return false;
-        if (!widget.classList.contains('jdgm--done-setup-widget') && !widget.querySelector('.jm-review-item')) {
-          return false;
-        }
+        if (!this.isWidgetReady(widget)) return false;
         this.widget = widget;
         if (!this.productId) {
           this.productId = widget.dataset.productId || widget.dataset.id || '';
@@ -160,13 +428,27 @@
       if (tryEnhance()) return;
 
       this.mo = new MutationObserver(() => {
-        if (tryEnhance()) this.mo?.disconnect();
+        if (tryEnhance()) {
+          this.mo?.disconnect();
+          return;
+        }
+        if (this.isExternalProduct && this.productId && !this._externalInitAttempted) {
+          const widget =
+            this.els.widgetSlot?.querySelector('#judgeme_product_reviews, .jdgm-review-widget');
+          if (widget && !widget.querySelector('.jm-review-item')) {
+            this.initExternalProductWidget();
+          }
+        }
       });
       this.mo.observe(this.els.widgetSlot, { childList: true, subtree: true });
 
       window.setTimeout(() => {
-        if (!this.enhanced) tryEnhance();
-      }, 8000);
+        if (this.enhanced) return;
+        if (tryEnhance()) return;
+        if (this.isExternalProduct && this.productId) {
+          this.initExternalProductWidget();
+        }
+      }, 2500);
     }
 
     getProductId() {
@@ -207,7 +489,7 @@
       return this.parseWidgetDataScript();
     }
 
-    enhance() {
+    enhance({ skipBootstrap = false } = {}) {
       this.enhanced = true;
       this.root.classList.add('njr--enhanced', 'njr--ready');
       this.els.widgetSlot?.classList.add('njr__widget-slot--ready');
@@ -218,7 +500,7 @@
       this.dismissLoadingOverlay();
       this.bindWidgetPaginationPersistence();
       this.observeListChanges();
-      this.bootstrapCustomList();
+      if (!skipBootstrap) this.bootstrapCustomList();
     }
 
     dismissLoadingOverlay() {
@@ -366,7 +648,7 @@
       const name = this.getReviewerName(item, review);
       const dateText = this.getReviewDate(item, review);
       const verified = this.isVerifiedReview(item, review);
-      const verifiedLabel = this.root.dataset.njrVerifiedLabel || '✓ Verified Customer';
+      const verifiedLabel = this.root.dataset.njrVerifiedLabel || 'âœ“ Verified Customer';
 
       let card = item.querySelector(':scope > .review-card');
       if (!card) {
@@ -1606,12 +1888,15 @@
       const cluster = pagination.querySelector('.jm-cluster');
       if (!cluster) return;
 
+      const totalPages = Number(pag?.total_pages) || 1;
+      pagination.hidden = totalPages <= 1;
+
       if (pag) {
         const label = `Page ${pag.current_page} of ${pag.total_pages}`;
         cluster.setAttribute('data-njr-page-label', label);
       }
 
-      const { prev, next } = this.ensurePaginationNavRow(cluster);
+      const { prev, next } = this.ensurePaginationNavRow(cluster, pag);
       if (!prev || !next) return;
 
       prev.dataset.njrNav = 'prev';
@@ -1620,19 +1905,43 @@
       if (!prev.dataset.njrLabeled) {
         prev.dataset.njrLabeled = 'true';
         prev.setAttribute('aria-label', 'Previous page');
-        prev.textContent = '← Previous';
+        prev.textContent = '\u2190 Previous';
       }
       if (!next.dataset.njrLabeled) {
         next.dataset.njrLabeled = 'true';
         next.setAttribute('aria-label', 'Next page');
-        next.textContent = 'Next →';
+        next.textContent = 'Next \u2192';
       }
 
       this.syncPaginationNavState(prev, next, pag);
     }
 
-    ensurePaginationNavRow(cluster) {
-      const allNav = Array.from(cluster.querySelectorAll('.jm-pagination-controls__button--nav'));
+    ensurePaginationNavRow(cluster, pag) {
+      let allNav = Array.from(cluster.querySelectorAll('.jm-pagination-controls__button--nav'));
+
+      if (!allNav.length && pag && Number(pag.total_pages) > 1) {
+        let row = cluster.querySelector('.jm-pagination-nav-row');
+        if (!row) {
+          row = document.createElement('div');
+          row.className = 'jm-pagination-nav-row';
+          cluster.appendChild(row);
+        }
+
+        const prev = document.createElement('button');
+        prev.type = 'button';
+        prev.className = 'jm-pagination-controls__button jm-pagination-controls__button--nav';
+        prev.dataset.njrNav = 'prev';
+
+        const next = document.createElement('button');
+        next.type = 'button';
+        next.className = 'jm-pagination-controls__button jm-pagination-controls__button--nav';
+        next.dataset.njrNav = 'next';
+
+        row.appendChild(prev);
+        row.appendChild(next);
+        allNav = [prev, next];
+      }
+
       if (!allNav.length) return { prev: null, next: null };
 
       let prev = allNav.find((btn) => btn.dataset.njrNav === 'prev') || null;
@@ -1705,7 +2014,12 @@
     if (instance) {
       instance.scrollToReviewsTop();
       if (openWrite) {
-        window.setTimeout(() => instance.els.writeBtn?.click(), 450);
+        const openForm = () => instance.openWriteReview();
+        if (instance.enhanced) {
+          window.setTimeout(openForm, 400);
+        } else {
+          window.setTimeout(openForm, 1200);
+        }
       }
       return true;
     }
@@ -1735,7 +2049,29 @@
   function handleReviewsHashOnLoad() {
     const hash = window.location.hash;
     if (hash !== `#${REVIEWS_ANCHOR_ID}` && hash !== `#${REVIEWS_ANCHOR_ID}-write`) return;
-    scrollToReviewsFromPdp({ openWrite: hash.endsWith('-write') });
+
+    const openWrite = hash.endsWith('-write');
+    let attempts = 0;
+
+    const tryScroll = () => {
+      const root = getReviewsSection();
+      const instance = root && njrInstances.get(root);
+
+      if (instance?.enhanced || (!openWrite && instance)) {
+        scrollToReviewsFromPdp({ openWrite });
+        return;
+      }
+
+      attempts += 1;
+      if (attempts < 50) {
+        window.setTimeout(tryScroll, 200);
+        return;
+      }
+
+      scrollToReviewsFromPdp({ openWrite });
+    };
+
+    tryScroll();
   }
 
   function initSection(root) {

@@ -2,6 +2,20 @@
 <script src="{{ 'nonomic-judgeme-reviews.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
+  assign njr_on_product_page = false
+  if request.page_type == 'product'
+    assign njr_on_product_page = true
+  endif
+
+  assign njr_product = product
+
+  unless njr_on_product_page
+    if section.settings.product != blank
+      assign njr_product = section.settings.product
+      assign product = section.settings.product
+    endif
+  endunless
+
   assign scent_blocks = section.blocks | where: 'type', 'scent_filter'
   assign scent_map = ''
   for block in scent_blocks
@@ -18,20 +32,23 @@
   assign reviews_count_label = section.settings.reviews_count_label | default: 'Based on [count] reviews'
   assign reviews_count_label = reviews_count_label | replace: '{{ count }}', '[count]' | replace: '{{count}}', '[count]'
 
-  assign njr_review_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count
+  assign njr_review_count = blank
+  if njr_product != blank
+    assign njr_review_count = njr_product.metafields.reviews.rating_count.value | default: njr_product.metafields.reviews.rating_count
+  endif
   assign njr_count_display = section.settings.reviews_count_placeholder
   if njr_review_count != blank
     assign njr_count_display = reviews_count_label | replace: '[count]', njr_review_count
   endif
 
   assign product_id = ''
-  if product != blank
-    assign product_id = product.id
+  if njr_product != blank
+    assign product_id = njr_product.id
   endif
 -%}
 
 {%- style -%}
-  #NonomicJudgeMe-{{ section.id }} {
+  #nonomic-product-reviews {
     --njr-max-width: {{ section.settings.max_width }}px;
     --njr-pad-x: {{ section.settings.horizontal_padding }}px;
     --njr-header-pt: {{ section.settings.header_padding_top }}px;
@@ -65,15 +82,18 @@
 {%- endstyle -%}
 
 <div
-  id="NonomicJudgeMe-{{ section.id }}"
+  id="nonomic-product-reviews"
   class="njr section-{{ section.id }}-padding"
   data-njr-section
   data-section-id="{{ section.id }}"
   data-product-id="{{ product_id }}"
+  data-product-url="{% if njr_product != blank %}{{ request.origin }}{{ njr_product.url }}{% endif %}"
+  data-njr-external-product="{% if njr_on_product_page == false and njr_product != blank %}true{% else %}false{% endif %}"
   data-shop-domain="{{ shop.permanent_domain }}"
   data-reviews-count-label="{{ reviews_count_label | escape }}"
   data-initial-review-count="{{ njr_review_count | default: '' }}"
   data-scent-map="{{ scent_map | escape }}"
+  data-njr-per-page="8"
   data-njr-show-verified="{% if section.settings.show_verified_badge %}true{% else %}false{% endif %}"
   data-njr-verified-label="{{ section.settings.verified_badge_label | escape }}"
   {{ section.shopify_attributes }}
@@ -168,24 +188,58 @@
               autocomplete="off"
             >
           </div>
-          <button type="button" class="njr__write-btn" data-njr-write-review>
-            {{ section.settings.write_review_label }}
-          </button>
+          {%- if njr_on_product_page -%}
+            <button type="button" class="njr__write-btn" data-njr-write-review>
+              {{ section.settings.write_review_label }}
+            </button>
+          {%- elsif njr_product != blank -%}
+            <a
+              href="{{ request.origin }}{{ njr_product.url }}#nonomic-product-reviews-write"
+              class="njr__write-btn"
+              data-njr-write-review
+              data-njr-write-review-external-link
+            >
+              {{ section.settings.write_review_label }}
+            </a>
+          {%- else -%}
+            <button type="button" class="njr__write-btn" data-njr-write-review disabled>
+              {{ section.settings.write_review_label }}
+            </button>
+          {%- endif -%}
         </div>
 
         <div class="njr__widget-slot" data-njr-widget-slot>
           {%- assign app_block_rendered = false -%}
-          {%- for block in section.blocks -%}
-            {%- unless block.type == 'scent_filter' -%}
-              {%- assign app_block_rendered = true -%}
-              <div class="njr__app-block" {{ block.shopify_attributes }}>
-                {% render block %}
-              </div>
-            {%- endunless -%}
-          {%- endfor -%}
+            {%- for block in section.blocks -%}
+              {%- unless block.type == 'scent_filter' -%}
+                {%- assign app_block_rendered = true -%}
+                <div class="njr__app-block" {{ block.shopify_attributes }}>
+                  {% render block %}
+                </div>
+              {%- endunless -%}
+            {%- endfor -%}
+          {%- if app_block_rendered == false and njr_product != blank -%}
+            <div class="njr__app-block" data-njr-judgeme-fallback>
+              {%- if njr_product.metafields.judgeme.widget != blank -%}
+                {{ njr_product.metafields.judgeme.widget }}
+              {%- else -%}
+                <div
+                  id="judgeme_product_reviews"
+                  class="jdgm-widget jdgm-review-widget"
+                  data-id="{{ njr_product.id }}"
+                  data-product-id="{{ njr_product.id }}"
+                ></div>
+              {%- endif -%}
+            </div>
+            {%- assign app_block_rendered = true -%}
+          {%- endif -%}
           {%- unless app_block_rendered -%}
             <p class="njr__widget-empty">
-              Add the Judge.me <strong>Review Widget</strong> block to this section in the theme editor.
+              {%- if njr_product == blank and njr_on_product_page == false -%}
+                Choose a product in <strong>Reviews product</strong>, then add the Judge.me <strong>Review Widget</strong> block.
+              {%- else -%}
+                Add the Judge.me <strong>Review Widget</strong> block to this section in the theme editor.
+              {%- endif -%}
             </p>
           {%- endunless -%}
         </div>
@@ -255,6 +309,16 @@
   "tag": "section",
   "class": "section nonomic-judgeme-reviews-section",
   "settings": [
+    {
+      "type": "header",
+      "content": "Product"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Reviews product",
+      "info": "On product pages, the current product is used automatically. On other pages, select the product here and add the Judge.me Review Widget block to this section (same setup as the product page)."
+    },
     {
       "type": "header",
       "content": "Content"

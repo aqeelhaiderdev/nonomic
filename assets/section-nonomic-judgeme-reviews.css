@@ -404,6 +404,9 @@
 }
 
 .njr__write-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: inherit;
   font-size: 16px;
   font-weight: 500;
@@ -414,11 +417,18 @@
   padding: 14px 28px;
   cursor: pointer;
   white-space: nowrap;
+  text-decoration: none;
   transition: opacity 0.2s ease;
 }
 
 .njr__write-btn:hover {
   opacity: 0.9;
+  color: var(--njr-btn-text);
+}
+
+.njr__write-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .njr__widget-slot {
@@ -695,6 +705,8 @@
 .njr--enhanced .jm-pagination-controls .jm-cluster {
   /* flex-direction: column-reverse !important; */
   gap: 20px !important;
+  display: flex;
+  justify-content: center;
   align-items: center !important;
 }
 
@@ -712,6 +724,7 @@
   border-radius: 8px !important;
   padding: 12px 20px !important;
   min-height: auto !important;
+  cursor: pointer;
 }
 
 .njr--enhanced .jm-pagination-controls__button--nav.jm-button--disabled {
@@ -735,7 +748,7 @@
 }
 
 .njr--enhanced .jm-pagination-nav-row .jm-pagination-controls__button--nav {
-  min-width: 110px;
+  min-width: auto;
 }
 
 .njr--enhanced .jm-pagination-nav-row .jm-pagination-controls__button--nav svg {
