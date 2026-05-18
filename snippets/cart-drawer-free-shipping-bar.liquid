@@ -1,0 +1,40 @@
+{% comment %}
+  Free shipping progress bar for cart drawer.
+  Renders when enabled in theme settings and cart is not empty.
+{% endcomment %}
+{%- if settings.cart_drawer_show_free_shipping_bar and cart != empty -%}
+  {%- liquid
+    assign threshold_dollars = settings.cart_drawer_free_shipping_threshold | default: 46
+    assign threshold_cents = threshold_dollars | times: 100
+    assign cart_total = cart.total_price
+    assign progress_percent = cart_total | times: 100 | divided_by: threshold_cents
+    if progress_percent > 100
+      assign progress_percent = 100
+    endif
+    assign free_shipping_reached = false
+    if cart_total >= threshold_cents
+      assign free_shipping_reached = true
+    endif
+  -%}
+  <div
+    id="CartDrawer-FreeShippingBar"
+    class="cart-drawer__shipping-bar"
+    data-threshold="{{ threshold_cents }}"
+    data-cart-total="{{ cart_total }}"
+    data-progress="{{ progress_percent }}"
+  >
+    <p class="cart-drawer__shipping-bar-message">
+      {%- if free_shipping_reached -%}
+        {{ settings.cart_drawer_free_shipping_achieved_message | escape }}
+      {%- else -%}
+        {{ settings.cart_drawer_free_shipping_message | escape }}
+      {%- endif -%}
+    </p>
+    <div class="cart-drawer__shipping-bar-track" role="progressbar" aria-valuemin="0" aria-valuemax="{{ threshold_cents }}" aria-valuenow="{{ cart_total }}" aria-label="{{ settings.cart_drawer_free_shipping_message | escape }}">
+      <div
+        class="cart-drawer__shipping-bar-fill{% if free_shipping_reached %} cart-drawer__shipping-bar-fill--complete{% endif %}"
+        data-progress="{{ progress_percent }}"
+      ></div>
+    </div>
+  </div>
+{%- endif -%}

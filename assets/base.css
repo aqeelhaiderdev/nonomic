@@ -715,11 +715,11 @@ summary::-webkit-details-marker {
   box-shadow: none;
 }
 
-*:focus-visible {
+/* *:focus-visible {
   outline: var(--focused-base-outline);
   outline-offset: var(--focused-base-outline-offset);
   box-shadow: var(--focused-base-box-shadow);
-}
+} */
 
 /* Fallback - for browsers that don't support :focus-visible, a fallback is set for :focus */
 .focused {
@@ -1877,10 +1877,12 @@ input[type='checkbox'] {
 .quantity {
   color: rgba(var(--color-foreground));
   position: relative;
-  width: calc(14rem / var(--font-body-scale) + var(--inputs-border-width) * 2);
+  width: auto;
+  /* width: calc(14rem / var(--font-body-scale) + var(--inputs-border-width) * 2); */
   display: flex;
   border-radius: var(--inputs-radius);
-  min-height: calc((var(--inputs-border-width) * 2) + 4.5rem);
+  min-height: auto;
+  /* min-height: calc((var(--inputs-border-width) * 2) + 4.5rem); */
 }
 
 .quantity:after {
@@ -1893,8 +1895,8 @@ input[type='checkbox'] {
   left: var(--inputs-border-width);
   border: 0.1rem solid transparent;
   border-radius: var(--inputs-radius);
-  box-shadow: 0 0 0 var(--inputs-border-width) rgba(var(--color-foreground), var(--inputs-border-opacity));
-  transition: box-shadow var(--duration-short) ease;
+  /* box-shadow: 0 0 0 var(--inputs-border-width) rgba(var(--color-foreground), var(--inputs-border-opacity));
+  transition: box-shadow var(--duration-short) ease; */
   z-index: 1;
 }
 
@@ -3697,4 +3699,8 @@ span.appstle_dot {
 
 .WIDGET_TYPE_7 .appstle_custom_select {
   max-width: 200px !important;
+}
+
+.jdgm-write-review-modal .jdgm-write-review-modal__product-image img {
+  object-fit: contain !important;
 }

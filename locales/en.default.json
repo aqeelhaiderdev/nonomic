@@ -127,6 +127,9 @@
       "inventory_out_of_stock_continue_selling": "In stock",
       "sku": "SKU",
       "on_sale": "Sale",
+      "one_time": "Pay Full Price",
+      "one_time_only": "One-time only",
+      "selling_plan": "Purchase option",
       "product_variants": "Product variants",
       "media": {
         "gallery_viewer": "Gallery Viewer",
@@ -302,6 +305,7 @@
       "new_estimated_total": "New estimated total",
       "note": "Order special instructions",
       "checkout": "Check out",
+      "savings_html": "You're saving {{ amount }}",
       "empty": "Your cart is empty",
       "cart_error": "There was an error while updating your cart. Please try again.",
       "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart.",

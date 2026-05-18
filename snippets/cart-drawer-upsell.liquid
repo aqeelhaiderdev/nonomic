@@ -1,0 +1,87 @@
+{% comment %}
+  Cart drawer upsell — fixed above footer. Variant selected via theme settings.
+{% endcomment %}
+{%- unless settings.cart_drawer_show_upsell -%}
+  {%- comment -%} disabled {%- endcomment -%}
+{%- else -%}
+  {%- liquid
+    assign upsell_product = settings.cart_drawer_upsell_product
+    assign target_variant_id = settings.cart_drawer_upsell_variant_id | plus: 0
+    assign upsell_variant = null
+
+    if upsell_product != blank and target_variant_id > 0
+      for variant in upsell_product.variants
+        if variant.id == target_variant_id
+          assign upsell_variant = variant
+          break
+        endif
+      endfor
+    endif
+
+    assign variant_in_cart = false
+    if upsell_variant != null
+      for item in cart.items
+        if item.variant.id == upsell_variant.id
+          assign variant_in_cart = true
+          break
+        endif
+      endfor
+    endif
+
+    assign upsell_heading = settings.cart_drawer_upsell_heading | default: 'YOU MIGHT ALSO LIKE'
+    assign upsell_eyebrow = settings.cart_drawer_upsell_eyebrow | default: 'Try a different scent'
+    assign upsell_add_label = settings.cart_drawer_upsell_add_label | default: '+ Add'
+
+    assign upsell_option_label = upsell_variant.title | replace: ' / ', ' · '
+    if upsell_option_label == blank and upsell_variant != null
+      assign upsell_option_label = upsell_product.title
+    endif
+  -%}
+
+  {%- if upsell_variant != null and upsell_variant.available and variant_in_cart == false -%}
+    <cart-drawer-upsell
+      class="cart-drawer__upsell"
+      data-variant-id="{{ upsell_variant.id }}"
+    >
+      <p class="cart-drawer__upsell-heading">{{ upsell_heading | escape }}</p>
+      <div class="cart-drawer__upsell-row">
+        <div class="cart-drawer__upsell-media">
+          {%- if upsell_variant.image != blank -%}
+            <img
+              class="cart-drawer__upsell-image"
+              src="{{ upsell_variant.image | image_url: width: 96 }}"
+              alt="{{ upsell_variant.image.alt | default: upsell_product.title | escape }}"
+              width="48"
+              height="48"
+              loading="lazy"
+            >
+          {%- elsif upsell_product.featured_image != blank -%}
+            <img
+              class="cart-drawer__upsell-image"
+              src="{{ upsell_product.featured_image | image_url: width: 96 }}"
+              alt="{{ upsell_product.featured_image.alt | default: upsell_product.title | escape }}"
+              width="48"
+              height="48"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+        <div class="cart-drawer__upsell-info">
+          <p class="cart-drawer__upsell-eyebrow">{{ upsell_eyebrow | escape }}</p>
+          <p class="cart-drawer__upsell-title">
+            {{ upsell_option_label | escape }} · {{ upsell_variant.price | money_without_trailing_zeros }}
+          </p>
+        </div>
+        <button
+          type="button"
+          class="cart-drawer__upsell-add"
+          data-cart-drawer-upsell-add
+          aria-label="{{ upsell_add_label | escape }}: {{ upsell_product.title | escape }}"
+        >
+          <span class="cart-drawer__upsell-add-text">{{ upsell_add_label | escape }}</span>
+          {%- render 'loading-spinner', class: 'loading__spinner cart-drawer__upsell-spinner hidden' -%}
+        </button>
+      </div>
+    </cart-drawer-upsell>
+  {%- endif -%}
+{%- endunless -%}

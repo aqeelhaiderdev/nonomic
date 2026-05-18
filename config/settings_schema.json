@@ -1445,6 +1445,96 @@
         "info": "t:settings_schema.cart.settings.cart_drawer.collection.info"
       },
       {
+        "type": "header",
+        "content": "t:settings_schema.cart.settings.cart_drawer.free_shipping_bar.header"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_drawer_show_free_shipping_bar",
+        "label": "t:settings_schema.cart.settings.cart_drawer.free_shipping_bar.show.label",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "cart_drawer_free_shipping_threshold",
+        "label": "t:settings_schema.cart.settings.cart_drawer.free_shipping_bar.threshold.label",
+        "info": "t:settings_schema.cart.settings.cart_drawer.free_shipping_bar.threshold.info",
+        "default": 46
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_free_shipping_message",
+        "label": "t:settings_schema.cart.settings.cart_drawer.free_shipping_bar.message.label",
+        "default": "Add another stick for free shipping"
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_free_shipping_achieved_message",
+        "label": "t:settings_schema.cart.settings.cart_drawer.free_shipping_bar.achieved_message.label",
+        "default": "You've unlocked free shipping!"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.cart.settings.cart_drawer.upsell.header"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_drawer_show_upsell",
+        "label": "t:settings_schema.cart.settings.cart_drawer.upsell.show.label",
+        "default": true
+      },
+      {
+        "type": "product",
+        "id": "cart_drawer_upsell_product",
+        "label": "t:settings_schema.cart.settings.cart_drawer.upsell.product.label"
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_upsell_variant_id",
+        "label": "t:settings_schema.cart.settings.cart_drawer.upsell.variant_id.label",
+        "info": "t:settings_schema.cart.settings.cart_drawer.upsell.variant_id.info"
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_upsell_heading",
+        "label": "t:settings_schema.cart.settings.cart_drawer.upsell.heading.label",
+        "default": "YOU MIGHT ALSO LIKE"
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_upsell_eyebrow",
+        "label": "t:settings_schema.cart.settings.cart_drawer.upsell.eyebrow.label",
+        "default": "Try a different scent"
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_upsell_add_label",
+        "label": "t:settings_schema.cart.settings.cart_drawer.upsell.add_label.label",
+        "default": "+ Add"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.cart.settings.cart_drawer.footer.header"
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_checkout_label",
+        "label": "t:settings_schema.cart.settings.cart_drawer.footer.checkout_label.label",
+        "default": "Checkout →"
+      },
+      {
+        "type": "text",
+        "id": "cart_drawer_footer_guarantee_text",
+        "label": "t:settings_schema.cart.settings.cart_drawer.footer.guarantee_text.label",
+        "default": "45-day guarantee · Keep the product · Cancel anytime"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_drawer_show_shop_pay",
+        "label": "t:settings_schema.cart.settings.cart_drawer.footer.show_shop_pay.label",
+        "default": true
+      },
+      {
         "type": "color_scheme",
         "id": "cart_color_scheme",
         "label": "t:sections.all.colors.label",

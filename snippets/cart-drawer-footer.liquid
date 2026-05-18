@@ -1,0 +1,88 @@
+{% comment %}
+  Cart drawer footer — subtotal, guarantee, checkout & Shop Pay.
+{% endcomment %}
+{%- liquid
+  assign cart_compare_total = 0
+  assign cart_has_compare_pricing = false
+
+  for item in cart.items
+    assign line_compare = item.original_line_price
+
+    if item.variant.compare_at_price != blank and item.variant.compare_at_price > item.final_price
+      assign variant_compare_line = item.variant.compare_at_price | times: item.quantity
+      if variant_compare_line > line_compare
+        assign line_compare = variant_compare_line
+      endif
+    endif
+
+    if line_compare > item.final_line_price
+      assign cart_has_compare_pricing = true
+    endif
+
+    assign cart_compare_total = cart_compare_total | plus: line_compare
+  endfor
+
+  if cart_compare_total > cart.total_price
+    assign cart_has_compare_pricing = true
+  endif
+
+  if cart.item_count == 1
+    assign cart_item_label = 'ITEM'
+  else
+    assign cart_item_label = 'ITEMS'
+  endif
+
+  assign checkout_label = settings.cart_drawer_checkout_label | default: 'Checkout →'
+  assign guarantee_text = settings.cart_drawer_footer_guarantee_text
+-%}
+
+<div class="cart-drawer__footer">
+  {%- if cart.cart_level_discount_applications.size > 0 -%}
+    <ul class="cart-drawer__discounts discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+      {%- for discount in cart.cart_level_discount_applications -%}
+        <li class="discounts__discount discounts__discount--end">
+          {{- 'icon-discount.svg' | inline_asset_content -}}
+          {{ discount.title | escape }}
+          (-{{ discount.total_allocated_amount | money }})
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+
+  <div class="cart-drawer__subtotal" role="status">
+    <span class="cart-drawer__subtotal-label">
+      SUBTOTAL ({{ cart.item_count }} {{ cart_item_label }})
+    </span>
+    <div class="cart-drawer__subtotal-prices">
+      <span class="cart-drawer__subtotal-value">{{ cart.total_price | money }}</span>
+      {%- if cart_has_compare_pricing and cart_compare_total > cart.total_price -%}
+        <s class="cart-drawer__subtotal-compare">{{ cart_compare_total | money }}</s>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if guarantee_text != blank -%}
+    <p class="cart-drawer__guarantee">{{ guarantee_text | escape }}</p>
+  {%- endif -%}
+
+  <div class="cart-drawer__ctas">
+    <button
+      type="submit"
+      id="CartDrawer-Checkout"
+      class="cart-drawer__checkout-button"
+      name="checkout"
+      form="CartDrawer-Form"
+      {% if cart == empty %}
+        disabled
+      {% endif %}
+    >
+      {{ checkout_label | escape }}
+    </button>
+
+    {%- if settings.cart_drawer_show_shop_pay and additional_checkout_buttons -%}
+      <div class="cart-drawer__dynamic-checkout cart__dynamic-checkout-buttons additional-checkout-buttons">
+        {{ content_for_additional_checkout_buttons }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>

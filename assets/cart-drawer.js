@@ -38,9 +38,9 @@ class CartDrawer extends HTMLElement {
       'transitionend',
       () => {
         const containerToTrapFocusOn = this.classList.contains('is-empty')
-          ? this.querySelector('.drawer__inner-empty')
+          ? this.querySelector('.cart-drawer__empty') || this.querySelector('.drawer__inner')
           : document.getElementById('CartDrawer');
-        const focusElement = this.querySelector('.drawer__inner') || this.querySelector('.drawer__close');
+        const focusElement = this.querySelector('.drawer__close');
         trapFocus(containerToTrapFocusOn, focusElement);
       },
       { once: true }
@@ -85,6 +85,9 @@ class CartDrawer extends HTMLElement {
 
     setTimeout(() => {
       this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
+      if (typeof window.animateCartDrawerShippingBar === 'function') {
+        window.animateCartDrawerShippingBar(this);
+      }
       this.open();
     });
   }
@@ -130,6 +133,66 @@ class CartDrawerItems extends CartItems {
         selector: '.shopify-section',
       },
     ];
+  }
+
+  updateSellingPlan(line, sellingPlan, event) {
+    const quantityInput = document.getElementById(`Drawer-quantity-${line}`);
+    const quantity = quantityInput ? parseInt(quantityInput.value, 10) : 1;
+    const cartPerformanceUpdateMarker = CartPerformance.createStartingMarker('selling-plan:change');
+
+    this.enableLoading(line);
+
+    const payload = {
+      line,
+      quantity,
+      selling_plan: sellingPlan || null,
+      sections: this.getSectionsToRender().map((section) => section.section),
+      sections_url: window.location.pathname,
+    };
+
+    fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ body: JSON.stringify(payload) } })
+      .then((response) => response.text())
+      .then((state) => {
+        const parsedState = JSON.parse(state);
+
+        CartPerformance.measure('selling-plan:paint-updated-sections', () => {
+          if (parsedState.errors) {
+            this.updateLiveRegions(line, parsedState.errors);
+            if (event?.target) event.target.value = event.target.getAttribute('data-last-value') || '';
+            return;
+          }
+
+          this.classList.toggle('is-empty', parsedState.item_count === 0);
+          const cartDrawerWrapper = document.querySelector('cart-drawer');
+          if (cartDrawerWrapper) cartDrawerWrapper.classList.toggle('is-empty', parsedState.item_count === 0);
+
+          this.getSectionsToRender().forEach((section) => {
+            const elementToReplace =
+              document.getElementById(section.id).querySelector(section.selector) ||
+              document.getElementById(section.id);
+            elementToReplace.innerHTML = this.getSectionInnerHTML(
+              parsedState.sections[section.section],
+              section.selector
+            );
+          });
+
+          if (parsedState.item_count === 0 && typeof window.clearCartDrawerShippingProgress === 'function') {
+            window.clearCartDrawerShippingProgress();
+          } else if (typeof window.animateCartDrawerShippingBar === 'function') {
+            window.animateCartDrawerShippingBar();
+          }
+        });
+
+        publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items', cartData: parsedState });
+      })
+      .catch(() => {
+        const errors = document.getElementById('cart-errors') || document.getElementById('CartDrawer-CartErrors');
+        if (errors) errors.textContent = window.cartStrings.error;
+      })
+      .finally(() => {
+        this.disableLoading(line);
+        CartPerformance.measureFromMarker('selling-plan:change', cartPerformanceUpdateMarker);
+      });
   }
 }
 

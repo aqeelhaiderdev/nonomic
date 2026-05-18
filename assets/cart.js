@@ -43,7 +43,9 @@ class CartItems extends HTMLElement {
   }
 
   resetQuantityInput(id) {
-    const input = this.querySelector(`#Quantity-${id}`);
+    const input =
+      this.querySelector(`#Quantity-${id}`) || this.querySelector(`#Drawer-quantity-${id}`);
+    if (!input) return;
     input.value = input.getAttribute('value');
     this.isEnterPressed = false;
   }
@@ -56,7 +58,9 @@ class CartItems extends HTMLElement {
   }
 
   validateQuantity(event) {
-    const inputValue = parseInt(event.target.value);
+    if (!event.target.matches('input.quantity__input')) return;
+
+    const inputValue = parseInt(event.target.value, 10);
     const index = event.target.dataset.index;
     let message = '';
 
@@ -84,6 +88,7 @@ class CartItems extends HTMLElement {
   }
 
   onChange(event) {
+    if (!event.target.matches('input.quantity__input')) return;
     this.validateQuantity(event);
   }
 
@@ -93,13 +98,26 @@ class CartItems extends HTMLElement {
         .then((response) => response.text())
         .then((responseText) => {
           const html = new DOMParser().parseFromString(responseText, 'text/html');
-          const selectors = ['cart-drawer-items', '.cart-drawer__footer'];
+          const selectors = [
+            'cart-drawer-items',
+            '.cart-drawer__footer-sticky',
+            '.cart-drawer__shipping-bar',
+            '.cart-drawer .drawer__header',
+          ];
           for (const selector of selectors) {
             const targetElement = document.querySelector(selector);
             const sourceElement = html.querySelector(selector);
             if (targetElement && sourceElement) {
               targetElement.replaceWith(sourceElement);
+            } else if (targetElement && !sourceElement) {
+              targetElement.remove();
+            } else if (!targetElement && sourceElement) {
+              const header = document.querySelector('cart-drawer .drawer__header');
+              if (header) header.insertAdjacentElement('afterend', sourceElement);
             }
+          }
+          if (typeof window.animateCartDrawerShippingBar === 'function') {
+            window.animateCartDrawerShippingBar();
           }
         })
         .catch((e) => {
@@ -191,6 +209,12 @@ class CartItems extends HTMLElement {
               section.selector
             );
           });
+
+          if (parsedState.item_count === 0 && typeof window.clearCartDrawerShippingProgress === 'function') {
+            window.clearCartDrawerShippingProgress();
+          } else if (typeof window.animateCartDrawerShippingBar === 'function') {
+            window.animateCartDrawerShippingBar();
+          }
           const updatedValue = parsedState.items[line - 1] ? parsedState.items[line - 1].quantity : undefined;
           let message = '';
           if (items.length === parsedState.items.length && updatedValue !== parseInt(quantityElement.value)) {
@@ -209,9 +233,15 @@ class CartItems extends HTMLElement {
               ? trapFocus(cartDrawerWrapper, lineItem.querySelector(`[name="${name}"]`))
               : lineItem.querySelector(`[name="${name}"]`).focus();
           } else if (parsedState.item_count === 0 && cartDrawerWrapper) {
-            trapFocus(cartDrawerWrapper.querySelector('.drawer__inner-empty'), cartDrawerWrapper.querySelector('a'));
+            trapFocus(
+              cartDrawerWrapper.querySelector('.cart-drawer__empty') || cartDrawerWrapper.querySelector('.drawer__inner'),
+              cartDrawerWrapper.querySelector('.drawer__close')
+            );
           } else if (document.querySelector('.cart-item') && cartDrawerWrapper) {
-            trapFocus(cartDrawerWrapper, document.querySelector('.cart-item__name'));
+            trapFocus(
+              cartDrawerWrapper,
+              document.querySelector('.cart-drawer-item__title') || document.querySelector('.cart-item__name')
+            );
           }
         });
 

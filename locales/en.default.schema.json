@@ -344,6 +344,56 @@
           "collection": {
             "label": "Collection",
             "info": "Shown when cart drawer is empty"
+          },
+          "free_shipping_bar": {
+            "header": "Free shipping bar",
+            "show": {
+              "label": "Show free shipping progress bar"
+            },
+            "threshold": {
+              "label": "Free shipping minimum ($)",
+              "info": "Cart subtotal needed to qualify for free shipping."
+            },
+            "message": {
+              "label": "Progress message"
+            },
+            "achieved_message": {
+              "label": "Free shipping unlocked message"
+            }
+          },
+          "upsell": {
+            "header": "You might also like",
+            "show": {
+              "label": "Show upsell in cart drawer"
+            },
+            "product": {
+              "label": "Product"
+            },
+            "variant_id": {
+              "label": "Variant ID",
+              "info": "In Shopify admin, open the product variant and copy the numeric ID from the URL (e.g. .../variants/123456789)."
+            },
+            "heading": {
+              "label": "Section heading"
+            },
+            "eyebrow": {
+              "label": "Eyebrow text"
+            },
+            "add_label": {
+              "label": "Add button label"
+            }
+          },
+          "footer": {
+            "header": "Cart drawer footer",
+            "checkout_label": {
+              "label": "Checkout button label"
+            },
+            "guarantee_text": {
+              "label": "Guarantee text"
+            },
+            "show_shop_pay": {
+              "label": "Show Shop Pay / accelerated checkout buttons"
+            }
           }
         }
       }

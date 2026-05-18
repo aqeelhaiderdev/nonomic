@@ -3,6 +3,9 @@
  */
 (function () {
   const SECTION_SELECTOR = '[data-njr-section]';
+  const REVIEWS_ANCHOR_ID = 'nonomic-product-reviews';
+  const DEFAULT_REVIEWS_PER_PAGE = 8;
+  const njrInstances = new WeakMap();
   const STAR_SVG =
     '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
 
@@ -751,11 +754,9 @@
     }
 
     getPerPage() {
-      const data = this.getWidgetData();
-      const fromPaginate =
-        this.widget?.querySelector('.jdgm-paginate')?.dataset?.perPage ||
-        this.getJudgeMeWidgetRoot()?.querySelector('.jdgm-paginate')?.dataset?.perPage;
-      return Number(data?.pagination?.per_page || fromPaginate || 10) || 10;
+      const configured = Number(this.root.dataset.njrPerPage);
+      if (!Number.isNaN(configured) && configured > 0) return configured;
+      return DEFAULT_REVIEWS_PER_PAGE;
     }
 
     buildWidgetRequestParams(page = 1, { includeSearch = true } = {}) {
@@ -785,10 +786,9 @@
           sort_dir: dir,
           page,
         });
-
-        const perPage = this.getPerPage();
-        if (perPage) params.per_page = perPage;
       }
+
+      params.per_page = this.getPerPage();
 
       if (includeSearch && this.searchQuery) {
         params.search = this.searchQuery;
@@ -1692,20 +1692,75 @@
     }
   }
 
+  function getReviewsSection() {
+    const root = document.getElementById(REVIEWS_ANCHOR_ID);
+    return root?.matches(SECTION_SELECTOR) ? root : null;
+  }
+
+  function scrollToReviewsFromPdp({ openWrite = false } = {}) {
+    const root = getReviewsSection();
+    if (!root) return false;
+
+    const instance = njrInstances.get(root);
+    if (instance) {
+      instance.scrollToReviewsTop();
+      if (openWrite) {
+        window.setTimeout(() => instance.els.writeBtn?.click(), 450);
+      }
+      return true;
+    }
+
+    const styles = getComputedStyle(document.documentElement);
+    const headerOffset =
+      parseInt(styles.getPropertyValue('--header-height'), 10) ||
+      parseInt(styles.getPropertyValue('--nonomic-header-height'), 10) ||
+      0;
+    const top = root.getBoundingClientRect().top + window.scrollY - headerOffset - 24;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    return true;
+  }
+
+  function handlePdpReviewsLink(event) {
+    const link = event.target.closest('[data-nonomic-scroll-reviews]');
+    if (!link) return;
+
+    const href = link.getAttribute('href') || '';
+    if (!href.includes(REVIEWS_ANCHOR_ID)) return;
+
+    event.preventDefault();
+    scrollToReviewsFromPdp({ openWrite: link.hasAttribute('data-nonomic-open-write-review') });
+    history.replaceState(null, '', href.split('?')[0]);
+  }
+
+  function handleReviewsHashOnLoad() {
+    const hash = window.location.hash;
+    if (hash !== `#${REVIEWS_ANCHOR_ID}` && hash !== `#${REVIEWS_ANCHOR_ID}-write`) return;
+    scrollToReviewsFromPdp({ openWrite: hash.endsWith('-write') });
+  }
+
   function initSection(root) {
     if (root.dataset.njrInitialized === 'true') return;
     root.dataset.njrInitialized = 'true';
-    new NonomicJudgeMeReviews(root);
+    njrInstances.set(root, new NonomicJudgeMeReviews(root));
   }
 
   function initAll(container = document) {
     container.querySelectorAll(SECTION_SELECTOR).forEach(initSection);
   }
 
+  function initPdpReviewLinks() {
+    document.addEventListener('click', handlePdpReviewsLink);
+    handleReviewsHashOnLoad();
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => initAll());
+    document.addEventListener('DOMContentLoaded', () => {
+      initAll();
+      initPdpReviewLinks();
+    });
   } else {
     initAll();
+    initPdpReviewLinks();
   }
 
   document.addEventListener('shopify:section:load', (event) => {

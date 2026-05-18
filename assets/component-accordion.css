@@ -15,21 +15,41 @@
 }
 
 .accordion .summary__title + .accordion__toggle-text {
+  position: relative;
   flex-shrink: 0;
   align-self: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 1.25em;
   min-width: 1.25em;
+  height: 1em;
   line-height: 1;
 }
 
-.accordion details:not([open]) > summary .accordion__toggle-text__minus {
-  display: none;
+.accordion .accordion__toggle-text__plus,
+.accordion .accordion__toggle-text__minus {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    opacity var(--accordion-transition-duration, 0.35s) var(--accordion-transition-ease, cubic-bezier(0.4, 0, 0.2, 1)),
+    transform var(--accordion-transition-duration, 0.35s) var(--accordion-transition-ease, cubic-bezier(0.4, 0, 0.2, 1));
 }
 
+.accordion details:not([open]) > summary .accordion__toggle-text__minus,
 .accordion details[open] > summary .accordion__toggle-text__plus {
-  display: none;
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+}
+
+.accordion details:not([open]) > summary .accordion__toggle-text__plus,
+.accordion details[open] > summary .accordion__toggle-text__minus {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .accordion + .accordion {
@@ -61,6 +81,10 @@
   width: calc(var(--font-heading-scale) * 2rem);
 }
 
+.accordion .icon-caret {
+  transition: transform var(--accordion-transition-duration, 0.35s) var(--accordion-transition-ease, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
 .accordion details[open] > summary .icon-caret {
   transform: rotate(180deg);
 }
@@ -74,4 +98,50 @@
 
 .accordion__content img {
   max-width: 100%;
+}
+
+/* Product accordion — smooth open/close */
+.product__accordion {
+  --accordion-transition-duration: 0.35s;
+  --accordion-transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product__accordion details {
+  interpolate-size: allow-keywords;
+}
+
+@supports selector(::details-content) {
+  .product__accordion details::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size var(--accordion-transition-duration) var(--accordion-transition-ease),
+      content-visibility var(--accordion-transition-duration) allow-discrete;
+  }
+
+  .product__accordion details[open]::details-content {
+    block-size: auto;
+  }
+}
+
+.product__accordion--js .product-accordion--closing > summary {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product__accordion details {
+    interpolate-size: auto;
+  }
+
+  @supports selector(::details-content) {
+    .product__accordion details::details-content {
+      transition: none;
+    }
+  }
+
+  .accordion .accordion__toggle-text__plus,
+  .accordion .accordion__toggle-text__minus,
+  .accordion .icon-caret {
+    transition: none;
+  }
 }

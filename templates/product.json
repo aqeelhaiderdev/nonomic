@@ -554,6 +554,8 @@
         "reviews_count_placeholder": "Based on reviews",
         "search_placeholder": "Search reviews...",
         "write_review_label": "Write Review",
+        "show_verified_badge": true,
+        "verified_badge_label": "✓ Verified Customer",
         "filter_sort_button_label": "Filter & Sort",
         "sort_heading": "Sort by",
         "sort_newest_label": "Newest - oldest",
@@ -587,6 +589,198 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "nonomic_faq_pdp": {
+      "type": "nonomic-faq",
+      "blocks": {
+        "faq_microsilver": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does MicroSilver work?",
+            "answer": "<p>MicroSilver is a patented antimicrobial technology consisting of ultra-fine metallic silver particles with a porous, sponge-like structure. This increases surface area by orders of magnitude, allowing sustained release of silver ions that disrupt bacterial cell walls on contact. Unlike ionic silver or nanosilver, MicroSilver is non-soluble, non-systemic, and remains on the skin surface.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_sensitive": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it safe for sensitive skin?",
+            "answer": "<p>Yes. MicroSilver is used in medical-grade skincare for wound healing and eczema management. We don't use baking soda, which is the primary irritant in most natural deodorants. Our formula uses magnesium hydroxide instead, which provides pH balance without irritation.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_duration": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does one stick last?",
+            "answer": "<p>With daily use, one stick lasts approximately 2-3 months. This varies based on application amount and frequency.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_transition": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What's the transition period?",
+            "answer": "<p>Some users experience a 1-2 week adjustment period when switching from antiperspirants as your body adjusts to allowing natural perspiration. This is normal. During this time, you may sweat more than usual, but odor should still be controlled.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_guarantee": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does the 45-day guarantee work?",
+            "answer": "<p>Use it for up to 45 days. If you're not satisfied for any reason, contact us for a full refund. We'll send you a prepaid return label. No questions asked.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_pregnancy": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use this if I'm pregnant or nursing?",
+            "answer": "<p>Our formula uses ingredients commonly found in medical-grade skincare and is free from systemic absorption concerns. However, we always recommend consulting with your healthcare provider about any new products during pregnancy or nursing.</p>",
+            "open_by_default": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_microsilver",
+        "faq_sensitive",
+        "faq_duration",
+        "faq_transition",
+        "faq_guarantee",
+        "faq_pregnancy"
+      ],
+      "name": "Nonomic FAQ",
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "heading_size": "h1",
+        "heading_line_height": 120,
+        "heading_alignment": "center",
+        "heading_spacing_bottom": 40,
+        "max_width": 800,
+        "horizontal_padding": 32,
+        "horizontal_padding_mobile": 32,
+        "item_gap": 12,
+        "open_first_row": false,
+        "toggle_icon_plus": "+",
+        "toggle_icon_minus": "−",
+        "item_corner_radius": 8,
+        "item_border_width": 0.5,
+        "question_padding_vertical": 20,
+        "question_padding_horizontal": 24,
+        "question_padding_vertical_mobile": 16,
+        "question_padding_horizontal_mobile": 20,
+        "answer_padding_horizontal": 24,
+        "answer_padding_bottom": 20,
+        "answer_padding_horizontal_mobile": 20,
+        "answer_padding_bottom_mobile": 16,
+        "answer_line_height": 170,
+        "question_font_size": 15,
+        "question_font_size_mobile": 15,
+        "question_font_weight": "500",
+        "answer_font_size": 14,
+        "answer_font_size_mobile": 14,
+        "answer_font_weight": "300",
+        "toggle_font_size": 20,
+        "toggle_font_size_mobile": 20,
+        "color_background": "#ffffff",
+        "color_heading": "#111827",
+        "color_item_background": "#f6f7f9",
+        "color_item_border": "#dde1e8",
+        "color_question": "#111827",
+        "color_answer": "#4b5a6b",
+        "color_toggle": "#7a8899",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "nonomic_guarantee_pdp": {
+      "type": "nonomic-guarantee",
+      "blocks": {
+        "point_guarantee": {
+          "type": "point",
+          "settings": {
+            "title": "45-Day Guarantee",
+            "subtitle": "Full trial period"
+          }
+        },
+        "point_forms": {
+          "type": "point",
+          "settings": {
+            "title": "No Forms Required",
+            "subtitle": "Just contact us"
+          }
+        },
+        "point_keep": {
+          "type": "point",
+          "settings": {
+            "title": "Keep Your Product",
+            "subtitle": "No return needed"
+          }
+        }
+      },
+      "block_order": [
+        "point_guarantee",
+        "point_forms",
+        "point_keep"
+      ],
+      "name": "Nonomic guarantee",
+      "settings": {
+        "heading": "Use It for 45 Days. Decide for Yourself.",
+        "heading_size": "h1",
+        "heading_font_size": 48,
+        "heading_font_size_mobile": 42,
+        "heading_font_weight": "400",
+        "heading_line_height": 120,
+        "heading_spacing_bottom": 16,
+        "text": "<p>We're confident the mechanism works. If it doesn't work for you, we'll refund you. No questions. No hoops. Just contact us within 45 days and we'll send you a prepaid return label.</p>",
+        "text_font_size": 16,
+        "text_font_size_mobile": 15,
+        "text_font_weight": "300",
+        "text_line_height": 170,
+        "text_spacing_bottom": 32,
+        "text_spacing_bottom_mobile": 28,
+        "content_alignment": "center",
+        "max_width": 900,
+        "horizontal_padding": 32,
+        "horizontal_padding_mobile": 32,
+        "columns_desktop": 3,
+        "stack_columns_tablet": false,
+        "grid_gap": 32,
+        "grid_gap_mobile": 24,
+        "grid_spacing_bottom": 48,
+        "grid_spacing_bottom_mobile": 40,
+        "point_title_font_size": 18,
+        "point_title_font_size_mobile": 16,
+        "point_title_font_weight": "500",
+        "point_title_spacing_bottom": 8,
+        "point_subtitle_font_size": 12,
+        "point_subtitle_font_size_mobile": 11,
+        "point_subtitle_font_weight": "300",
+        "point_subtitle_letter_spacing": 60,
+        "button_label": "Try It Risk-Free →",
+        "button_link": "",
+        "button_scroll_to_product": true,
+        "button_open_new_tab": false,
+        "button_alignment": "center",
+        "button_font_size": 15,
+        "button_font_size_mobile": 15,
+        "button_font_weight": "500",
+        "button_padding_vertical": 16,
+        "button_padding_horizontal": 36,
+        "button_corner_radius": 6,
+        "color_background": "#1a2b3c",
+        "color_heading": "#f6f7f9",
+        "color_text": "#a8bfd0",
+        "color_point_title": "#ffffff",
+        "color_point_subtitle": "#7a8899",
+        "color_button_text": "#ffffff",
+        "color_button_gradient_start": "#1ba97a",
+        "color_button_gradient_end": "#178a64",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "placeholder_text": "Add guarantee point blocks in the theme editor."
+      }
     }
   },
   "order": [
@@ -594,6 +788,8 @@
     "nonomic_how_it_works_4UirdD",
     "nonomic_comparison_chart_gKVadH",
     "related-products",
-    "nonomic_judgeme_reviews_HpGgDC"
+    "nonomic_judgeme_reviews_HpGgDC",
+    "nonomic_faq_pdp",
+    "nonomic_guarantee_pdp"
   ]
 }
