@@ -234,10 +234,6 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   z-index: 2;
 }
 
-::selection {
-  background-color: rgba(var(--color-foreground), 0.2);
-}
-
 .text-body {
   font-size: 1.5rem;
   letter-spacing: 0.06rem;
@@ -1288,12 +1284,6 @@ button.shopify-payment-button__button--unbranded {
 .button:focus:not(:focus-visible):not(.focused),
 .shopify-payment-button__button--unbranded:focus:not(:focus-visible):not(.focused) {
   box-shadow: inherit;
-}
-
-.button::selection,
-.shopify-challenge__button::selection,
-.customer button::selection {
-  background-color: rgba(var(--color-button-text), 0.3);
 }
 
 .button,

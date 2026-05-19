@@ -1,0 +1,1065 @@
+{{ 'section-nonomic-popup.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'nonomic-popup.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign popup_form_id = 'NonomicPopupForm-' | append: section.id
+  assign popup_heading_label = section.settings.heading_line_1
+  if section.settings.heading_line_2 != blank
+    assign popup_heading_label = popup_heading_label | append: ' ' | append: section.settings.heading_line_2
+  endif
+  assign popup_dialog_label = section.settings.dialog_aria_label | default: popup_heading_label | escape
+-%}
+
+{%- style -%}
+  #NonomicPopup-{{ section.id }} {
+    --np-backdrop-bg: {{ section.settings.color_backdrop }};
+    --np-backdrop-blur: {{ section.settings.backdrop_blur }}px;
+    --np-modal-bg: {{ section.settings.color_modal_background }};
+    --np-modal-radius: {{ section.settings.modal_corner_radius }}px;
+    --np-modal-max-width: {{ section.settings.modal_max_width }}px;
+    --np-modal-gutter: {{ section.settings.modal_gutter_desktop }}px;
+    --np-modal-gutter-mobile: {{ section.settings.modal_gutter_mobile }}px;
+    --np-modal-pad-top: {{ section.settings.modal_padding_top }}px;
+    --np-modal-pad-x: {{ section.settings.modal_padding_horizontal }}px;
+    --np-modal-pad-bottom: {{ section.settings.modal_padding_bottom }}px;
+    --np-modal-pad-top-mobile: {{ section.settings.modal_padding_top_mobile }}px;
+    --np-modal-pad-x-mobile: {{ section.settings.modal_padding_horizontal_mobile }}px;
+    --np-modal-pad-bottom-mobile: {{ section.settings.modal_padding_bottom_mobile }}px;
+    --np-modal-shadow: {{ section.settings.modal_shadow }};
+    --np-transition-opacity: {{ section.settings.animation_duration_ms | divided_by: 1000.0 }}s;
+    --np-transition-transform: {{ section.settings.animation_duration_ms | plus: 40 | divided_by: 1000.0 }}s;
+    --np-header-space: {{ section.settings.header_spacing_bottom }}px;
+    --np-eyebrow-fs: {{ section.settings.eyebrow_font_size }}px;
+    --np-eyebrow-fw: {{ section.settings.eyebrow_font_weight }};
+    --np-eyebrow-ls: {{ section.settings.eyebrow_letter_spacing | divided_by: 1000.0 }}em;
+    --np-eyebrow: {{ section.settings.color_eyebrow }};
+    --np-close: {{ section.settings.color_close }};
+    --np-close-hover: {{ section.settings.color_close_hover }};
+    --np-heading-fs: {{ section.settings.heading_font_size }}px;
+    --np-heading-fw: {{ section.settings.heading_font_weight }};
+    --np-heading-lh: {{ section.settings.heading_line_height | divided_by: 100.0 }};
+    --np-heading-ls: {{ section.settings.heading_letter_spacing | divided_by: 1000.0 }}em;
+    --np-heading-space: {{ section.settings.heading_spacing_bottom }}px;
+    --np-heading: {{ section.settings.color_heading }};
+    --np-subtext-fs: {{ section.settings.subtext_font_size }}px;
+    --np-subtext-fw: {{ section.settings.subtext_font_weight }};
+    --np-subtext-lh: {{ section.settings.subtext_line_height | divided_by: 100.0 }};
+    --np-subtext-space: {{ section.settings.subtext_spacing_bottom }}px;
+    --np-subtext: {{ section.settings.color_subtext }};
+    --np-input-fs: {{ section.settings.input_font_size }}px;
+    --np-input-fw: {{ section.settings.input_font_weight }};
+    --np-input-pad-y: {{ section.settings.input_padding_vertical }}px;
+    --np-input-pad-x: {{ section.settings.input_padding_horizontal }}px;
+    --np-input-space: {{ section.settings.input_spacing_bottom }}px;
+    --np-input-radius: {{ section.settings.input_corner_radius }}px;
+    --np-input-border-w: {{ section.settings.input_border_width }}px;
+    --np-input-bg: {{ section.settings.color_input_background }};
+    --np-input-border: {{ section.settings.color_input_border }};
+    --np-input-border-focus: {{ section.settings.color_input_border_focus }};
+    --np-input-text: {{ section.settings.color_input_text }};
+    --np-input-placeholder: {{ section.settings.color_input_placeholder }};
+    --np-submit-fs: {{ section.settings.submit_font_size }}px;
+    --np-submit-fw: {{ section.settings.submit_font_weight }};
+    --np-submit-pad-y: {{ section.settings.submit_padding_vertical }}px;
+    --np-submit-pad-x: {{ section.settings.submit_padding_horizontal }}px;
+    --np-submit-space: {{ section.settings.submit_spacing_bottom }}px;
+    --np-submit-radius: {{ section.settings.submit_corner_radius }}px;
+    --np-submit-ls: {{ section.settings.submit_letter_spacing | divided_by: 1000.0 }}em;
+    --np-submit-text: {{ section.settings.color_submit_text }};
+    --np-submit-bg-start: {{ section.settings.color_submit_gradient_start }};
+    --np-submit-bg-end: {{ section.settings.color_submit_gradient_end }};
+    --np-dismiss-fs: {{ section.settings.dismiss_font_size }}px;
+    --np-dismiss-fw: {{ section.settings.dismiss_font_weight }};
+    --np-dismiss: {{ section.settings.color_dismiss }};
+    --np-dismiss-hover: {{ section.settings.color_dismiss_hover }};
+    --np-success-heading-fs: {{ section.settings.success_heading_font_size }}px;
+    --np-success-heading-fw: {{ section.settings.success_heading_font_weight }};
+    --np-success-heading-lh: {{ section.settings.success_heading_line_height | divided_by: 100.0 }};
+    --np-success-heading-space: {{ section.settings.success_heading_spacing_bottom }}px;
+    --np-success-heading: {{ section.settings.color_success_heading }};
+    --np-success-text-fs: {{ section.settings.success_text_font_size }}px;
+    --np-success-text-fw: {{ section.settings.success_text_font_weight }};
+    --np-success-text-lh: {{ section.settings.success_text_line_height | divided_by: 100.0 }};
+    --np-success-text: {{ section.settings.color_success_text }};
+    --np-text: {{ section.settings.color_heading }};
+  }
+
+  @media screen and (max-width: 749px) {
+    #NonomicPopup-{{ section.id }} {
+      --np-heading-fs: {{ section.settings.heading_font_size_mobile }}px;
+      --np-subtext-fs: {{ section.settings.subtext_font_size_mobile }}px;
+      --np-success-heading-fs: {{ section.settings.success_heading_font_size_mobile }}px;
+      --np-success-text-fs: {{ section.settings.success_text_font_size_mobile }}px;
+    }
+  }
+{%- endstyle -%}
+
+<nonomic-popup
+  id="NonomicPopup-{{ section.id }}"
+  class="nonomic-popup"
+  hidden
+  aria-hidden="true"
+  data-section-id="{{ section.id }}"
+  data-enabled="{{ section.settings.enable_popup }}"
+  data-test-mode="{{ section.settings.enable_test_mode }}"
+  data-delay-ms="{{ section.settings.trigger_delay_seconds | times: 1000 }}"
+  data-scroll-threshold="{{ section.settings.trigger_scroll_percent }}"
+  data-dismiss-cookie-days="{{ section.settings.dismiss_cookie_days }}"
+  data-suppressed-paths="{{ section.settings.suppressed_paths | escape }}"
+  data-formula-cta-text="{{ section.settings.formula_cta_text | escape }}"
+  data-exit-intent="{{ section.settings.enable_exit_intent }}"
+  data-scroll-trigger="{{ section.settings.enable_scroll_trigger }}"
+  data-time-trigger="{{ section.settings.enable_time_trigger }}"
+  data-mobile-max-width="749"
+  data-success-delay-ms="{{ section.settings.success_close_delay_ms }}"
+  data-error-message="{{ section.settings.error_message | escape }}"
+  {{ section.shopify_attributes }}
+>
+  <div class="nonomic-popup__backdrop" data-nonomic-popup-backdrop aria-hidden="true"></div>
+
+  <div
+    class="nonomic-popup__dialog nonomic-popup__dialog--align-{{ section.settings.content_alignment }}"
+    data-nonomic-popup-dialog
+    role="dialog"
+    aria-modal="true"
+    aria-label="{{ popup_dialog_label }}"
+    tabindex="-1"
+  >
+    <div class="nonomic-popup__inner">
+    <div class="nonomic-popup__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="nonomic-popup__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <button
+        type="button"
+        class="nonomic-popup__close"
+        data-nonomic-popup-close
+        aria-label="{{ section.settings.close_aria_label | escape }}"
+      >
+        {%- render 'nonomic-popup-icon-close' -%}
+      </button>
+    </div>
+
+    <div data-nonomic-popup-success-view hidden aria-live="polite">
+      <div class="nonomic-popup__success">
+        {%- if section.settings.success_heading != blank -%}
+          <p class="nonomic-popup__success-heading">{{ section.settings.success_heading | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.success_text != blank -%}
+          <p class="nonomic-popup__success-text">{{ section.settings.success_text | escape }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div data-nonomic-popup-form-view class="nonomic-popup__form-view">
+      {%- if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank -%}
+        <h2 class="nonomic-popup__heading">
+          {%- if section.settings.heading_line_1 != blank -%}
+            <span class="nonomic-popup__heading-line">{{ section.settings.heading_line_1 | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading_line_2 != blank -%}
+            <span class="nonomic-popup__heading-line">{{ section.settings.heading_line_2 | escape }}</span>
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="nonomic-popup__subtext">{{ section.settings.subtext | escape }}</p>
+      {%- endif -%}
+
+      {%- form 'customer', id: popup_form_id, class: 'nonomic-popup__form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+
+        <label class="visually-hidden" for="NonomicPopupEmail-{{ section.id }}">
+          {{- section.settings.input_placeholder | escape -}}
+        </label>
+        <input
+          id="NonomicPopupEmail-{{ section.id }}"
+          class="nonomic-popup__input"
+          type="email"
+          name="contact[email]"
+          value="{{ form.email }}"
+          placeholder="{{ section.settings.input_placeholder | escape }}"
+          autocomplete="email"
+          autocorrect="off"
+          autocapitalize="off"
+          required
+        >
+
+        <p class="nonomic-popup__error" data-nonomic-popup-error hidden></p>
+
+        <button type="submit" class="nonomic-popup__submit" name="commit">
+          {{ section.settings.submit_label | escape }}
+        </button>
+      {%- endform -%}
+
+      <button type="button" class="nonomic-popup__dismiss" data-nonomic-popup-close>
+        {{ section.settings.dismiss_label | escape }}
+      </button>
+    </div>
+    </div>
+  </div>
+</nonomic-popup>
+
+{% schema %}
+{
+  "name": "Nonomic popup",
+  "tag": "section",
+  "class": "nonomic-popup-section",
+  "limit": 1,
+  "enabled_on": {
+    "groups": ["aside"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_popup",
+      "label": "Enable popup",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Early Access"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "Get 10% off"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2",
+      "default": "your first order."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Join the list for early drops and the occasional thing worth knowing."
+    },
+    {
+      "type": "text",
+      "id": "input_placeholder",
+      "label": "Email placeholder",
+      "default": "your@email.com"
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Submit button label",
+      "default": "Claim my 10% off →"
+    },
+    {
+      "type": "text",
+      "id": "dismiss_label",
+      "label": "Dismiss link label",
+      "default": "Maybe later"
+    },
+    {
+      "type": "text",
+      "id": "success_heading",
+      "label": "Success heading",
+      "default": "You're in."
+    },
+    {
+      "type": "textarea",
+      "id": "success_text",
+      "label": "Success message",
+      "default": "Check your inbox — your 10% off is on its way."
+    },
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Error message",
+      "default": "Please enter a valid email address."
+    },
+    {
+      "type": "text",
+      "id": "dialog_aria_label",
+      "label": "Dialog aria label",
+      "default": "Get 10% off your first order",
+      "info": "Used for screen readers."
+    },
+    {
+      "type": "text",
+      "id": "close_aria_label",
+      "label": "Close button aria label",
+      "default": "Close"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Trigger behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_test_mode",
+      "label": "Test mode — bypass cookies only",
+      "default": false,
+      "info": "Ignores dismiss and subscribe cookies so you can test again. Scroll, timer, exit intent, session, and suppressed pages still apply. Turn off before publishing."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_scroll_trigger",
+      "label": "Require scroll depth",
+      "default": true,
+      "info": "Popup only shows after scroll threshold is met (when time trigger is also enabled, both must be met)."
+    },
+    {
+      "type": "range",
+      "id": "trigger_scroll_percent",
+      "min": 10,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Scroll depth threshold",
+      "default": 55
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_time_trigger",
+      "label": "Require time on page",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "trigger_delay_seconds",
+      "min": 5,
+      "max": 120,
+      "step": 5,
+      "unit": "s",
+      "label": "Time on page before eligible",
+      "default": 35
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_exit_intent",
+      "label": "Exit intent on desktop",
+      "default": true,
+      "info": "Shows when the cursor leaves the top of the viewport (desktop only)."
+    },
+    {
+      "type": "text",
+      "id": "formula_cta_text",
+      "label": "Formula CTA text to suppress",
+      "default": "Choose Your Formula",
+      "info": "If a visitor clicks a button or link containing this text, the popup will not show again this session."
+    },
+    {
+      "type": "textarea",
+      "id": "suppressed_paths",
+      "label": "Suppressed URL path prefixes",
+      "default": "/products,/cart,/checkout,/quiz,/pages/quiz",
+      "info": "Comma-separated path prefixes. Popup will not show on matching pages."
+    },
+    {
+      "type": "range",
+      "id": "dismiss_cookie_days",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "d",
+      "label": "Days to remember dismiss",
+      "default": 7
+    },
+    {
+      "type": "range",
+      "id": "success_close_delay_ms",
+      "min": 800,
+      "max": 4000,
+      "step": 100,
+      "unit": "ms",
+      "label": "Success view duration before close",
+      "default": 1800
+    },
+    {
+      "type": "header",
+      "content": "Modal layout"
+    },
+    {
+      "type": "range",
+      "id": "modal_max_width",
+      "min": 360,
+      "max": 640,
+      "step": 10,
+      "unit": "px",
+      "label": "Modal max width (desktop)",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "modal_corner_radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Modal corner radius",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "modal_gutter_desktop",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Outer margin left, right, bottom (desktop)",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "modal_gutter_mobile",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Outer margin left, right, bottom (mobile)",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "modal_padding_top",
+      "min": 24,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Modal padding top (desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "modal_padding_horizontal",
+      "min": 16,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Modal padding horizontal (desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "modal_padding_bottom",
+      "min": 16,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Modal padding bottom (desktop)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "modal_padding_top_mobile",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Modal padding top (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "modal_padding_horizontal_mobile",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Modal padding horizontal (mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "modal_padding_bottom_mobile",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Modal padding bottom (mobile)",
+      "default": 28
+    },
+    {
+      "type": "text",
+      "id": "modal_shadow",
+      "label": "Modal box shadow (CSS)",
+      "default": "0 32px 80px rgba(0,0,0,0.55), 0 0 0 0.5px rgba(255,255,255,0.07)"
+    },
+    {
+      "type": "range",
+      "id": "animation_duration_ms",
+      "min": 200,
+      "max": 800,
+      "step": 20,
+      "unit": "ms",
+      "label": "Animation duration",
+      "default": 380
+    },
+    {
+      "type": "range",
+      "id": "backdrop_blur",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Backdrop blur",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "header_spacing_bottom",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Space below header row",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "paragraph",
+      "content": "Headings use your theme heading font; body text uses your theme body font (Typography settings). Sizes below match Figma and can be adjusted per breakpoint."
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_size",
+      "min": 9,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Eyebrow font size",
+      "default": 11
+    },
+    {
+      "type": "select",
+      "id": "eyebrow_font_weight",
+      "label": "Eyebrow font weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semibold" }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_letter_spacing",
+      "min": 80,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Eyebrow letter spacing",
+      "default": 140,
+      "info": "Divided by 1000 in CSS (140 = 0.14em)."
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 24,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading font size (desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "min": 24,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading font size (mobile)",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading font weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "min": 100,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "label": "Heading line height",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "min": -20,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading letter spacing",
+      "default": -10,
+      "info": "Divided by 1000 in CSS (-10 = -0.01em)."
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing_bottom",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Space below heading",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "subtext_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtext font size (desktop)",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "subtext_font_size_mobile",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtext font size (mobile)",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "subtext_font_weight",
+      "label": "Subtext font weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Regular" }
+      ],
+      "default": "300"
+    },
+    {
+      "type": "range",
+      "id": "subtext_line_height",
+      "min": 120,
+      "max": 180,
+      "step": 5,
+      "unit": "%",
+      "label": "Subtext line height",
+      "default": 165
+    },
+    {
+      "type": "range",
+      "id": "subtext_spacing_bottom",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Space below subtext",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "input_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Input font size",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "input_font_weight",
+      "label": "Input font weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Regular" }
+      ],
+      "default": "300"
+    },
+    {
+      "type": "range",
+      "id": "submit_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Submit font size",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "submit_font_weight",
+      "label": "Submit font weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semibold" }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "submit_letter_spacing",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Submit letter spacing",
+      "default": 10,
+      "info": "Divided by 1000 in CSS."
+    },
+    {
+      "type": "range",
+      "id": "dismiss_font_size",
+      "min": 11,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Dismiss font size",
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "dismiss_font_weight",
+      "label": "Dismiss font weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Regular" }
+      ],
+      "default": "300"
+    },
+    {
+      "type": "range",
+      "id": "success_heading_font_size",
+      "min": 22,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Success heading font size (desktop)",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "success_heading_font_size_mobile",
+      "min": 22,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Success heading font size (mobile)",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "success_heading_font_weight",
+      "label": "Success heading font weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "success_heading_line_height",
+      "min": 100,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "label": "Success heading line height",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "success_heading_spacing_bottom",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Space below success heading",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "success_text_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Success text font size (desktop)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "success_text_font_size_mobile",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Success text font size (mobile)",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "success_text_font_weight",
+      "label": "Success text font weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Regular" }
+      ],
+      "default": "300"
+    },
+    {
+      "type": "range",
+      "id": "success_text_line_height",
+      "min": 120,
+      "max": 180,
+      "step": 5,
+      "unit": "%",
+      "label": "Success text line height",
+      "default": 165
+    },
+    {
+      "type": "header",
+      "content": "Input & button spacing"
+    },
+    {
+      "type": "range",
+      "id": "input_padding_vertical",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Input padding vertical",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "input_padding_horizontal",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Input padding horizontal",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "input_spacing_bottom",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Space below input",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "input_corner_radius",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Input corner radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "input_border_width",
+      "min": 0,
+      "max": 2,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Input border width",
+      "default": 0.5
+    },
+    {
+      "type": "range",
+      "id": "submit_padding_vertical",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Submit padding vertical",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "submit_padding_horizontal",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Submit padding horizontal",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "submit_spacing_bottom",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Space below submit",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "submit_corner_radius",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Submit corner radius",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_backdrop",
+      "label": "Backdrop overlay",
+      "default": "#000000d1"
+    },
+    {
+      "type": "color",
+      "id": "color_modal_background",
+      "label": "Modal background",
+      "default": "#1A2B3C"
+    },
+    {
+      "type": "color",
+      "id": "color_eyebrow",
+      "label": "Eyebrow",
+      "default": "#1D9E75"
+    },
+    {
+      "type": "color",
+      "id": "color_close",
+      "label": "Close icon",
+      "default": "#ffffff66"
+    },
+    {
+      "type": "color",
+      "id": "color_close_hover",
+      "label": "Close icon hover",
+      "default": "#ffffffd9"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_subtext",
+      "label": "Subtext",
+      "default": "#ffffff8c"
+    },
+    {
+      "type": "color",
+      "id": "color_input_background",
+      "label": "Input background",
+      "default": "#00000047"
+    },
+    {
+      "type": "color",
+      "id": "color_input_border",
+      "label": "Input border",
+      "default": "#ffffff1f"
+    },
+    {
+      "type": "color",
+      "id": "color_input_border_focus",
+      "label": "Input border focus",
+      "default": "#1d9e75a6"
+    },
+    {
+      "type": "color",
+      "id": "color_input_text",
+      "label": "Input text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_input_placeholder",
+      "label": "Input placeholder",
+      "default": "#ffffff8c"
+    },
+    {
+      "type": "color",
+      "id": "color_submit_text",
+      "label": "Submit text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_submit_gradient_start",
+      "label": "Submit gradient start",
+      "default": "#1BA97A"
+    },
+    {
+      "type": "color",
+      "id": "color_submit_gradient_end",
+      "label": "Submit gradient end",
+      "default": "#178A64"
+    },
+    {
+      "type": "color",
+      "id": "color_dismiss",
+      "label": "Dismiss text",
+      "default": "#ffffff4d"
+    },
+    {
+      "type": "color",
+      "id": "color_dismiss_hover",
+      "label": "Dismiss text hover",
+      "default": "#ffffff99"
+    },
+    {
+      "type": "color",
+      "id": "color_success_heading",
+      "label": "Success heading",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_success_text",
+      "label": "Success text",
+      "default": "#ffffff8c"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nonomic popup"
+    }
+  ]
+}
+{% endschema %}

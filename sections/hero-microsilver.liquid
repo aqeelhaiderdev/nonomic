@@ -68,6 +68,7 @@
 <div
   id="HeroMicrosilver-{{ section.id }}"
   class="hero-microsilver color-{{ section.settings.color_scheme }} gradient"
+  {% if request.page_type == 'index' %}data-nonomic-header-hero{% endif %}
   {{ section.shopify_attributes }}
 >
   {%- if section.settings.show_decor_letters and section.settings.decor_letters != blank -%}

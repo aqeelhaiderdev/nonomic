@@ -1,4 +1,7 @@
 {{ 'section-nonomic-header.css' | asset_url | stylesheet_tag }}
+{%- if request.page_type == 'index' -%}
+  <script src="{{ 'nonomic-header-scroll.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
 <link
   rel="stylesheet"
   href="{{ 'component-cart-notification.css' | asset_url }}"
@@ -82,6 +85,9 @@
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ section.settings.sticky_header_type }}"
   {% endif %}
+  {% if request.page_type == 'index' %}
+    data-nonomic-homepage-header
+  {% endif %}
   class="nonomic-header-wrapper"
 >
   {%- liquid
@@ -146,6 +152,18 @@
           {%- endfor -%}
         </ul>
       </nav>
+    {%- endif -%}
+
+    {%- if request.page_type == 'index' and section.settings.sticky_guarantee_text != blank -%}
+      <div class="nonomic-header__guarantee" aria-hidden="true">
+        <span class="nonomic-header__guarantee-icon">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <path d="M10 1.5 3.5 4v5.2c0 4.1 2.8 7.9 6.5 9.3 3.7-1.4 6.5-5.2 6.5-9.3V4L10 1.5Z" fill="currentColor"/>
+            <path d="m7.2 10.1 1.6 1.6 3.8-3.8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="nonomic-header__guarantee-text">{{ section.settings.sticky_guarantee_text | escape }}</span>
+      </div>
     {%- endif -%}
 
     <div class="nonomic-header__actions">
@@ -324,6 +342,26 @@
 
       if (this.predictiveSearch && this.predictiveSearch.isOpen) return;
 
+      if (this.hasAttribute('data-nonomic-homepage-header')) {
+        if (this.classList.contains('is-header-suppressed')) {
+          requestAnimationFrame(this.hide.bind(this));
+          this.currentScrollTop = scrollTop;
+          return;
+        }
+
+        if (this.classList.contains('is-scroll-cta-active')) {
+          if (scrollTop > this.headerBounds.bottom) {
+            this.header.classList.add('scrolled-past-header');
+            requestAnimationFrame(this.reveal.bind(this));
+          } else if (scrollTop <= this.headerBounds.top) {
+            this.header.classList.remove('scrolled-past-header');
+            requestAnimationFrame(this.reset.bind(this));
+          }
+          this.currentScrollTop = scrollTop;
+          return;
+        }
+      }
+
       if (scrollTop > this.currentScrollTop && scrollTop > this.headerBounds.bottom) {
         this.header.classList.add('scrolled-past-header');
         if (this.preventHide) return;
@@ -351,7 +389,7 @@
 
     hide() {
       if (this.headerIsAlwaysSticky) return;
-      this.header.classList.add('shopify-section-header-hidden', 'shopify-section-header-sticky');
+      this.header.classList.add('shopify-section-header-hidden', 'shopify-section-header-sticky', 'animate');
       this.closeMenuDisclosure();
       this.closeSearchModal();
     }
@@ -506,6 +544,16 @@
       "type": "url",
       "id": "cta_link",
       "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Homepage scroll header"
+    },
+    {
+      "type": "text",
+      "id": "sticky_guarantee_text",
+      "label": "Desktop guarantee text (after hero)",
+      "default": "45-day risk-free guarantee"
     },
     {
       "type": "text",

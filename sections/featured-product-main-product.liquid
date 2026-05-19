@@ -9,6 +9,7 @@
 <product-info
   id="MainProduct-{{ section.id }}"
   class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}{% if section.settings.enable_nonomic_pdp %} nonomic-pdp{% endif %}"
+  {% if request.page_type == 'index' %}data-nonomic-header-product{% endif %}
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
   data-update-url="false"

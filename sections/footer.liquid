@@ -226,7 +226,10 @@
       <div class="nonomic-footer__bottom">
         <div class="nonomic-footer__bottom-row">
           {%- if section.settings.copyright_text != blank -%}
-            <div class="nonomic-footer__bottom-copy">{{ section.settings.copyright_text }}</div>
+            <div class="nonomic-footer__bottom-copy" >{{ section.settings.copyright_text }}
+            <br>
+            Designed and developed by <a href="https://www.vistarapid.com/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">VistaRapid.com</a>
+            </div>
           {%- endif -%}
 
           {%- if section.settings.privacy_link != blank or section.settings.terms_link != blank -%}
