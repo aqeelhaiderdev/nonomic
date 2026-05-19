@@ -39,10 +39,23 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "rich_text_6m8cm8": {
+      "type": "rich-text",
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
     "main",
-    "1779228639a1453753"
+    "1779228639a1453753",
+    "rich_text_6m8cm8"
   ]
 }
