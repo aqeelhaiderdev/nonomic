@@ -165,6 +165,49 @@
         "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
         "disabled": false,
         "settings": {}
+      },
+      "5537102726230261467": {
+        "type": "shopify://apps/revenuehunt-recommender-quiz/blocks/v2-link-quiz/672f3d48-fd3b-4227-8778-c6e58c4f8a98",
+        "disabled": false,
+        "settings": {
+          "quiz_width": "100",
+          "quiz_height": "100",
+          "quiz_z_index": 100,
+          "popup_close_color": "#777777",
+          "show_list": true,
+          "quiz_id": ""
+        }
+      },
+      "16398131499962928326": {
+        "type": "shopify://apps/revenuehunt-recommender-quiz/blocks/v2-chat-button/672f3d48-fd3b-4227-8778-c6e58c4f8a98",
+        "disabled": true,
+        "settings": {
+          "chat_color": "#1878B9",
+          "chat_icon_color": "#ffffff",
+          "chat_position": "bottom-right",
+          "chat_hide": false,
+          "chat_dot": true,
+          "chat_greeting": "",
+          "chat_z_index": 98,
+          "quiz_width": "100",
+          "quiz_height": "100",
+          "quiz_z_index": 100,
+          "popup_close_color": "#777777",
+          "quiz_id": ""
+        }
+      },
+      "17848331911275895266": {
+        "type": "shopify://apps/revenuehunt-recommender-quiz/blocks/v2-automatic-popup/672f3d48-fd3b-4227-8778-c6e58c4f8a98",
+        "disabled": true,
+        "settings": {
+          "popup_timeout": 20,
+          "quiz_width": "100",
+          "quiz_height": "100",
+          "quiz_z_index": 100,
+          "popup_close_color": "#777777",
+          "quiz_exit_intent": false,
+          "quiz_id": ""
+        }
       }
     },
     "color_schemes": {
