@@ -45,19 +45,88 @@
         "heading_padding_bottom_mobile": 32,
         "desc_padding_top_mobile": 0,
         "desc_padding_bottom_mobile": 0,
-        "background_color": "#1A2B3C",
-        "color_eyebrow": "#7A8899",
-        "color_heading": "#FFFFFF",
-        "color_desc": "#A8BFD0",
+        "background_color": "#1a2b3c",
+        "color_eyebrow": "#7a8899",
+        "color_heading": "#ffffff",
+        "color_desc": "#a8bfd0",
         "padding_top": 96,
         "padding_top_mobile": 48,
         "padding_bottom": 96,
+        "padding_bottom_mobile": 48
+      }
+    },
+    "page_compare_why_matters_iCtFzR": {
+      "type": "page_compare-why-matters",
+      "blocks": {
+        "comparison_item_XbzKjt": {
+          "type": "comparison_item",
+          "settings": {
+            "title": "Natural Deodorants",
+            "problem_label": "THE PROBLEM",
+            "problem_text": "<p>Often rely on baking soda, which causes irritation in 60%+ of users. Require frequent reapplication. Inconsistent performance.</p>",
+            "solution_label": "NONOMIC'S APPROACH",
+            "solution_text": "<p>Nonomic uses magnesium hydroxide + MicroSilver for irritation-free, all-day protection.</p>"
+          }
+        },
+        "comparison_item_aceYFB": {
+          "type": "comparison_item",
+          "settings": {
+            "title": "Antiperspirants",
+            "problem_label": "THE PROBLEM",
+            "problem_text": "<p>Block sweat ducts with aluminum. Many users prefer not to interfere with natural perspiration. Can cause buildup and staining.</p>",
+            "solution_label": "NONOMIC'S APPROACH",
+            "solution_text": "<p>Nonomic allows natural sweating while neutralizing odor-causing bacteria.</p>"
+          }
+        },
+        "comparison_item_GeFNw4": {
+          "type": "comparison_item",
+          "settings": {
+            "title": "Fragrance Masking",
+            "problem_label": "THE PROBLEM",
+            "problem_text": "<p>Covers odor instead of preventing it. Creates layered scent issues. Doesn't address the bacterial cause.</p>",
+            "solution_label": "NONOMIC'S APPROACH",
+            "solution_text": "<p>Nonomic disrupts bacteria at the source. Scents are optional, not required.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "comparison_item_XbzKjt",
+        "comparison_item_aceYFB",
+        "comparison_item_GeFNw4"
+      ],
+      "name": "Why It Matters",
+      "settings": {
+        "heading": "Why It Matters",
+        "content_max_width": 1280,
+        "heading_size_desktop": 40,
+        "item_title_size_desktop": 16,
+        "label_size_desktop": 11,
+        "text_size_desktop": 14,
+        "heading_size_mobile": 32,
+        "item_title_size_mobile": 16,
+        "label_size_mobile": 11,
+        "text_size_mobile": 14,
+        "heading_padding_bottom_desktop": 48,
+        "grid_gap_desktop": 32,
+        "heading_padding_bottom_mobile": 32,
+        "grid_gap_mobile": 32,
+        "background_color": "#FFFFFF",
+        "color_heading": "#111827",
+        "color_item_title": "#111827",
+        "color_problem_label": "#7A8899",
+        "color_problem_text": "#4B5A6B",
+        "color_solution_label": "#1A2B3C",
+        "color_solution_text": "#4B5A6B",
+        "padding_top": 80,
+        "padding_top_mobile": 48,
+        "padding_bottom": 80,
         "padding_bottom_mobile": 48
       }
     }
   },
   "order": [
     "main",
-    "page_ingredients_hero_3mN8Un"
+    "page_ingredients_hero_3mN8Un",
+    "page_compare_why_matters_iCtFzR"
   ]
 }
