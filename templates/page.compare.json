@@ -16,9 +16,48 @@
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "page_ingredients_hero_3mN8Un": {
+      "type": "page_ingredients-hero",
+      "name": "Ingredients Hero",
+      "settings": {
+        "eyebrow": "COMPARISON",
+        "heading": "How Nonomic\nCompares",
+        "description": "<p>Most deodorants either mask odor or block sweat. Nonomic addresses the bacterial mechanism that creates odor in the first place.</p>",
+        "content_max_width": 1440,
+        "heading_max_width": 900,
+        "text_max_width": 640,
+        "eyebrow_size_desktop": 11,
+        "heading_size_desktop": 72,
+        "desc_size_desktop": 18,
+        "eyebrow_size_mobile": 11,
+        "heading_size_mobile": 42,
+        "desc_size_mobile": 16,
+        "eyebrow_padding_top_desktop": 0,
+        "eyebrow_padding_bottom_desktop": 24,
+        "heading_padding_top_desktop": 0,
+        "heading_padding_bottom_desktop": 32,
+        "desc_padding_top_desktop": 0,
+        "desc_padding_bottom_desktop": 0,
+        "eyebrow_padding_top_mobile": 0,
+        "eyebrow_padding_bottom_mobile": 24,
+        "heading_padding_top_mobile": 0,
+        "heading_padding_bottom_mobile": 32,
+        "desc_padding_top_mobile": 0,
+        "desc_padding_bottom_mobile": 0,
+        "background_color": "#1A2B3C",
+        "color_eyebrow": "#7A8899",
+        "color_heading": "#FFFFFF",
+        "color_desc": "#A8BFD0",
+        "padding_top": 96,
+        "padding_top_mobile": 48,
+        "padding_bottom": 96,
+        "padding_bottom_mobile": 48
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "page_ingredients_hero_3mN8Un"
   ]
 }
